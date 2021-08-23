@@ -1,13 +1,11 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import {
     StatusBar,
     SafeAreaView,
-    View
 } from 'react-native';
 import styles from '../styles/Styles';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-
 import InitComponent from '../components/initComponent/InitComponent';
 import CarsDetailsForm from '../components/carsDetailsForm/CarsDetailsForm';
 import FirstScreen from '../components/firstScreen/FirstScreen';
@@ -16,10 +14,12 @@ import Terms from '../components/terms/Terms';
 import Error from '../components/error/Error';
 import AuthCarDetails from '../components/carsDetailsForm/AuthCarDetails';
 import Auth2 from '../components/auth/Auth2';
-import Auth3 from '../components/auth/Auth3';
 import PaymentStage1 from '../components/paymants/PaymentStage1';
+import PaymentStage2 from '../components/paymants/PaymentStage2';
 import Payments from '../components/paymants/Payments';
-
+import Footer from '../components/home/Footer';
+import WrapHome from '../components/home/WrapHome';
+import Home from '../components/home/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,9 +51,29 @@ const addStaticBackground = (props, Component) => {
     )
 }
 
+export const RoutesApp = () => {
+    return (
+        <>
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false
+                }}
+                initialRouteName="Home"
+            >
+                <Stack.Screen
+                    name="Home"
+                    component={
+                        (props) => addStaticBackground(props, Home)
+                    }
+                />
+
+            </Stack.Navigator>
+        </>
+    )
+}
+
+
 export const Routes = () => {
-
-
 
     return (
         <>

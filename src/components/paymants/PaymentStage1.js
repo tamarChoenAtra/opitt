@@ -1,26 +1,19 @@
 import React, { useState } from 'react';
-import Header from '../header/Header';
 import {
     TouchableOpacity,
     View,
     Text,
     StyleSheet,
-    TextInput,
-    Keyboard,
-    TouchableWithoutFeedback,
-    ScrollView,
-    Touchable
+    TextInput
 } from 'react-native'
-import ArrowBack from '../../assets/arrowBack.svg';
 import { useTranslation } from 'react-i18next';
 import i18 from '../../i18/i18n';
-import styles from '../../styles/Styles';
 import { dominantLight } from '../../styles/SystemColor';
-import Row from '../genericComponents/Row';
-import Col from '../genericComponents/Col';
 import PayBtn from '../../assets/svg/payBtn';
 import ApplePayBtn from '../../assets/svg/applePayBtn';
-import { goBack } from '../../routes/routes';
+import Row from '../genericComponents/Row';
+import styles from '../../styles/Styles';
+import AnimatedView from '../genericComponents/AnimatedView';
 
 export default (props) => {
     const paymaents = 'payments'.toString();
@@ -29,26 +22,43 @@ export default (props) => {
     //scrollView wrap the componnent children in order to dismiss the keyboard when tapping outside of the input
     return (
         <>
-            <View style={{ margin: 20 }}>
-                <Text style={[_styles.boldTxt, _styles.decoratedTxt]}>
-                    {i18.t(`${paymaents}.sixth`)}
-                </Text>
-                <TouchableOpacity >
-                    <ApplePayBtn style={_styles.applePayBtn} />
-                </TouchableOpacity>
-                <TouchableOpacity style={_styles.payBtn}>
-                    <PayBtn style={{ alignSelf: 'center' }} />
-                </TouchableOpacity>
-            </View>
+            <AnimatedView>
+                <View style={_styles.view}>
+                    <Row style={_styles.txtAndInput}>
+                        <Text style={[styles.noteTxt, _styles.txt]}>{i18.t(`${paymaents}.fifth`) + "    "}</Text>
+                        <TextInput
+                            style={_styles.input}
+                            keyboardType={Platform.OS === 'ios' ? "number-pad" : "numeric"}
+                            value={value}
+                            maxLength={2}
+                            placeholder={"1"}
+                            placeholderTextColor="white"
+                        />
+                    </Row>
+                </View>
+                <View style={_styles.view}>
+                    <Text style={[_styles.boldTxt, _styles.decoratedTxt]}>
+                        {i18.t(`${paymaents}.sixth`)}
+                    </Text>
+                    <TouchableOpacity >
+                        <ApplePayBtn style={_styles.applePayBtn} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={_styles.payBtn} onPress={() => props.handlePress(2)}>
+                        <PayBtn style={_styles.patIcon} />
+                    </TouchableOpacity>
+                </View>
+            </AnimatedView>
         </>
     )
 }
 
 const _styles = StyleSheet.create({
-    content: {
-        alignSelf: 'center',
-        alignContent: 'center',
-        paddingVertical: 30
+    view: {
+        margin: 20
+    },
+    txtAndInput: {
+        direction: 'rtl',
+        alignSelf: 'center'
     },
     payBtn: {
         backgroundColor: dominantLight,
@@ -58,15 +68,14 @@ const _styles = StyleSheet.create({
         width: 260,
         alignSelf: 'center'
     },
-    paymentBtnRow: {
-        marginBottom: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
+    payIcon: {
+        alignSelf: 'center'
     },
     txt: {
         fontSize: 21,
         textAlign: 'center',
-        color: dominantLight
+        color: dominantLight,
+        alignSelf: 'center'
     },
     input: {
         height: 40,
@@ -78,6 +87,7 @@ const _styles = StyleSheet.create({
         textAlign: 'center',
         color: dominantLight,
         fontSize: 18,
+        fontFamily: 'Assistant-Regular',
         backgroundColor: '#05163C'
     },
     boldTxt: {
@@ -85,6 +95,7 @@ const _styles = StyleSheet.create({
         fontSize: 22,
         color: dominantLight,
         textAlign: 'center',
+        fontFamily: 'Assistant-regular'
     },
     decoratedTxt: {
         textDecorationColor: 'white',

@@ -36,6 +36,7 @@ export default StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         marginTop: 15,
+        fontFamily: 'Assistant-Regular'
     },
     addBtn: {
         width: 35,
@@ -75,6 +76,7 @@ export default StyleSheet.create({
     noteTxt: {
         color: '#FFFFFF99',
         fontSize: 17,
+        fontFamily: 'Assistant-Regular'
     },
     txt: {
         color: '#FFFFFF',
@@ -100,6 +102,7 @@ export default StyleSheet.create({
         textAlign: 'right',
         color: '#FFFFFF99',
         fontSize: 18,
+        fontFamily: 'Assistant-Regular'
     },
     placeCenter: {
         justifyContent: 'center',

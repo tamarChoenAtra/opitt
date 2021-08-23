@@ -127,7 +127,28 @@ export const He = {
             title: 'האם ברצונך למחוק את הרכב?',
             details: 'לאחר המחיקה לא ניתן יהיה לשחזר את פרטי הרכב',
             delete: 'מחיקה'
+        },
+        footer: {
+            tab1: 'הגדרות',
+            tab2: 'הודעות',
+            tab3: 'חנייה',
+            tab4: 'שער',
+            tab5: 'בית',
+        },
+        home: {
+            titleMorning: 'בוקר טוב',
+            titleNoon: 'צהריים טובים',
+            titleAfternoon: 'אחר הצהרים טובים',
+            titleEvening: 'ערב טוב',
+            titleNight: 'לילה טוב',
+            notificationsList: 'רשימת התראות',
+            openGates: 'צפייה/ פתיחת שערים לאורחים',
+            emptyParkingsList: 'רשימת חניות פנויות',
+            hourlyParkingPermit: 'אישור חניה שעתית',
+            activeDailyParking: 'חנייה יומית פעילה',
+            requestParkingForGuests: 'בקשת חנייה לאורחים'
         }
+
 
     }
 }

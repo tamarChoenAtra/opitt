@@ -5,11 +5,7 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput,
-    Keyboard,
-    TouchableWithoutFeedback,
     ScrollView,
-    Touchable
 } from 'react-native'
 import ArrowBack from '../../assets/arrowBack.svg';
 import { useTranslation } from 'react-i18next';
@@ -17,16 +13,20 @@ import i18 from '../../i18/i18n';
 import styles from '../../styles/Styles';
 import { dominantLight } from '../../styles/SystemColor';
 import Row from '../genericComponents/Row';
-import Col from '../genericComponents/Col';
-import PayBtn from '../../assets/svg/payBtn';
-import ApplePayBtn from '../../assets/svg/applePayBtn';
 import { goBack } from '../../routes/routes';
 import PaymentStage1 from './PaymentStage1';
+import PaymentStage2 from './PaymentStage2';
 
 export default (props) => {
     const paymaents = 'payments'.toString();
-    const [value, setValue] = useState(1)
-    const { t } = useTranslation()
+    const [value, setValue] = useState(1);
+    const { t } = useTranslation();
+    const [stage, setStage] = useState(1);
+
+    const setStageFunc = (stage) => {
+        setStage(stage)
+    }
+
     //scrollView wrap the componnent children in order to dismiss the keyboard when tapping outside of the input
     return (
         <>
@@ -36,7 +36,11 @@ export default (props) => {
                 <Header
                     headerRightElement={
                         <TouchableOpacity
-                            onPress={() => { goBack(props) }}
+                            onPress={() => {
+                                stage == 2 ?
+                                    setStageFunc(1) :
+                                    goBack(props)
+                            }}
                         >
                             <ArrowBack />
                         </TouchableOpacity>
@@ -58,20 +62,8 @@ export default (props) => {
                         {i18.t(`${paymaents}.fourth`) + " XXX " + i18.t(`${paymaents}.NIS`)}
                     </Text>
                 </Row>
-                <View style={{ margin: 20 }}>
-                    <Row style={{ direction: 'rtl', alignSelf: 'center' }}>
-                        <Text style={[styles.noteTxt, _styles.txt, { alignSelf: 'center' }]}>{i18.t(`${paymaents}.fifth`) + "    "}</Text>
-                        <TextInput
-                            style={_styles.input}
-                            keyboardType={Platform.OS === 'ios' ? "number-pad" : "numeric"}
-                            value={value}
-                            maxLength={2}
-                            placeholder={"1"}
-                            placeholderTextColor="white"
-                        />
-                    </Row>
-                </View>
-                <PaymentStage1 />
+
+                {stage == 1 ? <PaymentStage1 handlePress={setStageFunc} /> : <PaymentStage2 />}
             </ScrollView>
         </>
     )
@@ -111,6 +103,7 @@ const _styles = StyleSheet.create({
         textAlign: 'center',
         color: dominantLight,
         fontSize: 18,
+        fontFamily: 'Assistant-Regular',
         backgroundColor: '#05163C'
     },
     boldTxt: {
@@ -118,6 +111,7 @@ const _styles = StyleSheet.create({
         fontSize: 22,
         color: dominantLight,
         textAlign: 'center',
+        fontFamily: 'Assistant-regular'
     },
     decoratedTxt: {
         textDecorationColor: 'white',
