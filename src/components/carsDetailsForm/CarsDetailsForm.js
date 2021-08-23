@@ -52,6 +52,7 @@ export default (props) => {
                 {t(`${createUserParking}.title`)}
             </Text>
             <CarsDetailsFormik
+                {...props}
                 formValues={formValues}
                 setCntParkingsFunc={setCntParkingsFunc}
                 setFormValuesFunc={setFormValuesFunc}

@@ -1,0 +1,6 @@
+module Pods_opiltClient_opiltClientTests {
+  umbrella header "Pods-opiltClient-opiltClientTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

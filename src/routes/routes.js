@@ -14,8 +14,9 @@ import Terms from '../components/terms/Terms';
 import Error from '../components/error/Error';
 import AuthCarDetails from '../components/carsDetailsForm/AuthCarDetails';
 import Auth2 from '../components/auth/Auth2';
+import Auth3 from '../components/auth/Auth3';
 import PaymentStage1 from '../components/paymants/PaymentStage1';
-import PaymentStage2 from '../components/paymants/PaymentStage2';
+// import PaymentStage2 from '../components/paymants/PaymentStage2';
 import Payments from '../components/paymants/Payments';
 import Footer from '../components/home/Footer';
 import WrapHome from '../components/home/WrapHome';
@@ -24,7 +25,6 @@ import Home from '../components/home/Home';
 const Stack = createNativeStackNavigator();
 
 // const Auth2w = React.lazy(() => import('../components/auth/Auth2'));
-
 
 export const navigateScreen = (props, screen, params) => {
     props.navigation.navigate(screen, params);
