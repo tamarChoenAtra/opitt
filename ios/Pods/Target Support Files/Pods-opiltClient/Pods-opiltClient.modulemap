@@ -1,0 +1,6 @@
+module Pods_opiltClient {
+  umbrella header "Pods-opiltClient-umbrella.h"
+
+  export *
+  module * { export * }
+}

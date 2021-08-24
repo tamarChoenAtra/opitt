@@ -18,6 +18,10 @@ import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
 import {
     navigateScreen
 } from '../../routes/routes';
+import Auth2 from './Auth2';
+import {
+    languages
+} from '../../i18/languageList';
 
 export default (props) => {
 
@@ -28,6 +32,7 @@ export default (props) => {
     const authSMS1 = 'authSMS1'.toString();
     const form = 'form'.toString();
 
+    const [visible, setVisible] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState({
         areaCode: null,
         code: null
@@ -96,7 +101,7 @@ export default (props) => {
                     <View style={_styles.subDetailsTop}>
                         <LinearGradientBtn
                             width={130}
-                            handlePress={() => navigateScreen(props, 'Auth2')}
+                            handlePress={() => setVisible(true)}
                             content={t(`${authSMS1}.submit`)}
                         />
                     </View>
@@ -104,10 +109,17 @@ export default (props) => {
                 </ScrollView>
             </View>
 
-
             <View style={_styles.wrapFooter}>
-                <DropDownLanguage />
+                <DropDownLanguage
+                    array={languages}
+                />
             </View>
+
+            <Auth2
+                {...props}
+                setVisible={setVisible}
+                visible={visible}
+            />
         </>
     )
 }
@@ -120,8 +132,8 @@ const _styles = StyleSheet.create(
             alignSelf: 'center',
             marginTop: 15
         },
-        wrapFooter:{
-            marginBottom:'2%'
+        wrapFooter: {
+            marginBottom: '2%'
         },
         linearGradientBtnTxt: {
             fontWeight: 'bold',

@@ -147,6 +147,21 @@ export const He = {
             hourlyParkingPermit: 'אישור חניה שעתית',
             activeDailyParking: 'חנייה יומית פעילה',
             requestParkingForGuests: 'בקשת חנייה לאורחים'
+        },
+        unableToOpenGateDialog: {
+            title: 'אין אפשרות לפתוח שער',
+            details1: 'המערכת לא זיהתה רכב העומד בכניסת השער ',
+            details2: 'נא לדווח מול האורח שרכבם עומד כראוי',
+            submit: 'אישור'
+        },
+        gateOpenSuccess: {
+            title: 'השער נפתח בהצלחה',
+            submit: 'אישור'
+        },
+        deleteParkingDialog: {
+            title: 'האם ברצונך למחוק חנייה זו?',
+            details:'לאחר המחיקה החנייה תמחק מרשימת החניות שמורות והאורח לא יוכל לחנות בחנייה זו',
+            submit: 'מחיקה'
         }
 
 

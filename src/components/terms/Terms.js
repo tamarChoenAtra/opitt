@@ -50,7 +50,6 @@ export default (props) => {
                         <Text style={[_styles.txt, _styles.details]}>
                             {t(`${terms}.details`)}
                         </Text>
-
                     </View>
                 </ScrollView>
                 <ChipButton handlePress={() => goBack(props)}/>

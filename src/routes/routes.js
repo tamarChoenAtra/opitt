@@ -21,6 +21,7 @@ import Payments from '../components/paymants/Payments';
 import Footer from '../components/home/Footer';
 import WrapHome from '../components/home/WrapHome';
 import Home from '../components/home/Home';
+import TryDialog from '../components/try/TryDialog';
 
 const Stack = createNativeStackNavigator();
 
@@ -88,7 +89,7 @@ export const Routes = () => {
                     screenOptions={{
                         headerShown: false
                     }}
-                    initialRouteName="FirstScreen"
+                    initialRouteName="TryDialog"
                 >
                     <Stack.Screen
                         name="CarsDetailsForm"
@@ -154,6 +155,12 @@ export const Routes = () => {
                         name="Payments"
                         component={
                             (props) => addStaticBackground(props, Payments)
+                        }
+                    />
+                      <Stack.Screen
+                        name="TryDialog"
+                        component={
+                            (props) => addStaticBackground(props, TryDialog)
                         }
                     />
                 </Stack.Navigator>

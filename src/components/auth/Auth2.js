@@ -1,39 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     View,
     Text,
     StyleSheet,
     TextInput,
-    ScrollView,
-    Button,
-    TouchableOpacity,
-    Dimensions
 } from 'react-native';
 import styles from '../../styles/Styles';
-import Dialog, { DialogContent, SlideAnimation, DialogTitle } from 'react-native-popup-dialog';
 import { useTranslation } from 'react-i18next';
 import {
     ligth
 } from '../../styles/SystemColor';
-import HeaderAuth from '../header/HeaderAuth';
-import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
 import {
     goBack,
     navigateScreen
 } from '../../routes/routes';
-import ChipButton from '../genericComponents/ChipButton';
-import TransparentBtn from '../genericComponents/TransparentBtn';
+import Dialog from '../dialog/Dialog';
 
 export default (props) => {
 
     const authSMS2 = 'authSMS2'.toString();
 
     const {
-        i18n,
+        visible,
+        setVisible
+    } = props;
+
+    const {
         t
     } = useTranslation();
-
-    const [visible, setVisible] = useState(true);
 
     const textInput = (alignment) =>
         <TextInput
@@ -46,71 +40,58 @@ export default (props) => {
         />
 
     const threeTextInput = () =>
-        [...Array(3)].map((one) =>
+        [...Array(3)].map(() =>
             textInput())
 
-    return (
-        <>
-            <View style={styles.screenAuth}>
-                <HeaderAuth />
-                <View
-                    showsVerticalScrollIndicator={false}
-                    style={[_styles.scrollView]}
-                >
-                    <ScrollView contentContainerStyle={{ justifyContent: 'center', alignContent: 'center', flex: 1 }}>
-                        <View style={[styles.contentAuth, { zIndex: 1 }]}>
-                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={[styles.title, _styles.title]}>
-                                    {t(`${authSMS2}.title`)}
-                                </Text>
-                                <Text style={[styles.noteTxt, _styles.details]}>
-                                    {t(`${authSMS2}.details1`)}
-                                </Text>
-                                <Text style={[styles.noteTxt, _styles.details]}>
-                                    {t(`${authSMS2}.tel`)}
-                                </Text>
-                                <Text style={[styles.noteTxt, _styles.details]}>
-                                    {t(`${authSMS2}.details2`)}
-                                </Text>
-                            </View>
-                            <View style={_styles.rowInputs}>
-                                {threeTextInput()}
-                                <View style={_styles.space} />
-                                {threeTextInput()}
-                            </View>
-                            <View>
-                                <Text style={[styles.noteTxt, _styles.details]}>
-                                    {t(`${authSMS2}.tryAgain1`)}
-                                    <Text style={styles.link}>
-                                        {t(`${authSMS2}.tryAgain2`)}
-                                    </Text>
-                                </Text>
-                            </View>
-                            <View style={[styles.rowDirection, { padding: 25, zIndex: 1 }]}>
-                                <LinearGradientBtn
-                                    handlePress={async () => {
-                                        await setVisible(false);
-                                        navigateScreen(props, 'Auth3');
-                                    }}
-                                    content={t(`${authSMS2}.continue`)}
-                                    width={120}
-                                />
-                                <TransparentBtn
-                                    smallborderWidth
-                                    content={t(`${authSMS2}.back`)}
-                                    color={ligth}
-                                    handlePress={async () => {
-                                        await setVisible(false);
-                                        goBack(props);
-                                    }}
-                                />
-                            </View>
-                        </View>
-                    </ScrollView>
-                    <ChipButton handlePress={() => goBack(props)} />
-                </View>
+    const contentDialog = () => {
+        return <>
+            <Text style={[styles.noteTxt, _styles.details]}>
+                {t(`${authSMS2}.details1`)}
+            </Text>
+            <Text style={[styles.noteTxt, _styles.details]}>
+                {t(`${authSMS2}.tel`)}
+            </Text>
+            <Text style={[styles.noteTxt, _styles.details]}>
+                {t(`${authSMS2}.details2`)}
+            </Text>
+            <View style={_styles.rowInputs}>
+                {threeTextInput()}
+                <View style={_styles.space} />
+                {threeTextInput()}
             </View>
+            <Text style={[styles.noteTxt, _styles.details]}>
+                {t(`${authSMS2}.tryAgain1`)}
+                <Text style={styles.link}>
+                    {t(`${authSMS2}.tryAgain2`)}
+                </Text>
+            </Text>
         </>
+    }
+
+    return (
+            <Dialog
+                visible={visible}
+                title={t(`${authSMS2}.title`)}
+                content={contentDialog()}
+                closeHandlePress={() => setVisible(false)}
+                buttons={[
+                    {
+                        handlePress: () => {
+                            setVisible(false);
+                            navigateScreen(props, 'Auth3');
+                        },
+                        body: t(`${authSMS2}.continue`),
+                        width: 120
+                    },
+                    {
+                        handlePress: async () => {
+                            await setVisible(false);
+                        },
+
+                        body: t(`${authSMS2}.back`),
+                    }
+                ]}
+            />
     )
 }
 
@@ -121,8 +102,8 @@ const _styles = StyleSheet.create(
             backgroundColor: '#05163C',
             borderRadius: 20,
             height: '45%',
-            width:'100%',
-            paddingHorizontal:0
+            width: '100%',
+            paddingHorizontal: 0
         },
         viewTitle: {
             marginBottom: 15,
@@ -151,8 +132,14 @@ const _styles = StyleSheet.create(
         dialogStyle: {
             backgroundColor: '#0A2550',
             borderRadius: 20,
-            width: '90%',
-            // height: '50%'
+            // width: '100%',
+            // height: '100%',
+            // opacity:0.5,
+            zIndex: 0,
+            resizeMode: 'cover',
+            // position:'absolute',
+            alignItems: 'center',
+            justifyContent: 'center'
         },
         linearGradientBtn: {
             width: 120,
@@ -176,6 +163,8 @@ const _styles = StyleSheet.create(
         dialogContent: {
             marginHorizontal: 10,
             marginVertical: '5%',
+            zIndex: 1,
+            backgroundColor: '#0A2550'
         },
         textInput: {
             // height: 40,
@@ -207,3 +196,66 @@ const _styles = StyleSheet.create(
         }
     }
 )
+
+
+// <Dialog
+// dialogAnimation={new SlideAnimation({
+//     slideFrom: 'bottom',
+// })}
+// dialogStyle={_styles.dialogStyle}
+// visible={visible}
+// >
+// <DialogContent
+//     style={[_styles.dialogContent]}
+// >
+//     <View style={[styles.contentAuth, { zIndex: 1 }]}>
+//         <Text style={[styles.title, _styles.title]}>
+//             {t(`${authSMS2}.title`)}
+//         </Text>
+//         <Text style={[styles.noteTxt, _styles.details]}>
+//             {t(`${authSMS2}.details1`)}
+//         </Text>
+//         <Text style={[styles.noteTxt, _styles.details]}>
+//             {t(`${authSMS2}.tel`)}
+//         </Text>
+//         <Text style={[styles.noteTxt, _styles.details]}>
+//             {t(`${authSMS2}.details2`)}
+//         </Text>
+//         <View style={_styles.rowInputs}>
+//             {threeTextInput()}
+//             <View style={_styles.space} />
+//             {threeTextInput()}
+//         </View>
+//         <Text style={[styles.noteTxt, _styles.details]}>
+//             {t(`${authSMS2}.tryAgain1`)}
+//             <Text style={styles.link}>
+//                 {t(`${authSMS2}.tryAgain2`)}
+//             </Text>
+//         </Text>
+//         <View style={[styles.rowDirection,
+//         { paddingTop: 25, zIndex: 1 }
+//         ]}>
+//             <LinearGradientBtn
+//                 handlePress={() => {
+//                     setVisible(false);
+//                     navigateScreen(props, 'Auth3');
+//                 }}
+//                 content={t(`${authSMS2}.continue`)}
+//                 width={120}
+//             />
+//             <TransparentBtn
+//                 smallborderWidth
+//                 content={t(`${authSMS2}.back`)}
+//                 color={ligth}
+//                 handlePress={async () => {
+//                     await setVisible(false);
+//                 }}
+//             />
+//         </View>
+//     </View>
+//     <ChipButton handlePress={() => setVisible(false)} />
+
+// </DialogContent>
+
+// </Dialog>
+// </>

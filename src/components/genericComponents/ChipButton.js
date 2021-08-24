@@ -28,7 +28,7 @@ const _styles = StyleSheet.create(
             height: 40,
             borderRadius: 60,
             backgroundColor: '#3EA2FF',
-            zIndex: 1,
+            zIndex: 2,
             right: -10,
             top: -10,
             alignSelf: 'flex-end',

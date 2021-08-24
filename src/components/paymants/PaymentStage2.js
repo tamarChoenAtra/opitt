@@ -120,14 +120,14 @@ const _styles = StyleSheet.create({
     boldTxt: {
         fontWeight: 'bold',
         fontSize: 20,
-        fontFamily: 'Assistant-regular',
+        // fontFamily: 'Assistant-regular',
         color: '#000000',
         // alignSelf: 'flex-end',
         // paddingHorizontal: 20
     },
     noteTxt: {
         color: '#717171',
-        fontFamily: 'Assistant-regular',
+        // fontFamily: 'Assistant-regular',
         // alignSelf: 'auto',
 
         // alignSelf: 'flex-end'

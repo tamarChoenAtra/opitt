@@ -10,22 +10,28 @@ import {
     bg,
     ligth
 } from '../../styles/SystemColor';
-import {
-    languages
-} from '../../i18/languageList';
+
 import { initReactI18next, useTranslation } from 'react-i18next';
 import Arrow1 from '../../assets/svg/Arrow1.svg';
 import Arrow2 from '../../assets/svg/Arrow2.svg';
 
 
-export default () => {
+export default (props) => {
 
     const {
         i18n
     } = useTranslation();
 
-    const [languagesTemp, setLanguagesTemp] = useState(languages);
+    const {
+        array
+    } = props;
+    
+    const [list, setList] = useState([]);
     const [flagOpen, setFlagOpen] = useState(false);
+
+    useEffect(() => {
+        setList(array)
+    }, [array])
 
     const changeLanuage = (item) => {
         //open the dropdown
@@ -34,12 +40,12 @@ export default () => {
         //replace language and close the dropdown
         flagOpen && setFlagOpen(false);
 
-        const newLanguagesList = languagesTemp.filter(lan => lan.index != item.index)
+        const newLanguagesList = list.filter(lan => lan.index != item.index)
         const newList = [
             item,
             ...newLanguagesList
         ]
-        setLanguagesTemp(newList)
+        setList(newList)
         i18n.changeLanguage(item.i18);
     }
 
@@ -84,12 +90,19 @@ export default () => {
         <View
             style={_styles.wrap}>
             <View style={_styles.wrapFlatList}>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={!flagOpen ? [languagesTemp[0]] : languagesTemp}
-                    renderItem={(item, index) => renderItem(item, index)}
-                    keyExtractor={item => item.index}
-                />
+                {
+                    list.length
+                        ?
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            data={!flagOpen ? [list[0]] : list}
+                            renderItem={(item, index) => renderItem(item, index)}
+                            keyExtractor={item => item.index}
+                        />
+                        :
+                        null
+                }
+
             </View>
         </View>
     )
