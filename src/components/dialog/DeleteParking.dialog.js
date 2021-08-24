@@ -25,7 +25,7 @@ export default (props) => {
 
     const contentDialog = () => {
         return <>
-            <Text style={[styles.noteTxt, _styles.details]}>
+            <Text style={[styles.noteTxt,styles.txtContentDialog, _styles.details]}>
                 {t(`${deleteParkingDialog}.details`)}
             </Text>
         </>
@@ -43,7 +43,8 @@ export default (props) => {
                         setVisible(false);
                     },
                     body: t(`${deleteParkingDialog}.submit`),
-                    width: 120,
+                    width: 130,
+                    size:'large'
                 }
             ]}
         />
@@ -52,26 +53,8 @@ export default (props) => {
 
 const _styles = StyleSheet.create(
     {
-
-        txt: {
-            color: ligth,
-            fontStyle: 'normal',
-            // fontFamily: font
-        },
-        title: {
-            fontWeight: '900',
-            textAlign: 'center',
-            fontSize: 24,
-            marginBottom: '2%'
-        },
         details: {
-            fontWeight: 'normal',
-            fontSize: 15,
-            lineHeight: 20,
-            display: 'flex',
-            alignItems: 'center',
-            fontSize: 16,
-            textAlign:'center'
+            marginVertical:10
         }
     }
 )

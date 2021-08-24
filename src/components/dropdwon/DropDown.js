@@ -23,9 +23,10 @@ export default (props) => {
     } = useTranslation();
 
     const {
-        array
+        array,
+        handleChange
     } = props;
-    
+
     const [list, setList] = useState([]);
     const [flagOpen, setFlagOpen] = useState(false);
 
@@ -46,6 +47,8 @@ export default (props) => {
             ...newLanguagesList
         ]
         setList(newList)
+
+        handleChange(item);
         i18n.changeLanguage(item.i18);
     }
 
@@ -73,7 +76,7 @@ export default (props) => {
                 }
                 <View style={_styles.listWrapper}>
                     <View>
-                        <Text style={_styles.listNameText}>{item.language}</Text>
+                        <Text style={_styles.listNameText}>{item.item}</Text>
                     </View>
                     {
                         flagOpen

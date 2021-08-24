@@ -1,0 +1,41 @@
+
+generic component:
+
+Button 
+- display button in two color - 
+outline and gradient
+props:
+        kind,
+        handlePress,
+        size,
+        width,
+        content,
+
+        //outline button
+        smallborderWidth,
+        colorOutline
+
+Dialog 
+- display system dialog , its can dispaly dialog with:
+title , and one button or two button , and content - content accept React native element
+props:
+        title,
+        content,
+        visible,
+        setVisible,
+        closeHandlePress ,
+        buttons = json array ={
+                    handlePress: (),
+                    body:,
+                    width: number,
+                    size: 'small' | 'large' default 'meduim 
+        },
+
+DropDown 
+- dispaly system DropDown 
+props:
+       array - array of objects = {
+             index,
+             item
+       }
+       handleChange (return item) 

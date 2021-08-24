@@ -11,21 +11,19 @@ import {
     bg,
     ligth
 } from '../../styles/SystemColor';
-import DropDownLanguage from '../dropdwon/DropDownLanguage';
+import DropDownLanguage from '../dropdwon/DropDown';
 import { useTranslation } from 'react-i18next';
 import HeaderAuth from '../header/HeaderAuth';
-import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
-import {
-    navigateScreen
-} from '../../routes/routes';
 import Auth2 from './Auth2';
 import {
     languages
 } from '../../i18/languageList';
+import Button from '../genericComponents/Button';
 
 export default (props) => {
 
     const {
+        i18n,
         t
     } = useTranslation();
 
@@ -39,7 +37,7 @@ export default (props) => {
     });
 
     const navigateTerms = () => {
-        props.navigation.navigate('Terms')
+        props.navigation.navigate('Terms');
     }
 
     const setPhoneNumberFunc = (key, value) => {
@@ -99,10 +97,11 @@ export default (props) => {
                     </View>
 
                     <View style={_styles.subDetailsTop}>
-                        <LinearGradientBtn
-                            width={130}
+                        <Button
                             handlePress={() => setVisible(true)}
                             content={t(`${authSMS1}.submit`)}
+                            width={130}
+                            // size={buttons[0].size}
                         />
                     </View>
 
@@ -111,6 +110,7 @@ export default (props) => {
 
             <View style={_styles.wrapFooter}>
                 <DropDownLanguage
+                    handleChange={(item) => i18n.changeLanguage(item.i18)}
                     array={languages}
                 />
             </View>

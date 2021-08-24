@@ -25,7 +25,6 @@ import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
 import { navigateScreen } from '../../routes/routes'
 import TransparentBtn from '../genericComponents/TransparentBtn';
 import CarsDetailsFormik from './CarsDetailsFormik';
-import DeleteCar from './DeleteCar';
 
 export default (props) => {
 
@@ -96,12 +95,6 @@ export default (props) => {
                         <Delete />
                     </TouchableOpacity>
                 }
-                <DeleteCar
-                    visible={visible}
-                    setVisible={setVisible}
-                    deleteCarFunc={deleteCarFunc}
-                    indexCar={index}
-                />
             </>
         )
     }

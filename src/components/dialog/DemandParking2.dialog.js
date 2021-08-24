@@ -9,7 +9,7 @@ import Dialog from '../dialog/Dialog';
 
 export default (props) => {
 
-    const unableToOpenGateDialog = 'unableToOpenGateDialog'.toString();
+    const demandParking2Dialog = 'demandParking2Dialog'.toString();
 
     const {
         visible,
@@ -23,11 +23,8 @@ export default (props) => {
 
     const contentDialog = () => {
         return <>
-            <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details1`)}
-            </Text>
-            <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details2`)}
+            <Text style={[styles.noteTxt,styles.txtContentDialog, _styles.details]}>
+                {t(`${demandParking2Dialog}.details`)}
             </Text>
         </>
     }
@@ -36,7 +33,7 @@ export default (props) => {
         <Dialog
             setVisible={setVisible}
             visible={visible}
-            title={t(`${unableToOpenGateDialog}.title`)}
+            title={t(`${demandParking2Dialog}.title`)}
             content={contentDialog()}
             closeHandlePress={() => setVisible(false)}
             buttons={[
@@ -44,12 +41,17 @@ export default (props) => {
                     handlePress: () => {
                         setVisible(false);
                     },
-                    body: t(`${unableToOpenGateDialog}.submit`),
-                    width: 120,
+                    body: t(`${demandParking2Dialog}.submit`),
+                    width: 200,
+                    size:'large'
                 }
             ]}
         />
     )
 }
 
+const _styles = StyleSheet.create(
+    {
+    }
+)
 

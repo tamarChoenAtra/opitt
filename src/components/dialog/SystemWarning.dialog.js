@@ -9,7 +9,7 @@ import Dialog from '../dialog/Dialog';
 
 export default (props) => {
 
-    const unableToOpenGateDialog = 'unableToOpenGateDialog'.toString();
+    const systemWarning = 'systemWarning'.toString();
 
     const {
         visible,
@@ -20,14 +20,19 @@ export default (props) => {
         t
     } = useTranslation();
 
-
     const contentDialog = () => {
         return <>
-            <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details1`)}
+            <Text style={[styles.txt,styles.txtContentDialog]}>
+                {t(`${systemWarning}.details1`)}
             </Text>
-            <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details2`)}
+            <Text style={[styles.txt,styles.txtContentDialog]}>
+                {t(`${systemWarning}.details2`)} {"X "}
+                <Text style={[styles.txt,styles.txtContentDialog]}>
+                    {t(`${systemWarning}.details3`)}
+                </Text>
+            </Text>
+            <Text style={[styles.txt,styles.txtContentDialog]}>
+                {t(`${systemWarning}.details4`)}
             </Text>
         </>
     }
@@ -36,20 +41,25 @@ export default (props) => {
         <Dialog
             setVisible={setVisible}
             visible={visible}
-            title={t(`${unableToOpenGateDialog}.title`)}
             content={contentDialog()}
+            title={t(`${systemWarning}.title`)}
             closeHandlePress={() => setVisible(false)}
             buttons={[
                 {
                     handlePress: () => {
                         setVisible(false);
                     },
-                    body: t(`${unableToOpenGateDialog}.submit`),
-                    width: 120,
+                    body: t(`${systemWarning}.submit`),
+                    width: 100,
+                    size: 'small'
                 }
             ]}
         />
     )
 }
 
+const _styles = StyleSheet.create(
+    {
+    }
+)
 

@@ -5,11 +5,14 @@ import {
 } from 'react-native';
 import styles from '../../styles/Styles';
 import { useTranslation } from 'react-i18next';
+import {
+    ligth
+} from '../../styles/SystemColor';
 import Dialog from '../dialog/Dialog';
 
 export default (props) => {
 
-    const unableToOpenGateDialog = 'unableToOpenGateDialog'.toString();
+    const demandParking1Dialog = 'demandParking1Dialog'.toString();
 
     const {
         visible,
@@ -23,11 +26,8 @@ export default (props) => {
 
     const contentDialog = () => {
         return <>
-            <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details1`)}
-            </Text>
-            <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details2`)}
+            <Text style={[styles.noteTxt,styles.txtContentDialog, _styles.details]}>
+                {t(`${demandParking1Dialog}.details`)}
             </Text>
         </>
     }
@@ -36,7 +36,7 @@ export default (props) => {
         <Dialog
             setVisible={setVisible}
             visible={visible}
-            title={t(`${unableToOpenGateDialog}.title`)}
+            title={t(`${demandParking1Dialog}.title`)}
             content={contentDialog()}
             closeHandlePress={() => setVisible(false)}
             buttons={[
@@ -44,12 +44,20 @@ export default (props) => {
                     handlePress: () => {
                         setVisible(false);
                     },
-                    body: t(`${unableToOpenGateDialog}.submit`),
-                    width: 120,
+                    body: t(`${demandParking1Dialog}.submit`),
+                    width: 190,
+                    size:'large'
                 }
             ]}
         />
     )
 }
 
+const _styles = StyleSheet.create(
+    {
+        details: {
+            marginVertical:10
+        }
+    }
+)
 

@@ -13,14 +13,28 @@ export default (props) => {
     const {
         handlePress,
         size,
+        large,
         width,
         color,
         content
     } = props;
 
+    const sizeButton = () => {
+        switch (size) {
+            case 'large':
+                return 55
+            case "small":
+                return 45
+            default:
+                return 50
+        }
+    }
+
+
     const linearGradientBtn = () => {
+
         return {
-            height: size === 'large' ? 45 : 50,
+            height: sizeButton(),
             width: width && width,
             paddingHorizontal: 20,
             marginHorizontal: 10

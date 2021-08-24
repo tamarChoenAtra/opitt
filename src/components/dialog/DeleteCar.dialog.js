@@ -9,7 +9,7 @@ import Dialog from '../dialog/Dialog';
 
 export default (props) => {
 
-    const unableToOpenGateDialog = 'unableToOpenGateDialog'.toString();
+    const deleteCar = 'deleteCar'.toString();
 
     const {
         visible,
@@ -20,36 +20,39 @@ export default (props) => {
         t
     } = useTranslation();
 
-
     const contentDialog = () => {
         return <>
-            <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details1`)}
-            </Text>
-            <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details2`)}
+            <Text style={[styles.noteTxt, styles.txtContentDialog, _styles.details]}>
+                {t(`${deleteCar}.details`)}
             </Text>
         </>
     }
 
     return (
         <Dialog
-            setVisible={setVisible}
             visible={visible}
-            title={t(`${unableToOpenGateDialog}.title`)}
-            content={contentDialog()}
+            title={t(`${deleteCar}.title`)}
             closeHandlePress={() => setVisible(false)}
+            content={contentDialog()}
             buttons={[
                 {
                     handlePress: () => {
                         setVisible(false);
                     },
-                    body: t(`${unableToOpenGateDialog}.submit`),
-                    width: 120,
+                    body: t(`${deleteCar}.submit`),
+                    width: 130,
+                    size: 'large'
                 }
             ]}
         />
     )
 }
 
+const _styles = StyleSheet.create(
+    {
+        details: {
+            marginVertical: 10
+        }
+    }
+)
 

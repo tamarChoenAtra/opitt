@@ -26,18 +26,7 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'center'
     },
-    link: {
-        color: '#3EA2FF',
-        textDecorationLine: 'underline'
-    },
-    title: {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 30,
-        fontWeight: 'bold',
-        marginTop: 15,
-        // fontFamily: 'Assistant-Regular'
-    },
+
     addBtn: {
         width: 35,
         height: 35,
@@ -73,15 +62,7 @@ export default StyleSheet.create({
     //     justifyContent: 'center',
     //     // height: 40
     // },
-    noteTxt: {
-        color: '#FFFFFF99',
-        fontSize: 17,
-        // fontFamily: 'Assistant-Regular'
-    },
-    txt: {
-        color: '#FFFFFF',
-        fontSize: 18
-    },
+
     rightItem: {
         flex: 1,
         // direction: 'rtl',
@@ -107,6 +88,38 @@ export default StyleSheet.create({
     placeCenter: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+
+
+    /// TEXT STYLE
+    link: {
+        color: '#3EA2FF',
+        textDecorationLine: 'underline'
+    },
+    title: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginTop: 15,
+        // fontFamily: 'Assistant-Regular'
+    },
+    noteTxt: {
+        color: '#FFFFFF99',
+        fontSize: 17,
+        // fontFamily: 'Assistant-Regular'
+    },
+    txt: {
+        color: '#FFFFFF',
+        fontSize: 18
+    },
+    txtContentDialog: {
+        fontWeight: 'normal',
+        display: 'flex',
+        textAlign: 'center',
+        alignItems: 'center',
+        fontSize: 16,
+        lineHeight: 20,
     }
 
 })

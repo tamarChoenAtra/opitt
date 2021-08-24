@@ -12,6 +12,8 @@ import ChipButton from '../genericComponents/ChipButton';
 import {
     ligth
 } from '../../styles/SystemColor';
+import Button from '../genericComponents/Button';
+
 
 export default (props) => {
 
@@ -29,6 +31,7 @@ export default (props) => {
             dialogAnimation={new SlideAnimation({
                 slideFrom: 'bottom',
             })}
+            onTouchOutside={() => setVisible(false)}
             dialogStyle={_styles.dialogStyle}
             visible={visible}
         >
@@ -48,23 +51,28 @@ export default (props) => {
                         {
                             buttons.length > 1 ?
                                 <>
-                                    <LinearGradientBtn
+                                    <Button
                                         handlePress={buttons[0].handlePress}
                                         content={buttons[0].body}
                                         width={buttons[0].width}
+                                        size={buttons[0].size}
                                     />
-                                    <TransparentBtn
+                                    <Button
                                         smallborderWidth
+                                        kind="outline"
                                         content={buttons[1].body}
-                                        color={ligth}
+                                        colorOutline={ligth}
                                         handlePress={buttons[1].handlePress}
+                                        size={buttons[1].size}
+                                        width={buttons[1].width}
                                     />
                                 </>
                                 :
-                                <LinearGradientBtn
+                                <Button
                                     handlePress={buttons[0].handlePress}
                                     content={buttons[0].body}
                                     width={buttons[0].width}
+                                    size={buttons[0].size}
                                 />
                         }
                     </View>

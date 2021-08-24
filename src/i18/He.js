@@ -125,8 +125,8 @@ export const He = {
         },
         deleteCar: {
             title: 'האם ברצונך למחוק את הרכב?',
-            details: 'לאחר המחיקה לא ניתן יהיה לשחזר את פרטי הרכב',
-            delete: 'מחיקה'
+            details: 'לאחר המחיקה לא ניתן יהיה לשחזר את פרטי הרכב!',
+            submit: 'מחיקה'
         },
         footer: {
             tab1: 'הגדרות',
@@ -163,17 +163,22 @@ export const He = {
             details: 'לאחר המחיקה החנייה תמחק מרשימת החניות שמורות והאורח לא יוכל לחנות בחנייה זו',
             submit: 'מחיקה'
         },
-        ParkingPermitDialog: {
+        parkingPermitDialog: {
+            title: 'אישור חנייה',
+            details: 'האפשרות לחנות בחנייתך ניתנה בהצלחה במידה ומשהו יבחר בחנייה שלך תעודכן',
+            submit: 'אישור'
+        },
+        parkingPermit2Dialog: {
             title: 'אישור חנייה',
             details: 'לחיצה על אישור מקנה הרשאה לחנות בחנייתך',
             submit: 'אישור'
         },
-        ParkingPermitDialog: {
-            title: 'אישור חנייה',
-            details: 'לחיצה על אישור מקנה הרשאה לחנות בחנייתך',
-            submit: 'אישור'
-        },
-        systemAlert1: {
+        // parkingPermitDialog: {
+        //     title: 'אישור חנייה',
+        //     details: 'לחיצה על אישור מקנה הרשאה לחנות בחנייתך',
+        //     submit: 'אישור'
+        // },
+        systemAlert1Dialog: {
             title: 'התראת מערכת',
             details1: 'המערכת זיהתה שרכב מספר',
             details2: 'אינו בשימוש זמן רב, האם ברצונך למחוק רכב זה?',
@@ -181,16 +186,53 @@ export const He = {
             submit:'אישור',
             cancel:'ביטול'
         },
-        systemAlert2: {
+        systemAlert2Dialog: {
             title: 'התראת מערכת',
             details1: ' המערכת זיהתה שהאורח טרם נכנס לחנייה במידה ואין צורך בחניה הפנויה לחץ על ביטול',
             cancel:'ביטול',
             noThank:'לא תודה'
         },
-        demandParkingDialog1:{
+        demandParking1Dialog:{
             title:'דרישה לחנייה',
             details:'הודעה תשלח לכל השכנים בבניין ותעדכן שברצונך לבקש מהם חנייה זמנית',
             submit:'אישור'
+        },
+        demandParking2Dialog:{
+            title:'דרישה לחנייה',
+            details:'שים לב קיימת חנייה פנויה לפי דרישתך',
+            submit:'לחץ לפרטי החנייה'
+        },
+        cancelParkingDialog:{
+            title:'ביטול חנייה',
+            details:'הודעה לבקשת החנייה הזמנית תתבטל',
+            submit:'אישור'
+        },
+        saveParkingDialog:{
+            title:'החנייה נשמרה בהצלחה',
+            details:'כעת האורח שלך יכול לחנות בחנייה שבחרת',
+            submit:'אישור'
+        },
+        systemWarning:{
+            title:'אזהרת מערכת',
+            details1:'המערכת זיהתה שלאורח זה נותרה',
+            details2:'הרשאה ',
+            details3:'לחודש זה',
+            details4:'לאחר מכן הכניסה בתשלום!',
+            submit:'אישור'
+        },
+        systemAlertDialog:{
+            title:'התראת מערכת',
+            details1:'המערכת זיהתה שהאורח טרם נכנס לחנייה',
+            details2:'במידה ואין צורך בחנייה השמורה לחץ על ביטול',
+            submit:'אישור',
+            cancel:'לא תודה'
+        },
+        systemAlert2Dialog:{
+            title:'התראת מערכת',
+            details1:'המערכת זיהתה שרכב מספר ',
+            details2:'אינו בשימוש זמן רב , האם ברצונך למחוק רכב זה?',
+            submit:'אישור',
+            cancel:'ביטול'
         }
 
 

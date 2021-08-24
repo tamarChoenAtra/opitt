@@ -69,29 +69,31 @@ export default (props) => {
     }
 
     return (
-            <Dialog
-                visible={visible}
-                title={t(`${authSMS2}.title`)}
-                content={contentDialog()}
-                closeHandlePress={() => setVisible(false)}
-                buttons={[
-                    {
-                        handlePress: () => {
-                            setVisible(false);
-                            navigateScreen(props, 'Auth3');
-                        },
-                        body: t(`${authSMS2}.continue`),
-                        width: 120
+        <Dialog
+            visible={visible}
+            title={t(`${authSMS2}.title`)}
+            content={contentDialog()}
+            closeHandlePress={() => setVisible(false)}
+            buttons={[
+                {
+                    handlePress: () => {
+                        setVisible(false);
+                        navigateScreen(props, 'Auth3');
                     },
-                    {
-                        handlePress: async () => {
-                            await setVisible(false);
-                        },
-
-                        body: t(`${authSMS2}.back`),
-                    }
-                ]}
-            />
+                    body: t(`${authSMS2}.continue`),
+                    width: 120,
+                    size: 'small'
+                },
+                {
+                    handlePress: async () => {
+                        await setVisible(false);
+                    },
+                    body: t(`${authSMS2}.back`),
+                    width: 120,
+                    size: 'small'
+                }
+            ]}
+        />
     )
 }
 

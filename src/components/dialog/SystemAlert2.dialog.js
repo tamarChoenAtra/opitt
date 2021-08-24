@@ -9,7 +9,7 @@ import Dialog from '../dialog/Dialog';
 
 export default (props) => {
 
-    const unableToOpenGateDialog = 'unableToOpenGateDialog'.toString();
+    const systemAlert2Dialog = 'systemAlert2Dialog'.toString();
 
     const {
         visible,
@@ -20,14 +20,14 @@ export default (props) => {
         t
     } = useTranslation();
 
-
     const contentDialog = () => {
         return <>
             <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details1`)}
-            </Text>
-            <Text style={[styles.txt, styles.txtContentDialog]}>
-                {t(`${unableToOpenGateDialog}.details2`)}
+                {t(`${systemAlert2Dialog}.details1`)}
+                {'XXX '}
+                <Text style={[styles.txt, styles.txtContentDialog]}>
+                    {t(`${systemAlert2Dialog}.details2`)}
+                </Text>
             </Text>
         </>
     }
@@ -36,20 +36,33 @@ export default (props) => {
         <Dialog
             setVisible={setVisible}
             visible={visible}
-            title={t(`${unableToOpenGateDialog}.title`)}
             content={contentDialog()}
+            title={t(`${systemAlert2Dialog}.title`)}
             closeHandlePress={() => setVisible(false)}
             buttons={[
                 {
                     handlePress: () => {
                         setVisible(false);
                     },
-                    body: t(`${unableToOpenGateDialog}.submit`),
-                    width: 120,
+                    body: t(`${systemAlert2Dialog}.submit`),
+                    width: 100,
+                    size: 'small'
+                },
+                {
+                    handlePress: async () => {
+                        await setVisible(false);
+                    },
+                    body: t(`${systemAlert2Dialog}.cancel`),
+                    width: 100,
+                    size: 'small'
                 }
             ]}
         />
     )
 }
 
+const _styles = StyleSheet.create(
+    {
+    }
+)
 
