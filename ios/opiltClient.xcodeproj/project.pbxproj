@@ -13,6 +13,13 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		40CAAFD27E276884E5F791A0 /* libPods-opiltClient-opiltClientTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D64611389942278514C3488 /* libPods-opiltClient-opiltClientTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		CEC0131026D396ED004CA00B /* Assistant-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC0130926D396EC004CA00B /* Assistant-SemiBold.ttf */; };
+		CEC0131126D396ED004CA00B /* Assistant-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC0130A26D396EC004CA00B /* Assistant-Medium.ttf */; };
+		CEC0131226D396ED004CA00B /* Assistant-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC0130B26D396EC004CA00B /* Assistant-Regular.ttf */; };
+		CEC0131326D396ED004CA00B /* Assistant-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC0130C26D396EC004CA00B /* Assistant-ExtraLight.ttf */; };
+		CEC0131426D396ED004CA00B /* Assistant-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC0130D26D396EC004CA00B /* Assistant-ExtraBold.ttf */; };
+		CEC0131526D396ED004CA00B /* Assistant-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC0130E26D396ED004CA00B /* Assistant-Bold.ttf */; };
+		CEC0131626D396ED004CA00B /* Assistant-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC0130F26D396ED004CA00B /* Assistant-Light.ttf */; };
 		D66262B9356ECDEFF54AB5A0 /* libPods-opiltClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E7E7807D57C3D61EEB8627 /* libPods-opiltClient.a */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +50,13 @@
 		40D957E86F88E73E8E72F835 /* Pods-opiltClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-opiltClient.debug.xcconfig"; path = "Target Support Files/Pods-opiltClient/Pods-opiltClient.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = opiltClient/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FC3A60A2B7B35F4C2322B65 /* Pods-opiltClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-opiltClient.release.xcconfig"; path = "Target Support Files/Pods-opiltClient/Pods-opiltClient.release.xcconfig"; sourceTree = "<group>"; };
+		CEC0130926D396EC004CA00B /* Assistant-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Assistant-SemiBold.ttf"; path = "../../../../Downloads/Assistant/static/Assistant-SemiBold.ttf"; sourceTree = "<group>"; };
+		CEC0130A26D396EC004CA00B /* Assistant-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Assistant-Medium.ttf"; path = "../../../../Downloads/Assistant/static/Assistant-Medium.ttf"; sourceTree = "<group>"; };
+		CEC0130B26D396EC004CA00B /* Assistant-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Assistant-Regular.ttf"; path = "../../../../Downloads/Assistant/static/Assistant-Regular.ttf"; sourceTree = "<group>"; };
+		CEC0130C26D396EC004CA00B /* Assistant-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Assistant-ExtraLight.ttf"; path = "../../../../Downloads/Assistant/static/Assistant-ExtraLight.ttf"; sourceTree = "<group>"; };
+		CEC0130D26D396EC004CA00B /* Assistant-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Assistant-ExtraBold.ttf"; path = "../../../../Downloads/Assistant/static/Assistant-ExtraBold.ttf"; sourceTree = "<group>"; };
+		CEC0130E26D396ED004CA00B /* Assistant-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Assistant-Bold.ttf"; path = "../../../../Downloads/Assistant/static/Assistant-Bold.ttf"; sourceTree = "<group>"; };
+		CEC0130F26D396ED004CA00B /* Assistant-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Assistant-Light.ttf"; path = "../../../../Downloads/Assistant/static/Assistant-Light.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -116,6 +130,13 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CEC0130E26D396ED004CA00B /* Assistant-Bold.ttf */,
+				CEC0130D26D396EC004CA00B /* Assistant-ExtraBold.ttf */,
+				CEC0130C26D396EC004CA00B /* Assistant-ExtraLight.ttf */,
+				CEC0130F26D396ED004CA00B /* Assistant-Light.ttf */,
+				CEC0130A26D396EC004CA00B /* Assistant-Medium.ttf */,
+				CEC0130B26D396EC004CA00B /* Assistant-Regular.ttf */,
+				CEC0130926D396EC004CA00B /* Assistant-SemiBold.ttf */,
 				13B07FAE1A68108700A75B9A /* opiltClient */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* opiltClientTests */,
@@ -242,7 +263,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEC0131626D396ED004CA00B /* Assistant-Light.ttf in Resources */,
+				CEC0131126D396ED004CA00B /* Assistant-Medium.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				CEC0131026D396ED004CA00B /* Assistant-SemiBold.ttf in Resources */,
+				CEC0131426D396ED004CA00B /* Assistant-ExtraBold.ttf in Resources */,
+				CEC0131326D396ED004CA00B /* Assistant-ExtraLight.ttf in Resources */,
+				CEC0131226D396ED004CA00B /* Assistant-Regular.ttf in Resources */,
+				CEC0131526D396ED004CA00B /* Assistant-Bold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -54,27 +54,26 @@ export const En = {
             continue: 'המשך/י לתשלום',
             numParkings: 'סה"כ חניות',
         },
-         
-footer: {
-    tab1: 'settings',
-    tab2: 'messages',
-    tab3: 'parking',
-    tab4: 'gate',
-    tab5: 'home',
-},
-home: {
-    titleMorning: 'good morning',
-    titleNoon: 'good noon',
-    titleAfternoon: 'good afternoon',
-    titleEvening: 'good evening',
-    titleNight: 'good night',
-    notificationsList: 'notifications list',
-    openGates: 'viewing/ opening gates for guests',
-    emptyParkingsList: 'empty parkings list',
-    hourlyParkingPermit: 'hourly parking permit',
-    activeDailyParking: 'active daily parking',
-    requestParkingForGuests: 'request parking for guests'
-}
+        footer: {
+            tab1: 'settings',
+            tab2: 'messages',
+            tab3: 'parking',
+            tab4: 'gate',
+            tab5: 'home',
+        },
+        home: {
+            titleMorning: 'good morning',
+            titleNoon: 'good noon',
+            titleAfternoon: 'good afternoon',
+            titleEvening: 'good evening',
+            titleNight: 'good night',
+            notificationsList: 'notifications list',
+            openGates: 'viewing/ opening gates for guests',
+            emptyParkingsList: 'empty parkings list',
+            hourlyParkingPermit: 'hourly parking permit',
+            activeDailyParking: 'active daily parking',
+            requestParkingForGuests: 'request parking for guests'
+        }
 
     }
 }
