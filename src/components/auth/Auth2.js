@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
     Text,
@@ -15,10 +15,12 @@ import {
     navigateScreen
 } from '../../routes/routes';
 import Dialog from '../dialog/Dialog';
+import TextInputCodeNumber from './TextInputCodeNumber';
 
 export default (props) => {
 
     const authSMS2 = 'authSMS2'.toString();
+    const [codeNumber, setCodeNumber] = useState(0);
 
     const {
         visible,
@@ -28,20 +30,6 @@ export default (props) => {
     const {
         t
     } = useTranslation();
-
-    const textInput = (alignment) =>
-        <TextInput
-            // onChangeText={(value) => setPhoneNumberFunc(key, value)}
-            borderColor="#FFFFFF"
-            selectionColor="#FFFFFF"
-            style={[_styles.textInput]}
-            placeholderTextColor="#FFFFFF99"
-            placeholder=" "
-        />
-
-    const threeTextInput = () =>
-        [...Array(3)].map(() =>
-            textInput())
 
     const contentDialog = () => {
         return <>
@@ -54,11 +42,12 @@ export default (props) => {
             <Text style={[styles.noteTxt, _styles.details]}>
                 {t(`${authSMS2}.details2`)}
             </Text>
-            <View style={_styles.rowInputs}>
-                {threeTextInput()}
-                <View style={_styles.space} />
-                {threeTextInput()}
-            </View>
+
+            <TextInputCodeNumber
+                codeNumber={codeNumber}
+                setCodeNumber={setCodeNumber}
+            />
+
             <Text style={[styles.noteTxt, _styles.details]}>
                 {t(`${authSMS2}.tryAgain1`)}
                 <Text style={styles.link}>
@@ -76,9 +65,11 @@ export default (props) => {
             closeHandlePress={() => setVisible(false)}
             buttons={[
                 {
-                    handlePress: () => {
-                        setVisible(false);
-                        navigateScreen(props, 'Auth3');
+                    handlePress: async () => {
+                        await setVisible(false);
+                        setTimeout(() => {
+                            navigateScreen(props, 'Auth3');
+                        }, 500);
                     },
                     body: t(`${authSMS2}.continue`),
                     width: 120,
@@ -153,29 +144,14 @@ const _styles = StyleSheet.create(
             fontWeight: 'bold',
             color: ligth
         },
-        space: {
-            width: '5%'
-        },
-        rowInputs: {
-            flexDirection: 'row',
-            marginHorizontal: '1%',
-            justifyContent: 'center',
-            margin: 30
-        },
+       
         dialogContent: {
             marginHorizontal: 10,
             marginVertical: '5%',
             zIndex: 1,
             backgroundColor: '#0A2550'
         },
-        textInput: {
-            // height: 40,
-            width: '8%',
-            color: ligth,
-            borderBottomWidth: 1.5,
-            fontSize: 18,
-            marginHorizontal: '2%',
-        },
+       
         title: {
             fontSize: 24,
             marginBottom: '2%'

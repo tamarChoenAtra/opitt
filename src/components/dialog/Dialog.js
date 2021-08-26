@@ -6,8 +6,6 @@ import {
     Text
 } from 'react-native';
 import styles from '../../styles/Styles';
-import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
-import TransparentBtn from '../genericComponents/TransparentBtn';
 import ChipButton from '../genericComponents/ChipButton';
 import {
     ligth
@@ -122,7 +120,7 @@ const _styles = StyleSheet.create(
         },
 
         dialogContent: {
-            marginHorizontal: 10,
+            marginHorizontal: 8,
             marginVertical: '5%',
             zIndex: 1,
             backgroundColor: '#0A2550',

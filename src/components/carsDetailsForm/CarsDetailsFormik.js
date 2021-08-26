@@ -16,24 +16,24 @@ import { useTranslation } from 'react-i18next';
 import LinearGradient from "react-native-linear-gradient";
 import {
     dominant,
-    dominantLight,
     ligthDominant
 } from '../../styles/SystemColor';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import Header from '../header/Header';
-import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
 import { navigateScreen } from '../../routes/routes'
-import TransparentBtn from '../genericComponents/TransparentBtn';
-import CarsDetailsFormik from './CarsDetailsFormik';
+import Button from '../genericComponents/Button';
+import { connect } from 'react-redux';
+import { actions } from '../../redux/actions';
 
-export default (props) => {
+function CarsDetailsFormik(props) {
 
     const {
         setFormValuesFunc,
         formValues,
-        setCntParkingsFunc,
         checkBox,
-        setCheckBox
+        setCheckBox,
+
+        _addCar
+
     } = props;
 
     const {
@@ -42,7 +42,9 @@ export default (props) => {
 
     const form = 'form'.toString();
     const createUserParking = 'createUserParking'.toString();
+
     const scrollViewRef = useRef();
+    const [countNumParking, setCountNumParking] = useState(1);
     const [visible, setVisible] = useState(false);
 
     const setCheckBoxFunc = () => {
@@ -53,26 +55,21 @@ export default (props) => {
         navigateScreen(props, 'AuthCarDetails', formValues)
     }
 
-    const addParkingFunc = (index) => {
-        setFormValuesFunc("parkings", [...formValues.parkings, { index: index, parkingNum: '', floor: 0 }])
+    const addParkingFunc = () => {
+        setFormValuesFunc("parkings", [...formValues.parkings, { index: countNumParking, parkingNum: '', floor: 0 }])
+        setCountNumParking(countNumParking => countNumParking + 1);
     }
 
-    useEffect(() => {
-        console.log(formValues.parkings)
-    }, [formValues.parkings])
-
-    const deleteCarFunc = async (index) => {
-        console.log(index);
-        await setVisible(false);
-        setFormValuesFunc("parkings", formValues.parkings.filter(park => park.index != index))
+    const deleteCarFunc = async (item) => {
+        setFormValuesFunc("parkings", formValues.parkings.filter(park => park.index != item.index))
     };
 
-    const returnBtn = (index) => {
+    const returnBtn = (item, index) => {
         return (
             <>
                 {index == formValues.parkings.length - 1 ?
                     <View style={styles.rowDirection}>
-                        <TouchableOpacity onPress={() => addParkingFunc(index)}>
+                        <TouchableOpacity onPress={() => addParkingFunc(formValues.parkings[formValues.parkings.length - 1].index + 1)}>
                             <LinearGradient
                                 colors={[dominant, ligthDominant]}
                                 style={[_styles().linearGradientBtn, _styles().iconPlus]}
@@ -85,12 +82,12 @@ export default (props) => {
                             </LinearGradient>
                         </TouchableOpacity>
                         <Text style={[styles.noteTxt, _styles().iconAndTxt]}>
-                            {t("form.addParking")}
+                            {t(`${form}.addParking`)}
                         </Text>
                     </View>
                     :
                     <TouchableOpacity
-                        onPress={() => setVisible(!visible)}
+                        onPress={() => deleteCarFunc(item)}
                         style={[styles.addBtn, { backgroundColor: '#0F5679' }]} >
                         <Delete />
                     </TouchableOpacity>
@@ -99,6 +96,14 @@ export default (props) => {
         )
     }
 
+    const changeParking = (item, key, value) => {
+        let parkings = [...formValues.parkings];
+        const index = parkings
+            .map((park) => park.index)
+            .indexOf(item.index);
+        parkings[index][key] = value;
+        setFormValuesFunc('parkings', parkings)
+    }
 
     return (
         <Formik
@@ -109,7 +114,6 @@ export default (props) => {
                 carNum: '',
                 parkings: [{ parkingNum: '', floor: 0 }],
             }}
-            onSubmit={values => console.log(values)}
         >
             {() => (
                 <View>
@@ -147,9 +151,10 @@ export default (props) => {
                     <TextInput
                         editable={checkBox ? false : true}
                         onChangeText={(txt) => setFormValuesFunc('carNum', txt)}
-                        value={formValues.carNum}
+                        value={formValues.carNum.toString()}
                         style={styles.input}
                         placeholder={t(`${form}.carNum`)}
+                        keyboardType="numeric"
                         selectionColor="#FFFFFF99"
                         placeholderTextColor={'#FFFFFF99'}
                     />
@@ -159,29 +164,37 @@ export default (props) => {
                     >
                         {formValues.parkings && formValues.parkings.map((item, index) =>
                             <View key={index} style={styles.rowDirection}>
-                                {console.log(index,"iiii")}
                                 <View style={_styles(2.3).flex}>
                                     <TextInput
-                                        onChangeText={(txt) => setFormValuesFunc(`parkings[${index}].parkingNum`, { ...`parkings[${index}]`, parkingNum: txt })}
-                                        value={formValues.parkings[index].parkingNum}
+                                        onChangeText={(txt) => {
+                                            changeParking(item, 'parkingNum', txt);
+                                        }
+                                        }
+                                        value={item.parkingNum.toString()}
                                         style={styles.input}
                                         placeholder={t(`${form}.parkingNum`)}
                                         placeholderTextColor={'#FFFFFF99'}
                                         selectionColor="#FFFFFF99"
+                                        maxLength={10}
+                                        keyboardType='numeric'
                                     />
                                 </View>
                                 <View style={_styles(1.5).flex}>
                                     <TextInput
-                                        onChangeText={(txt) => setFormValuesFunc(`parkings[${index}].floor`, { ...`parkings[${index}]`, floor: txt })}
-                                        value={formValues.parkings[index].floor}
+                                        onChangeText={(txt) => {
+                                            changeParking(item, 'floor', txt);
+                                        }}
+                                        maxLength={2}
+                                        value={item.floor.toString()}
                                         style={styles.input}
                                         placeholder={t(`${form}.floor`)}
                                         placeholderTextColor={'#FFFFFF99'}
                                         selectionColor="#FFFFFF99"
+                                        keyboardType='numeric'
                                     />
                                 </View>
                                 <View style={_styles(2).flex}>
-                                    {returnBtn(index)}
+                                    {returnBtn(item, index)}
                                 </View>
                             </View>
                         )}
@@ -199,14 +212,22 @@ export default (props) => {
                     </View>
 
                     <View style={[styles.rowDirection, _styles().viewWrapButton]}>
-                        <LinearGradientBtn
-                            handlePress={countionueFunc}
+                        <Button
+                            handlePress={() => {
+                                countionueFunc();
+                                _addCar(formValues);
+                            }}
                             content={t(`${createUserParking}.continue`)}
                             width={120}
                         />
-                        <TransparentBtn
-                            content="הוספת רכב נוסף"
-                            color={dominant}
+                        <Button
+                            kind="outline"
+                            handlePress={() => {
+                                navigateScreen(props, 'CarsDetailsForm')
+                                _addCar(formValues);
+                            }}
+                            content={t(`${createUserParking}.addNewCar`)}
+                            colorOutline={dominant}
                         />
                     </View>
                 </View>
@@ -217,6 +238,17 @@ export default (props) => {
 
     )
 }
+
+const mapStateToProps = state => ({
+    ...state,
+    cars: state.cars.cars
+})
+
+const mapDispatchToProps = dispatch => ({
+    _addCar: (car) => dispatch(actions.addCar(car)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarsDetailsFormik)
 
 export const _styles = (flex) => StyleSheet.create({
     iconAndTxt: {

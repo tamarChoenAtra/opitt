@@ -49,7 +49,6 @@ export default (props) => {
         setList(newList)
 
         handleChange(item);
-        i18n.changeLanguage(item.i18);
     }
 
     const renderItem = ({ item, index }) => {

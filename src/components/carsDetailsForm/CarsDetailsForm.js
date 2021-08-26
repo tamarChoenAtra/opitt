@@ -11,8 +11,17 @@ import Header from '../header/Header';
 import { useTranslation } from 'react-i18next';
 import { navigateScreen } from '../../routes/routes'
 import CarsDetailsFormik from './CarsDetailsFormik';
+import { connect } from 'react-redux';
 
-export default (props) => {
+function CarsDetailsForm(props) {
+
+    const {
+        cars
+    } = props;
+
+    const {
+        t
+    } = useTranslation();
 
     const createUserParking = 'createUserParking'.toString();
 
@@ -23,15 +32,10 @@ export default (props) => {
         lastName: '',
         carKind: '',
         carNum: '',
-        parkings: [{ parkingNum: '', floor: 0, index: 0 }]
+        parkings: [{ parkingNum: '', floor: '', index: 0 }]
     })
 
-    const {
-        t
-    } = useTranslation();
-
     const setFormValuesFunc = (key, value) => {
-        console.log(formValues)
         setFormValues({ ...formValues, [key]: value })
     }
 
@@ -62,6 +66,17 @@ export default (props) => {
         </>
     )
 }
+
+const mapStateToProps = state => ({
+    ...state,
+    cars: state.cars.cars
+})
+
+const mapDispatchToProps = dispatch => ({
+    // setStyleCard: (style) => dispatch(actions.setStyleCard(style)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarsDetailsForm);
 
 const _styles = StyleSheet.create({
 
