@@ -28,13 +28,13 @@ const _styles = StyleSheet.create(
             height: 40,
             borderRadius: 60,
             backgroundColor: '#3EA2FF',
-            zIndex: 1,
-            right: -10,
-            top: -10,
+            zIndex: 2,
+            right: -5,
+            top: -5,
             alignSelf: 'flex-end',
             position: 'absolute',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
         },
     }
 )

@@ -82,7 +82,6 @@ const _styles = StyleSheet.create(
         indexCarTxt: {
             color: 'white',
             fontSize: 20,
-            // fontFamily: 'Assistant-Bold',
             textAlign: 'center',
             marginTop: '5%'
         },

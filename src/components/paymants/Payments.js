@@ -103,7 +103,7 @@ const _styles = StyleSheet.create({
         textAlign: 'center',
         color: dominantLight,
         fontSize: 18,
-        fontFamily: 'Assistant-Regular',
+        // fontFamily: 'Assistant-Regular',
         backgroundColor: '#05163C'
     },
     boldTxt: {
@@ -111,7 +111,7 @@ const _styles = StyleSheet.create({
         fontSize: 22,
         color: dominantLight,
         textAlign: 'center',
-        fontFamily: 'Assistant-regular'
+        // fontFamily: 'Assistant-regular'
     },
     decoratedTxt: {
         textDecorationColor: 'white',

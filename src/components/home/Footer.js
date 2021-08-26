@@ -90,7 +90,7 @@ const _styles = StyleSheet.create({
     },
     footerTxt: {
         color: '#FFFFFF99',
-        fontFamily: 'Assistant-Regular'
+        // fontFamily: 'Assistant-Regular'
     },
     message: {
         zIndex: 1

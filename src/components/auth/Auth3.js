@@ -12,12 +12,10 @@ import {
     ligth
 } from '../../styles/SystemColor';
 import HeaderAuth from '../header/HeaderAuth';
-import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
 import {
     goBack,
     navigateScreen
 } from '../../routes/routes';
-import ChipButton from '../genericComponents/ChipButton';
 
 export default (props) => {
 

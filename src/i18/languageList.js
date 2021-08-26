@@ -1,31 +1,31 @@
 
 export const languages = [
     {
-        language: 'עברית',
+        item: 'עברית',
         index: 0,
         i18:'he',
         direction:'rtl'
     },
     {
-        language: 'English',
+        item: 'English',
         index: 1,
         i18:'en',
         direction:'ltr'
     },
     {
-        language: 'عربيه',
+        item: 'عربيه',
         index: 2,
         i18:'ar',
         direction:'ltr'
     },
     {
-        language: 'Pусский',
+        item: 'Pусский',
         index: 3,
         i18:'ru',
         direction:'ltr'
     },
     {
-        language: 'Français',
+        item: 'Français',
         index: 4,
         i18:'fn',
         direction:'ltr'

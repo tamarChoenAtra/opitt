@@ -25,7 +25,6 @@ import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
 import { navigateScreen } from '../../routes/routes'
 import TransparentBtn from '../genericComponents/TransparentBtn';
 import CarsDetailsFormik from './CarsDetailsFormik';
-import DeleteCar from './DeleteCar';
 
 export default (props) => {
 
@@ -96,12 +95,6 @@ export default (props) => {
                         <Delete />
                     </TouchableOpacity>
                 }
-                <DeleteCar
-                    visible={visible}
-                    setVisible={setVisible}
-                    deleteCarFunc={deleteCarFunc}
-                    indexCar={index}
-                />
             </>
         )
     }
@@ -166,7 +159,7 @@ export default (props) => {
                     >
                         {formValues.parkings && formValues.parkings.map((item, index) =>
                             <View key={index} style={styles.rowDirection}>
-                                {console.log(index,"iiii")}
+                                {console.log(index, "iiii")}
                                 <View style={_styles(2.3).flex}>
                                     <TextInput
                                         onChangeText={(txt) => setFormValuesFunc(`parkings[${index}].parkingNum`, { ...`parkings[${index}]`, parkingNum: txt })}
@@ -219,7 +212,6 @@ export default (props) => {
                 </View>
 
             )}
-
         </Formik>
 
     )

@@ -8,24 +8,30 @@ import {
 } from 'react-native';
 import {
     bg,
-    ligth
+    ligth,
+    note
 } from '../../styles/SystemColor';
-import {
-    languages
-} from '../../i18/languageList';
+
 import { initReactI18next, useTranslation } from 'react-i18next';
 import Arrow1 from '../../assets/svg/Arrow1.svg';
 import Arrow2 from '../../assets/svg/Arrow2.svg';
 
 
-export default () => {
+export default (props) => {
 
     const {
-        i18n
-    } = useTranslation();
+        array,
+        handleChange,
+        txtNote,
+        lines
+    } = props;
 
-    const [languagesTemp, setLanguagesTemp] = useState(languages);
+    const [list, setList] = useState([]);
     const [flagOpen, setFlagOpen] = useState(false);
+
+    useEffect(() => {
+        setList(array)
+    }, [array])
 
     const changeLanuage = (item) => {
         //open the dropdown
@@ -34,13 +40,14 @@ export default () => {
         //replace language and close the dropdown
         flagOpen && setFlagOpen(false);
 
-        const newLanguagesList = languagesTemp.filter(lan => lan.index != item.index)
+        const newLanguagesList = list.filter(lan => lan.index != item.index)
         const newList = [
             item,
             ...newLanguagesList
         ]
-        setLanguagesTemp(newList)
-        i18n.changeLanguage(item.i18);
+        setList(newList)
+
+        handleChange && handleChange(item);
     }
 
     const renderItem = ({ item, index }) => {
@@ -67,11 +74,14 @@ export default () => {
                 }
                 <View style={_styles.listWrapper}>
                     <View>
-                        <Text style={_styles.listNameText}>{item.language}</Text>
+                        <Text
+                            // numberOfLines={1}
+                            style={txtNote && index != 0 ? _styles.txtNote : _styles.listNameText}>{item.item}</Text>
                     </View>
                     {
                         flagOpen
                         &&
+                        lines &&
                         <View style={[_styles.devider]}></View>
                     }
                 </View>
@@ -84,12 +94,19 @@ export default () => {
         <View
             style={_styles.wrap}>
             <View style={_styles.wrapFlatList}>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={!flagOpen ? [languagesTemp[0]] : languagesTemp}
-                    renderItem={(item, index) => renderItem(item, index)}
-                    keyExtractor={item => item.index}
-                />
+                {
+                    list.length
+                        ?
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            data={!flagOpen ? [list[0]] : list}
+                            renderItem={(item, index) => renderItem(item, index)}
+                            keyExtractor={item => item.index}
+                        />
+                        :
+                        null
+                }
+
             </View>
         </View>
     )
@@ -109,7 +126,7 @@ const _styles = StyleSheet.create(
             justifyContent: 'center'
         },
         wrapFlatList: {
-            width: '40%',
+            width: '50%',
             borderWidth: 1,
             borderColor: ligth,
             borderRadius: 8,
@@ -118,7 +135,7 @@ const _styles = StyleSheet.create(
         icon: {
             flex: 0.9,
             alignItems: 'flex-end',
-            paddingLeft: 0
+            paddingRight: 5
         },
         emptyView: {
             flex: 0.9,
@@ -134,7 +151,6 @@ const _styles = StyleSheet.create(
             fontSize: 18,
             textAlign: 'center',
             marginVertical: 10,
-
         },
         listRow: {
             height: 45,
@@ -146,6 +162,12 @@ const _styles = StyleSheet.create(
             // borderBottomWidth: 1,
             flex: 2.2,
             alignItems: 'center'
+        },
+        txtNote: {
+            color: note,
+            fontSize: 18,
+            textAlign: 'center',
+            marginVertical: 10,
         }
 
     }

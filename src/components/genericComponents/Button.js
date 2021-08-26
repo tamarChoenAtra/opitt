@@ -1,44 +1,25 @@
+import React from 'react';
 import LinearGradient from "react-native-linear-gradient";
 import {
     StyleSheet,
     TouchableOpacity,
     Text
 } from "react-native";
-import React from "react";
 import { dominant } from "../../styles/SystemColor";
 import styles from '../../styles/Styles';
 
 export default (props) => {
 
     const {
-        content,
+        kind,
+        handlePress,
         size,
         width,
-        small,
-        color,
-        handlePress,
-        smallborderWidth
+        content,
+        //outline button
+        smallborderWidth,
+        colorOutline
     } = props;
-
-    const txtBtn = () => {
-        return {
-            fontWeight: 'bold',
-            color: color
-        }
-    }
-
-    const linearGradientBtn = () => {
-
-        return {
-            height: sizeButton(),
-            width: width && width,
-            paddingHorizontal: 20,
-            marginHorizontal: 10,
-            borderColor: color,
-            borderWidth: smallborderWidth ? 0.5 : 1,
-
-        }
-    }
 
     const sizeButton = () => {
         switch (size) {
@@ -51,17 +32,42 @@ export default (props) => {
         }
     }
 
+
+    const linearGradientBtn = () => {
+
+        return {
+            height: sizeButton(),
+            width: width && width,
+            paddingHorizontal: 20,
+            marginHorizontal: 10,
+
+            //outline button
+            borderColor: colorOutline,
+            borderWidth: smallborderWidth ? 0.5 : 1,
+        }
+    }
+
+    const getColor = () => {
+        switch (kind) {
+            case 'outline':
+                return ['transparent', 'transparent']
+            default:
+                return [dominant, '#FF6813']
+        }
+    }
+
     return (
-        <TouchableOpacity
-            // style={outLineBtn()}
-            onPress={handlePress}
-        >
-            <LinearGradient colors={['transparent',"transparent"]} style={[_styles.linearGradientBtn, linearGradientBtn()]}>
-                <Text style={[styles.noteTxt, txtBtn()]}>{content}</Text>
+        <TouchableOpacity onPress={handlePress}>
+            <LinearGradient colors={getColor()} style={[_styles.linearGradientBtn, linearGradientBtn()]}>
+                <Text style={[styles.noteTxt, _styles.txtBtn]}>
+                    {content}
+                </Text>
             </LinearGradient>
         </TouchableOpacity>
     )
+
 }
+
 
 const _styles = StyleSheet.create({
     linearGradientBtn: {

@@ -11,30 +11,33 @@ import {
     bg,
     ligth
 } from '../../styles/SystemColor';
-import DropDownLanguage from '../dropdwon/DropDownLanguage';
+import DropDownLanguage from '../dropdwon/DropDown';
 import { useTranslation } from 'react-i18next';
 import HeaderAuth from '../header/HeaderAuth';
-import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
+import Auth2 from './Auth2';
 import {
-    navigateScreen
-} from '../../routes/routes';
+    languages
+} from '../../i18/languageList';
+import Button from '../genericComponents/Button';
 
 export default (props) => {
 
     const {
+        i18n,
         t
     } = useTranslation();
 
     const authSMS1 = 'authSMS1'.toString();
     const form = 'form'.toString();
 
+    const [visible, setVisible] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState({
         areaCode: null,
         code: null
     });
 
     const navigateTerms = () => {
-        props.navigation.navigate('Terms')
+        props.navigation.navigate('Terms');
     }
 
     const setPhoneNumberFunc = (key, value) => {
@@ -94,20 +97,29 @@ export default (props) => {
                     </View>
 
                     <View style={_styles.subDetailsTop}>
-                        <LinearGradientBtn
-                            width={130}
-                            handlePress={() => navigateScreen(props, 'Auth2')}
+                        <Button
+                            handlePress={() => setVisible(true)}
                             content={t(`${authSMS1}.submit`)}
+                            width={130}
+                            // size={buttons[0].size}
                         />
                     </View>
 
                 </ScrollView>
             </View>
 
-
             <View style={_styles.wrapFooter}>
-                <DropDownLanguage />
+                <DropDownLanguage
+                    handleChange={(item) => i18n.changeLanguage(item.i18)}
+                    array={languages}
+                />
             </View>
+
+            <Auth2
+                {...props}
+                setVisible={setVisible}
+                visible={visible}
+            />
         </>
     )
 }
@@ -120,8 +132,8 @@ const _styles = StyleSheet.create(
             alignSelf: 'center',
             marginTop: 15
         },
-        wrapFooter:{
-            marginBottom:'2%'
+        wrapFooter: {
+            marginBottom: '2%'
         },
         linearGradientBtnTxt: {
             fontWeight: 'bold',
