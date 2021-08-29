@@ -6,6 +6,8 @@ import {
 import styles from '../styles/Styles';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+
+
 import InitComponent from '../components/initComponent/InitComponent';
 import CarsDetailsForm from '../components/carsDetailsForm/CarsDetailsForm';
 import FirstScreen from '../components/firstScreen/FirstScreen';
@@ -22,6 +24,8 @@ import Footer from '../components/home/Footer';
 import WrapHome from '../components/home/WrapHome';
 import Home from '../components/home/Home';
 import TryDialog from '../components/dialog/TryDialog';
+import AuthCarDetailsBeforeContinue from '../components/carsDetailsForm/AuthCarDetailsBeforeContinue';
+import Settings from '../components/settings/Setting';
 
 const Stack = createNativeStackNavigator();
 
@@ -89,7 +93,7 @@ export const Routes = () => {
                     screenOptions={{
                         headerShown: false
                     }}
-                    initialRouteName="Auth1"
+                    initialRouteName="Auth3"
                 >
                     <Stack.Screen
                         name="CarsDetailsForm"
@@ -101,6 +105,12 @@ export const Routes = () => {
                         name="AuthCarDetails"
                         component={
                             (props) => addStaticBackground(props, AuthCarDetails)
+                        }
+                    />
+                    <Stack.Screen
+                        name="AuthCarDetailsBeforeContinue"
+                        component={
+                            (props) => addStaticBackground(props, AuthCarDetailsBeforeContinue)
                         }
                     />
                     <Stack.Screen
@@ -157,10 +167,16 @@ export const Routes = () => {
                             (props) => addStaticBackground(props, Payments)
                         }
                     />
-                      <Stack.Screen
+                    <Stack.Screen
                         name="TryDialog"
                         component={
                             (props) => addStaticBackground(props, TryDialog)
+                        }
+                    />
+                    <Stack.Screen
+                        name="Settings"
+                        component={
+                            (props) => addStaticBackground(props, Settings)
                         }
                     />
                 </Stack.Navigator>

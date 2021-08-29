@@ -21,6 +21,7 @@ export default (props) => {
         content,
         visible,
         setVisible,
+        unableTouchOutside,
         closeHandlePress
     } = props;
 
@@ -29,7 +30,7 @@ export default (props) => {
             dialogAnimation={new SlideAnimation({
                 slideFrom: 'bottom',
             })}
-            onTouchOutside={() => setVisible(false)}
+            onTouchOutside={() => !unableTouchOutside && setVisible(false)}
             dialogStyle={_styles.dialogStyle}
             visible={visible}
         >

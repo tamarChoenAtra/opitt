@@ -23,17 +23,21 @@ import { navigateScreen } from '../../routes/routes'
 import Button from '../genericComponents/Button';
 import { connect } from 'react-redux';
 import { actions } from '../../redux/actions';
+import OrientationLoadingOverlay from 'react-native-orientation-loading-overlay';
+import { Car } from '../../models/Car.model';
 
 function CarsDetailsFormik(props) {
 
     const {
-        setFormValuesFunc,
+        setFormValuesFunc,//(key,value)
+        setFormValues,//(value)
         formValues,
         checkBox,
         setCheckBox,
 
-        _addCar
-
+        _addCar,//(fromValues)
+        _setCountNumCars,
+        _countNumCars
     } = props;
 
     const {
@@ -44,15 +48,16 @@ function CarsDetailsFormik(props) {
     const createUserParking = 'createUserParking'.toString();
 
     const scrollViewRef = useRef();
-    const [countNumParking, setCountNumParking] = useState(1);
-    const [visible, setVisible] = useState(false);
+    const inputsRef = useRef([]);
+    const [countNumParking, setCountNumParking] = useState(0);
+    const [progressAddNewCar, setProgressAddNewCar] = useState(false);
 
     const setCheckBoxFunc = () => {
         setCheckBox(!checkBox)
     }
 
     const countionueFunc = () => {
-        navigateScreen(props, 'AuthCarDetails', formValues)
+        navigateScreen(props, 'AuthCarDetailsBeforeContinue', formValues)
     }
 
     const addParkingFunc = () => {
@@ -64,36 +69,22 @@ function CarsDetailsFormik(props) {
         setFormValuesFunc("parkings", formValues.parkings.filter(park => park.index != item.index))
     };
 
-    const returnBtn = (item, index) => {
-        return (
-            <>
-                {index == formValues.parkings.length - 1 ?
-                    <View style={styles.rowDirection}>
-                        <TouchableOpacity onPress={() => addParkingFunc(formValues.parkings[formValues.parkings.length - 1].index + 1)}>
-                            <LinearGradient
-                                colors={[dominant, ligthDominant]}
-                                style={[_styles().linearGradientBtn, _styles().iconPlus]}
-                            >
-                                <AntDesign
-                                    name="plus"
-                                    color="white"
-                                    size={20}
-                                />
-                            </LinearGradient>
-                        </TouchableOpacity>
-                        <Text style={[styles.noteTxt, _styles().iconAndTxt]}>
-                            {t(`${form}.addParking`)}
-                        </Text>
-                    </View>
-                    :
-                    <TouchableOpacity
-                        onPress={() => deleteCarFunc(item)}
-                        style={[styles.addBtn, { backgroundColor: '#0F5679' }]} >
-                        <Delete />
-                    </TouchableOpacity>
-                }
-            </>
-        )
+    const addNewCar = () => {
+
+        //loading animation
+        setProgressAddNewCar(true);
+
+        _addCar(formValues);
+        setFormValues(new Car(_countNumCars + 1));
+        _setCountNumCars(_countNumCars + 1);
+
+        //loading animation and clear textInputs
+        setTimeout(() => {
+            setProgressAddNewCar(false);
+            for (let i = 0; i < 6; i++)
+                inputsRef[i].clear();
+        }, 1500);
+
     }
 
     const changeParking = (item, key, value) => {
@@ -103,6 +94,46 @@ function CarsDetailsFormik(props) {
             .indexOf(item.index);
         parkings[index][key] = value;
         setFormValuesFunc('parkings', parkings)
+    }
+
+    const returnBtn = (item, index) => {
+        return (
+            <>
+                {
+                    index == formValues.parkings.length - 1 ?
+                        <View style={styles.rowDirection}>
+                            <TouchableOpacity onPress={() => addParkingFunc(formValues.parkings[formValues.parkings.length - 1].index + 1)}>
+                                <LinearGradient
+                                    colors={[dominant, ligthDominant]}
+                                    style={[_styles().linearGradientBtn, _styles().iconPlus]}
+                                >
+                                    <AntDesign
+                                        name="plus"
+                                        color="white"
+                                        size={20}
+                                    />
+                                </LinearGradient>
+                            </TouchableOpacity>
+                            <Text style={[styles.noteTxt, _styles().iconAndTxt]}>
+                                {t(`${form}.addParking`)}
+                            </Text>
+                        </View>
+                        :
+                        <TouchableOpacity
+                            onPress={() => deleteCarFunc(item)}
+                            style={[styles.addBtn, { backgroundColor: '#0F5679' }]} >
+                            <Delete />
+                        </TouchableOpacity>
+                }
+
+                <OrientationLoadingOverlay
+                    visible={progressAddNewCar}
+                    color={dominant}
+                    indicatorSize="large"
+                    messageFontSize={24}
+                />
+            </>
+        )
     }
 
     return (
@@ -126,6 +157,7 @@ function CarsDetailsFormik(props) {
                                 placeholder={t(`${form}.firstName`)}
                                 selectionColor="#FFFFFF99"
                                 placeholderTextColor={'#FFFFFF99'}
+                                ref={el => inputsRef[0] = el}
                             />
                         </View>
                         <View style={styles.leftItem}>
@@ -136,6 +168,7 @@ function CarsDetailsFormik(props) {
                                 placeholder={t(`${form}.lastName`)}
                                 selectionColor="#FFFFFF99"
                                 placeholderTextColor={'#FFFFFF99'}
+                                ref={el => inputsRef[1] = el}
                             />
                         </View>
                     </View>
@@ -147,6 +180,7 @@ function CarsDetailsFormik(props) {
                         placeholder={t(`${form}.carKind`)}
                         placeholderTextColor={'#FFFFFF99'}
                         selectionColor="#FFFFFF99"
+                        ref={el => inputsRef[2] = el}
                     />
                     <TextInput
                         editable={checkBox ? false : true}
@@ -155,8 +189,10 @@ function CarsDetailsFormik(props) {
                         style={styles.input}
                         placeholder={t(`${form}.carNum`)}
                         keyboardType="numeric"
+                        maxLength={8}
                         selectionColor="#FFFFFF99"
                         placeholderTextColor={'#FFFFFF99'}
+                        ref={el => inputsRef[3] = el}
                     />
                     <ScrollView style={{ maxHeight: '38%' }}
                         ref={scrollViewRef}
@@ -177,6 +213,7 @@ function CarsDetailsFormik(props) {
                                         selectionColor="#FFFFFF99"
                                         maxLength={10}
                                         keyboardType='numeric'
+                                        ref={el => inputsRef[4] = el}
                                     />
                                 </View>
                                 <View style={_styles(1.5).flex}>
@@ -191,6 +228,7 @@ function CarsDetailsFormik(props) {
                                         placeholderTextColor={'#FFFFFF99'}
                                         selectionColor="#FFFFFF99"
                                         keyboardType='numeric'
+                                        ref={el => inputsRef[5] = el}
                                     />
                                 </View>
                                 <View style={_styles(2).flex}>
@@ -222,10 +260,7 @@ function CarsDetailsFormik(props) {
                         />
                         <Button
                             kind="outline"
-                            handlePress={() => {
-                                navigateScreen(props, 'CarsDetailsForm')
-                                _addCar(formValues);
-                            }}
+                            handlePress={addNewCar}
                             content={t(`${createUserParking}.addNewCar`)}
                             colorOutline={dominant}
                         />
@@ -241,11 +276,13 @@ function CarsDetailsFormik(props) {
 
 const mapStateToProps = state => ({
     ...state,
-    cars: state.cars.cars
+    _cars: state.cars.cars,
+    _countNumCars: state.cars.countNumCars
 })
 
 const mapDispatchToProps = dispatch => ({
     _addCar: (car) => dispatch(actions.addCar(car)),
+    _setCountNumCars: (count) => dispatch(actions.setCountNumCars(count)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarsDetailsFormik)

@@ -12,12 +12,9 @@ import { useTranslation } from 'react-i18next';
 import { navigateScreen } from '../../routes/routes'
 import CarsDetailsFormik from './CarsDetailsFormik';
 import { connect } from 'react-redux';
+import { Car } from '../../models/Car.model';
 
 function CarsDetailsForm(props) {
-
-    const {
-        cars
-    } = props;
 
     const {
         t
@@ -27,13 +24,7 @@ function CarsDetailsForm(props) {
 
     const [checkBox, setCheckBox] = useState(false);
     const [cntParkings, setCntParkings] = useState(1);
-    const [formValues, setFormValues] = useState({
-        firstName: '',
-        lastName: '',
-        carKind: '',
-        carNum: '',
-        parkings: [{ parkingNum: '', floor: '', index: 0 }]
-    })
+    const [formValues, setFormValues] = useState(new Car())
 
     const setFormValuesFunc = (key, value) => {
         setFormValues({ ...formValues, [key]: value })
@@ -59,6 +50,7 @@ function CarsDetailsForm(props) {
                 {...props}
                 formValues={formValues}
                 setCntParkingsFunc={setCntParkingsFunc}
+                setFormValues={setFormValues}
                 setFormValuesFunc={setFormValuesFunc}
                 checkBox={checkBox}
                 setCheckBox={setCheckBox}
@@ -69,7 +61,7 @@ function CarsDetailsForm(props) {
 
 const mapStateToProps = state => ({
     ...state,
-    cars: state.cars.cars
+    _cars: state.cars.cars
 })
 
 const mapDispatchToProps = dispatch => ({

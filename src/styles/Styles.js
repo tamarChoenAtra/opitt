@@ -9,13 +9,16 @@ export default StyleSheet.create({
         backgroundColor: '#0A2550',
         flex: 1
     },
+    headerText:{
+
+    },
     headerWithTitle: {
         color: ligth,
         fontStyle: 'normal',
-        fontWeight: '900',
+        fontWeight: '500',
         fontSize: 30,
         textAlign: 'right',
-        alignSelf: 'flex-start',
+        alignSelf: 'flex-end',
         padding: 5
     },
     contentAuth: {

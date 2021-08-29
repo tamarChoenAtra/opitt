@@ -4,6 +4,8 @@ import {
     Text,
     StyleSheet,
     TextInput,
+    ScrollView,
+    Keyboard
 } from 'react-native';
 import styles from '../../styles/Styles';
 import { useTranslation } from 'react-i18next';
@@ -60,8 +62,10 @@ export default (props) => {
     return (
         <Dialog
             visible={visible}
+            setVisible={setVisible}
             title={t(`${authSMS2}.title`)}
             content={contentDialog()}
+            unableTouchOutside={true}
             closeHandlePress={() => setVisible(false)}
             buttons={[
                 {
@@ -144,14 +148,14 @@ const _styles = StyleSheet.create(
             fontWeight: 'bold',
             color: ligth
         },
-       
+
         dialogContent: {
             marginHorizontal: 10,
             marginVertical: '5%',
             zIndex: 1,
             backgroundColor: '#0A2550'
         },
-       
+
         title: {
             fontSize: 24,
             marginBottom: '2%'
