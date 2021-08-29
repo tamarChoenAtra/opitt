@@ -58,8 +58,8 @@ export default (props) => {
 
     return (
         <TouchableOpacity onPress={handlePress}>
-            <LinearGradient colors={getColor()} style={[_styles.linearGradientBtn, linearGradientBtn()]}>
-                <Text style={[styles.noteTxt, _styles.txtBtn]}>
+            <LinearGradient colors={getColor()} style={[_styles().linearGradientBtn, linearGradientBtn()]}>
+                <Text style={[styles.noteTxt, _styles(colorOutline).txtBtn]}>
                     {content}
                 </Text>
             </LinearGradient>
@@ -69,7 +69,7 @@ export default (props) => {
 }
 
 
-const _styles = StyleSheet.create({
+const _styles = (colorOutline) => StyleSheet.create({
     linearGradientBtn: {
         borderRadius: 50,
         alignContent: 'center',
@@ -78,7 +78,7 @@ const _styles = StyleSheet.create({
     },
     txtBtn: {
         fontWeight: 'bold',
-        color: 'white'
+        color: colorOutline ? colorOutline : 'white'
     },
     styleBtn: {
         width: 120,

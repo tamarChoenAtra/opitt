@@ -146,8 +146,9 @@ export const He = {
             emptyParkingsList: 'רשימת חניות פנויות',
             hourlyParkingPermit: 'אישור חניה שעתית',
             dailyParkingPermit: 'אישור חניה יומית',
-            activeDailyParking: 'חנייה יומית פעילה',
-            activeHourlyParking: 'חנייה שעתית פעילה',
+            activeDailyParking: 'חנייה יומית',
+            activeHourlyParking: 'חנייה שעתית',
+            active: ' פעילה',
             requestParkingForGuests: 'בקשת חנייה לאורחים'
         },
         unableToOpenGateDialog: {

@@ -19,6 +19,7 @@
     "@react-navigation/native-stack": "^6.0.3",
     "formik": "^2.2.9",
     "i18next": "^20.4.0",
+    "immer": "^9.0.5",
     "native-base": "^3.0.7",
     "react": "17.0.1",
     "react-i18next": "^11.11.4",

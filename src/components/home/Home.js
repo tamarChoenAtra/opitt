@@ -63,70 +63,71 @@ export default () => {
             <Header
                 headerRightElement={<Text>{returnTitle() + " דודי "}</Text>}
             />
-            <DropDown
-                array={dropDownArr}
-                txtNote={true}
-            // handleChange
-            />
-
+            <View style={{ paddingTop: 10 }}>
+                <DropDown
+                    array={dropDownArr}
+                    txtNote={true}
+                />
+            </View>
             <TouchableOpacity style={StyleFuncs.returnDarkBtnStyle()}>
-                <Row style={_styles.row}>
-                    <Text style={_styles.btnTxt}>{t(`${home}.notificationsList`)}</Text>
+                <Row style={_styles().row}>
+                    <Text style={_styles().btnTxt}>{t(`${home}.notificationsList`)}</Text>
                     <Notification />
                 </Row>
             </TouchableOpacity>
 
             <TouchableOpacity style={StyleFuncs.returnDarkBtnStyle()}>
-                <Row style={_styles.row}>
+                <Row style={_styles().row}>
                     <Gate />
-                    <Text style={_styles.btnTxt}>{t(`${home}.openGates`)}</Text>
+                    <Text style={_styles().btnTxt}>{t(`${home}.openGates`)}</Text>
                 </Row>
             </TouchableOpacity>
 
             <TouchableOpacity style={StyleFuncs.returnDarkBtnStyle()}>
-                <Row style={_styles.row}>
+                <Row style={_styles().row}>
                     <P />
-                    <Text style={_styles.btnTxt}>{t(`${home}.emptyParkingsList`)}</Text>
-                    <View style={_styles.avatarView}>
-                        <Text style={_styles.avatarTxt}>4</Text>
+                    <Text style={_styles().btnTxt}>{t(`${home}.emptyParkingsList`)}</Text>
+                    <View style={_styles().avatarView}>
+                        <Text style={_styles().avatarTxt}>4</Text>
                     </View>
                 </Row>
             </TouchableOpacity>
             <Row>
                 <TouchableOpacity
-                    style={[StyleFuncs.returnDarkBtnStyle('45%', 100), activeHourlyParking && _styles.activeBorder]}
+                    style={[StyleFuncs.returnDarkBtnStyle('45%', 120), activeHourlyParking && _styles().activeBorder]}
                     onPress={activeHourlyParkingFunc}
                 >
                     <Parking24h />
-                    <Text style={_styles.btnTxt}>
-                        {activeHourlyParking ? t(`${home}.activeHourlyParking`) : t(`${home}.hourlyParkingPermit`)}
+                    <Text style={_styles(10).btnTxt}>
+                        {activeHourlyParking ? <>{t(`${home}.activeHourlyParking`)}<Text style={_styles().active}>{t(`${home}.active`)}</Text></> : t(`${home}.hourlyParkingPermit`)}
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={[StyleFuncs.returnDarkBtnStyle('45%', 100), activeDailyParking && _styles.activeBorder]}
+                    style={[StyleFuncs.returnDarkBtnStyle('45%', 120), activeDailyParking && _styles().activeBorder]}
                     onPress={activeDailyParkingFunc}
                 >
                     <Calendar />
-                    <Text style={_styles.btnTxt}>
-                        {activeDailyParking ? t(`${home}.activeDailyParking`) : t(`${home}.dailyParkingPermit`)}
+                    <Text style={_styles(10).btnTxt}>
+                        {activeDailyParking ? <>{t(`${home}.activeDailyParking`)}<Text style={_styles().active}>{t(`${home}.active`)}</Text></> : t(`${home}.dailyParkingPermit`)}
                     </Text>
                 </TouchableOpacity>
             </Row>
             <TouchableOpacity style={StyleFuncs.returnDarkBtnStyle()}>
                 <Row style={{ alignSelf: 'center', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={_styles.btnTxt}>{t(`${home}.openGates`)}</Text>
+                    <Text style={_styles().btnTxt}>{t(`${home}.requestParkingForGuests`)}</Text>
                 </Row>
             </TouchableOpacity>
         </>
     )
 }
 
-const _styles = StyleSheet.create({
+const _styles = (paddingTop) => StyleSheet.create({
     btnTxt: {
         color: dominantLight,
         fontFamily: Bold,
         fontSize: 18,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        paddingTop
     },
     avatarView: {
         backgroundColor: ligthDominant,
@@ -135,6 +136,9 @@ const _styles = StyleSheet.create({
         borderRadius: 50,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    active: {
+        color: ligthDominant
     },
     avatarTxt: {
         color: 'black',

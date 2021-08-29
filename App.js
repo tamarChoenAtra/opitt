@@ -10,8 +10,6 @@ import DevService from './src/services/dev.service';
 function App() {
 
   useEffect(() => {
-    Text.defaultProps = Text.defaultProps || {}
-    // Text.defaultProps.style =  { fontFamily: 'Assistant' }
     DevService.setDevOption();
   }, [])
 

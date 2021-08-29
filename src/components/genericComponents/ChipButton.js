@@ -13,6 +13,7 @@ export default (props) => {
 
     return (
         <TouchableOpacity
+            activeOpacity={0.7}
             onPress={handlePress}
             style={_styles.closeIcon}
         >

@@ -19,10 +19,10 @@ export default () => {
 
     return (
         <>
-            {/* <UnableToOpenGateDialog
+            <UnableToOpenGateDialog
                 visible={visible}
                 setVisible={setVisible}
-            /> */}
+            />
             {/* <GateOpenSuccessDialog
                 visible={visible}
                 setVisible={setVisible}

@@ -23,7 +23,8 @@ export default (props) => {
         array,
         handleChange,
         txtNote,
-        lines
+        lines,
+        border
     } = props;
 
     const [list, setList] = useState([]);
@@ -56,10 +57,10 @@ export default (props) => {
                 onPress={() => changeLanuage(item)}
                 activeOpacity={0.6}
                 key={index}
-                style={_styles.listItem}>
+                style={_styles().listItem}>
                 {
                     <View
-                        style={_styles.icon}>
+                        style={_styles().icon}>
                         {
                             index === 0
                                 ?
@@ -72,28 +73,28 @@ export default (props) => {
                         }
                     </View>
                 }
-                <View style={_styles.listWrapper}>
+                <View style={_styles().listWrapper}>
                     <View>
                         <Text
-                            // numberOfLines={1}
-                            style={txtNote && index != 0 ? _styles.txtNote : _styles.listNameText}>{item.item}</Text>
+                            numberOfLines={1}
+                            style={txtNote && index != 0 ? _styles().txtNote : _styles().listNameText}>{item.item}</Text>
                     </View>
                     {
                         flagOpen
                         &&
                         lines &&
-                        <View style={[_styles.devider]}></View>
+                        <View style={[_styles().devider]}></View>
                     }
                 </View>
-                <View style={_styles.emptyView} />
+                <View style={_styles().emptyView} />
             </TouchableOpacity>
         )
     }
 
     return (
         <View
-            style={_styles.wrap}>
-            <View style={_styles.wrapFlatList}>
+            style={_styles().wrap}>
+            <View style={_styles(border).wrapFlatList}>
                 {
                     list.length
                         ?
@@ -113,7 +114,7 @@ export default (props) => {
 }
 
 
-const _styles = StyleSheet.create(
+const _styles = (border) => StyleSheet.create(
     {
         wrap: {
             alignItems: 'center',
@@ -127,7 +128,7 @@ const _styles = StyleSheet.create(
         },
         wrapFlatList: {
             width: '50%',
-            borderWidth: 1,
+            borderWidth: border ? 1 : 0,
             borderColor: ligth,
             borderRadius: 8,
             backgroundColor: '#05163C'
@@ -135,7 +136,7 @@ const _styles = StyleSheet.create(
         icon: {
             flex: 0.9,
             alignItems: 'flex-end',
-            paddingRight: 5
+            paddingRight: 10
         },
         emptyView: {
             flex: 0.9,

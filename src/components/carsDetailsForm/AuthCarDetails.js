@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     TouchableOpacity,
     Text,
     TextInput,
     View,
-    StyleSheet
+    StyleSheet,
+    ScrollView
 } from 'react-native';
 import ArrowBack from '../../assets/arrowBack.svg';
 import styles from '../../styles/Styles';
@@ -13,21 +14,26 @@ import i18 from '../../i18/i18n';
 import { useTranslation } from 'react-i18next';
 import BigDelete from '../../assets/svg/bigDelete.svg'
 import Edit from '../../assets/svg/edit.svg'
-import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
+import Button from '../genericComponents/Button';
 import { navigateScreen } from '../../routes/routes';
+import DeleteCarDialog from '../dialog/DeleteCar.dialog';
+import { connect } from 'react-redux';
 
-export default (props) => {
+function AuthCarDetails(props) {
 
-    const authCarDetails = 'authCarDetails'.toString();
     const {
         t
     } = useTranslation();
 
     const {
-        route
+        route,
+        _cars
     } = props;
 
-    console.log(route.params);
+    const authCarDetails = 'authCarDetails'.toString();
+    const [visible, setVisible] = useState(false);
+    const [itemDeleteOrEdit, setItemDeleteOrEdit] = useState({});
+
     return (
         <>
             <Header
@@ -40,42 +46,72 @@ export default (props) => {
             <Text style={styles.title}>
                 {i18.t(`${authCarDetails}.title`)}
             </Text>
+
             <Text style={_styles.indexCarTxt}>{t(`${authCarDetails}.indexCard`) + " 1:"}</Text>
-            <View style={styles.rowDirection}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <TouchableOpacity>
-                        <View style={[_styles.actCircle, { backgroundColor: "#0F3879" }]}>
-                            <Edit width={20} height={20} />
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ flex: 3, }}>
 
-                    <TextInput
-                        editable={false}
-                        style={[styles.input, { width: '100%', alignSelf: 'center' }]}
-                        placeholder={route.params.carKind + route.params.carNum}
-                    />
-                </View>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <TouchableOpacity>
-                        <View style={[_styles.actCircle, { backgroundColor: "#0F5679" }]}>
-                            <BigDelete width={20} height={20} />
-                        </View>
-                    </TouchableOpacity>
-                </View>
+            <ScrollView>
+                {
+                    _cars.map((car) =>
+                        <View style={styles.rowDirection}>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <TouchableOpacity>
+                                    <View style={[_styles.actCircle, { backgroundColor: "#0F3879" }]}>
+                                        <Edit width={20} height={20} />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flex: 3, }}>
 
-            </View>
+                                <TextInput
+                                    editable={false}
+                                    style={[styles.input, { width: '100%', alignSelf: 'center' }]}
+                                    placeholder={route.params.carKind + route.params.carNum}
+                                />
+                            </View>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <TouchableOpacity onPress={() => setVisible(true)}>
+                                    <View style={[_styles.actCircle, { backgroundColor: "#0F5679" }]}>
+                                        <BigDelete width={20} height={20} />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+                    )
+                }
+            </ScrollView>
+
             <Text style={_styles.indexCarTxt}>{t(`${authCarDetails}.numParkings`) + ":"}</Text>
 
-            <LinearGradientBtn
-                style={{ width: 200, height: 60, alignSelf: 'center', marginTop: 15 }}
-                content={<Text style={[styles.noteTxt, { fontWeight: 'bold', color: 'white' }]}>{t(`${authCarDetails}.continue`)}</Text>}
+            <View style={styles.placeCenter}>
+                <Button
+                    handlePress={() => setItemDeleteOrEdit()}
+                    content={t(`${authCarDetails}.continue`)}
+                    width={180}
+                    size="large"
+                />
+            </View>
+
+            <DeleteCarDialog
+                handlePress={() => { }}
+                visible={visible}
+                setVisible={setVisible}
             />
 
         </>
     )
 }
+
+const mapStateToProps = state => ({
+    ...state,
+    _cars: state.cars.cars
+})
+
+const mapDispatchToProps = dispatch => ({
+    // setStyleCard: (style) => dispatch(actions.setStyleCard(style)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthCarDetails);
 
 const _styles = StyleSheet.create(
     {
@@ -83,7 +119,7 @@ const _styles = StyleSheet.create(
             color: 'white',
             fontSize: 20,
             textAlign: 'center',
-            marginTop: '5%'
+            marginVertical: '5%'
         },
         actCircle: {
             width: 45,

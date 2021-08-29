@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
     Text,
@@ -30,10 +30,11 @@ export default (props) => {
     const authSMS1 = 'authSMS1'.toString();
     const form = 'form'.toString();
 
+    const inputRef = useRef([]);
     const [visible, setVisible] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState({
-        areaCode: null,
-        code: null
+        areaCode: 0,
+        code: 0
     });
 
     const navigateTerms = () => {
@@ -44,15 +45,25 @@ export default (props) => {
         setPhoneNumber({ ...phoneNumber, [key]: value })
     }
 
-    const textInput = (value, placeholder, alignment, key) =>
+    const handler = (idx) => {
+        !idx && inputRef.current[idx + 1].focus();
+    };
+
+    const textInput = (placeholder, alignment, key, placeholderTextColor, maxLength, index) =>
         <TextInput
-            onChangeText={(value) => setPhoneNumberFunc(key, value)}
+            onChangeText={(value) => {
+                value.length === 3 && handler(index)
+                setPhoneNumber(value)
+            }}
             borderColor="#FFFFFF"
             selectionColor="#FFFFFF"
             style={[_styles.textInput, alignment && _styles.textAlignCenter]}
-            placeholderTextColor="#FFFFFF99"
+            placeholderTextColor={placeholderTextColor.toString()}
             placeholder={placeholder}
-            value={phoneNumber[key] || value}
+            maxLength={maxLength}
+            keyboardType="numeric"
+            autoFocus={index === 0}
+            ref={el => inputRef.current[index] = el}
         />
 
     return (
@@ -77,11 +88,27 @@ export default (props) => {
 
                     <View style={_styles.wrapInput}>
                         <View style={_styles.input1}>
-                            {textInput('+972', '', 'center', 'areaCode')}
+                            {
+                                textInput(
+                                    '+972',
+                                    'center',
+                                    'areaCode',
+                                    ligth,
+                                    3,
+                                    0)
+                            }
                         </View>
                         <View style={{ flex: 0.3 }}></View>
                         <View style={_styles.input2}>
-                            {textInput('', t(`${form}.phoneNumber`, '', 'code'))}
+                            {
+                                textInput(
+                                    t(`${form}.phoneNumber`),
+                                    '',
+                                    'code',
+                                    '#FFFFFF99',
+                                    7,
+                                    1)
+                            }
                         </View>
                     </View>
 
@@ -101,7 +128,7 @@ export default (props) => {
                             handlePress={() => setVisible(true)}
                             content={t(`${authSMS1}.submit`)}
                             width={130}
-                            // size={buttons[0].size}
+                        // size={buttons[0].size}
                         />
                     </View>
 
@@ -146,7 +173,7 @@ const _styles = StyleSheet.create(
             height: 40,
             color: ligth,
             borderBottomWidth: 0.5,
-            fontSize: 18,
+            fontSize: 20,
         },
         textAlignCenter: {
             textAlign: 'center'

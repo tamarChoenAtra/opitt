@@ -14,36 +14,47 @@ import P from '../../assets/svg/footer/p.svg'
 import Gate from '../../assets/svg/footer/gate.svg'
 import Message from '../../assets/svg/footer/message.svg'
 import { useTranslation } from 'react-i18next';
+import { navigateScreen } from '../../routes/routes';
 
-export default () => {
+export default (props) => {
     const footer = 'footer'.toString();
     const { t } = useTranslation();
     const [index, setIndex] = useState(-1);
+    const handlePressTab = (item) => {
+        setIndex(item.index)
+        navigateScreen(props, item.item.navigate)
+    }
+
     const footerIcons = [
         {
             name: "tab1",
             icon: <Settings />,
-            title: t(`${footer}.tab1`)
+            title: t(`${footer}.tab1`),
+            navigate: 'Settings',
         },
         {
             name: "tab2",
             icon: <Message style={_styles.message} />,
-            title: t(`${footer}.tab2`)
+            title: t(`${footer}.tab2`),
+            navigate: 'Messages',
         },
         {
             name: "tab3",
             icon: <P />,
-            title: t(`${footer}.tab3`)
+            title: t(`${footer}.tab3`),
+            navigate: 'Parkings',
         },
         {
             name: "tab4",
             icon: <Gate />,
-            title: t(`${footer}.tab4`)
+            title: t(`${footer}.tab4`),
+            navigate: 'Gate',
         },
         {
             name: "tab5",
             icon: <Home />,
-            title: t(`${footer}.tab5`)
+            title: t(`${footer}.tab5`),
+            navigate: 'Home',
         },
     ]
 
@@ -54,9 +65,7 @@ export default () => {
                     horizontal
                     data={footerIcons}
                     renderItem={item =>
-                        <TouchableOpacity onPress={() =>
-                            setIndex(item.index)
-                        }
+                        <TouchableOpacity onPress={() => handlePressTab(item)}
                             style={_styles.tab}
                         >
                             {/* {item.item.name == "tab2" ? <><View style={{ width: 20, height: 20, backgroundColor: '#FFC803', zIndex: 1, bottom: 0, }}></View>
