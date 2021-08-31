@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import {
     ligth
 } from '../styles/SystemColor';
@@ -9,7 +9,7 @@ export default StyleSheet.create({
         backgroundColor: '#0A2550',
         flex: 1
     },
-    headerText:{
+    headerText: {
 
     },
     headerWithTitle: {
@@ -58,7 +58,11 @@ export default StyleSheet.create({
     rowDirection: {
         flexDirection: 'row',
         alignItems: 'center',
-        direction: 'rtl'
+        direction: 
+        // Platform.OS === 'android' ? 
+        // 'ltr' 
+        // : 
+        'rtl'
     },
     // leftItem: {
     //     flex: 1,

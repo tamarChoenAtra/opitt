@@ -7,7 +7,6 @@ import styles from '../styles/Styles';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
-
 import InitComponent from '../components/initComponent/InitComponent';
 import CarsDetailsForm from '../components/carsDetailsForm/CarsDetailsForm';
 import FirstScreen from '../components/firstScreen/FirstScreen';
@@ -93,7 +92,7 @@ export const Routes = () => {
                     screenOptions={{
                         headerShown: false
                     }}
-                    initialRouteName="Auth3"
+                    initialRouteName="FirstScreen"
                 >
                     <Stack.Screen
                         name="CarsDetailsForm"

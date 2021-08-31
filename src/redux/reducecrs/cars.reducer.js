@@ -33,7 +33,7 @@ const cars = {
         }
     },
     deleteCar(state, action) {
-        state.cars = state.cars.forEach(car => car._id != action.payload);
+        state.cars = state.cars.filter(car =>  car._id != action.payload);
     },
     setCountNumParking(state, action) {
         state.countNumParking = action.payload;
