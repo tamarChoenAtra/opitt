@@ -18,7 +18,7 @@ export default (props) => {
         content,
         //outline button
         smallborderWidth,
-        colorOutline
+        colorOutline,
     } = props;
 
     const sizeButton = () => {
@@ -84,6 +84,7 @@ const _styles = (colorOutline) => StyleSheet.create({
         width: 120,
         height: 50,
         paddingHorizontal: 20,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        alignSelf: 'auto'
     }
 })

@@ -21,6 +21,7 @@ export default (props) => {
         content,
         visible,
         setVisible,
+        unableTouchOutside,
         closeHandlePress
     } = props;
 

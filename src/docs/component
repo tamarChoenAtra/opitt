@@ -5,13 +5,13 @@ Button
 - display button in two color - 
 outline and gradient
 props:
-        kind,
         handlePress,
-        size,
+        size - large:55 ,small : 45 , default:50
         width,
         content,
 
         //outline button
+        kind,
         smallborderWidth,
         colorOutline
 
@@ -39,3 +39,8 @@ props:
              item
        }
        handleChange (return item) 
+
+ChipButton
+- display chip button with clone icon
+props:
+       handlePress

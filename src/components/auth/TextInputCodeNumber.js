@@ -2,7 +2,8 @@ import React, { useRef, useState } from 'react';
 import {
     TextInput,
     StyleSheet,
-    View
+    View,
+    Keyboard
 } from 'react-native';
 import { ligth } from '../../styles/SystemColor';
 
@@ -20,6 +21,8 @@ export default (props) => {
         if (next) {
             next.focus()
         }
+        if (idx + 1 === 6)
+            Keyboard.dismiss()
     };
 
     const textInput = (index) =>

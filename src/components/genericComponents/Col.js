@@ -4,17 +4,17 @@ import { StyleSheet, View } from 'react-native';
 export default (props) => {
     return (
         <>
-            <View style={[_styles.col, { flex: props.cols }, props.style]}>
+            <View style={[_styles(props.cols).col, props.style]}>
                 {props.children}
             </View>
         </>
     )
 }
 
-const _styles = StyleSheet.create(
+const _styles = (flex) => StyleSheet.create(
     {
         col: {
-            flex: 0,
+            flex
         }
     }
 )

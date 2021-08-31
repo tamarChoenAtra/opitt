@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
     FlatList,
@@ -19,40 +18,45 @@ import { navigateScreen } from '../../routes/routes';
 export default (props) => {
     const footer = 'footer'.toString();
     const { t } = useTranslation();
-    const [index, setIndex] = useState(-1);
+    const [index, setIndex] = useState(4);
     const handlePressTab = (item) => {
         setIndex(item.index)
         navigateScreen(props, item.item.navigate)
     }
 
+    const returnIcon = (item) => {
+        let Icon = item.item.icon
+        return <Icon fill={index == item.index ? '#FFC803' : 'white'} />;
+    }
+
     const footerIcons = [
         {
             name: "tab1",
-            icon: <Settings />,
+            icon: Settings,
             title: t(`${footer}.tab1`),
-            navigate: 'Settings',
+            navigate: 'MySettings',
         },
         {
             name: "tab2",
-            icon: <Message style={_styles.message} />,
+            icon: Message,
             title: t(`${footer}.tab2`),
             navigate: 'Messages',
         },
         {
             name: "tab3",
-            icon: <P />,
+            icon: P,
             title: t(`${footer}.tab3`),
             navigate: 'Parkings',
         },
         {
             name: "tab4",
-            icon: <Gate />,
+            icon: Gate,
             title: t(`${footer}.tab4`),
             navigate: 'Gate',
         },
         {
             name: "tab5",
-            icon: <Home />,
+            icon: Home,
             title: t(`${footer}.tab5`),
             navigate: 'Home',
         },
@@ -68,13 +72,7 @@ export default (props) => {
                         <TouchableOpacity onPress={() => handlePressTab(item)}
                             style={_styles.tab}
                         >
-                            {/* {item.item.name == "tab2" ? <><View style={{ width: 20, height: 20, backgroundColor: '#FFC803', zIndex: 1, bottom: 0, }}></View>
-                                {item.item.icon}
-                            </>
-                                :  */}
-                            {item.item.icon}
-                            {/* } */}
-
+                            {returnIcon(item)}
                             <Text style={_styles.footerTxt}>{item.item.title}</Text>
                         </TouchableOpacity>
                     }

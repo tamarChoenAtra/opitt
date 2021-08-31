@@ -19,7 +19,7 @@ export default ({ headerRightElement }) => {
                 <Col cols={1} style={_styles.leftCol}>
                     <Logo />
                 </Col>
-                <Col cols={1} style={_styles.rightCol}>
+                <Col cols={3} style={_styles.rightCol}>
                     {headerRightElement}
                 </Col>
             </Row>

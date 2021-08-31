@@ -18,8 +18,9 @@ import Parking24h from '../../assets/svg/parking24h.svg';
 import Calendar from '../../assets/svg/calendar.svg';
 import StyleFuncs from '../../styles/StyleFuncs';
 import DropDown from '../dropdwon/DropDown';
+import { navigateScreen } from '../../routes/routes';
 
-export default () => {
+export default (props) => {
     const { t } = useTranslation();
     const home = 'home'.toString();
     const [activeDailyParking, setActiveDailyParking] = useState(false);
@@ -43,7 +44,7 @@ export default () => {
         else if (hour > 11 && hour < 16)
             return t(`${home}.titleNoon`)
         else if (hour > 15 && hour < 19)
-            return t(`${home}.titleAfterNoon`)
+            return t(`${home}.titleAfternoon`)
         else if (hour > 18 && hour < 21)
             return t(`${home}.titleEvening`)
         else
@@ -83,7 +84,12 @@ export default () => {
                 </Row>
             </TouchableOpacity>
 
-            <TouchableOpacity style={StyleFuncs.returnDarkBtnStyle()}>
+            <TouchableOpacity
+                onPress={() => {
+                    navigateScreen(props, 'RequestParkingList')
+                }}
+                style={StyleFuncs.returnDarkBtnStyle()}
+            >
                 <Row style={_styles().row}>
                     <P />
                     <Text style={_styles().btnTxt}>{t(`${home}.emptyParkingsList`)}</Text>
@@ -112,9 +118,14 @@ export default () => {
                     </Text>
                 </TouchableOpacity>
             </Row>
-            <TouchableOpacity style={StyleFuncs.returnDarkBtnStyle()}>
-                <Row style={{ alignSelf: 'center', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={_styles().btnTxt}>{t(`${home}.requestParkingForGuests`)}</Text>
+            <TouchableOpacity
+                style={StyleFuncs.returnDarkBtnStyle()}
+                onPress={() => {
+                    navigateScreen(props, 'ReservedParkingsList')
+                }}
+            >
+                <Row style={_styles().row}>
+                    <Text style={_styles().btnTxt}>{t(`${home}.reservedParkingsList`)}</Text>
                 </Row>
             </TouchableOpacity>
         </>

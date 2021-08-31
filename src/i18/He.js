@@ -45,11 +45,8 @@ export const He = {
             parkingPermitForHour: 'אישור חנייה שעתית',
             parkingPermitForDay: 'אישור חנייה יומית',
             prkingRequest: 'בקשת חנייה לאורחים',
-
-
-
-
         },
+
         deleteParking: {
             title: '?האם ברצונך למחוק חנייה זו',
             details: 'לאחר המחיקה החנייה תמחק מרשימת החניות השמורות והאורח לא יוכל לחנות בחנייה זו',
@@ -84,6 +81,11 @@ export const He = {
             indexCard: 'רכב מספר',
             continue: 'המשך/י לתשלום',
             numParkings: 'סה"כ חניות',
+        },
+        authCarDetailsBeforeContinue: {
+            title: 'נא וודא שאלו הפרטים הנכונים',
+            details: 'סה״כ חנויות שברשותי:',
+            submit: 'המשך/י לתשלום'
         },
         authSMS2: {
             title: 'אימות מספר טלפון',
@@ -149,7 +151,8 @@ export const He = {
             activeDailyParking: 'חנייה יומית',
             activeHourlyParking: 'חנייה שעתית',
             active: ' פעילה',
-            requestParkingForGuests: 'בקשת חנייה לאורחים'
+            requestParkingForGuests: 'בקשת חנייה לאורחים',
+            reservedParkingsList: 'רשימת חניות שמורות',
         },
         unableToOpenGateDialog: {
             title: 'אין אפשרות לפתוח שער',
@@ -236,8 +239,57 @@ export const He = {
             details2: 'אינו בשימוש זמן רב , האם ברצונך למחוק רכב זה?',
             submit: 'אישור',
             cancel: 'ביטול'
+        },
+        settings: {
+            title: 'הגדרות',
+            generalManagement: 'ניהול כללי',
+            accountManagement: 'ניהול חשבון',
+            history: 'הסטוריה',
+            carNumberManagement: 'ניהול מספרי רכב',
+            administratorPrivileges: 'הרשאות מנהל',
+            termsAndPrivacy: 'תקנון ופרטיות',
+            contactUs: 'צור קשר',
+            logOut: 'התנתק'
+        },
+        requestParkingList: {
+            requestParkingList: 'רשימת בקשות חנייה',
+            parkingTo: 'חנייה ל',
+            today: 'היום',
+            tomorrow: 'מחר',
+            family: 'משפחת ',
+            homeNum: 'דירה ',
+            parkingPermit: 'אישור חנייה'
+        },
+        reservedParkingsList: {
+            reservedParkingsList: 'רשימת חניות שמורות',
+            subTitle: 'להלן רשימת החניות ששמרת לאורחים שלך:',
+            fromDay: 'מיום ',
+            toDay: 'עד יום ',
+            floor: 'קומה ',
+            numParking: 'חנייה מספר ',
+            family: 'משפחת '
+        },
+        parking: {
+            title: 'חנייה בבניין',
+            requestParkingForGuests: 'בקשת חנייה לאורחים',
+            requestParkingForToday: 'בקשת חנייה להיום',
+            requestParkingForTomorrow: 'בקשת חנייה למחר',
+            hourlyParkingPermit: 'אישור חניה שעתית',
+            subTitle1: 'אפשרות לחנות בחנייתך לפי שעות',
+            dailyParkingPermit: 'אישור חניה יומית',
+            subTitle2: 'אפשרות לחנות בחנייתך לפי ימים',
+            emptyParkings: 'חניות פנויות - לרשימה המלאה',
+            guestsList: 'רשימת האורחים שלך'
+        },
+        hourlyParkingPermit: {
+            parkingDefinition: 'הגדרת חנייה',
+            till24Hours: '(עד 24 שעות)',
+            hour: 'שעה',
+            hours2: 'שעתיים',
+            hours: 'שעות',
+            chooseParkingNum: 'בחר מספר חנייה',
+            send: 'שלח'
         }
-
 
     }
 }

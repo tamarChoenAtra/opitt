@@ -6,6 +6,7 @@ import {
 import styles from '../styles/Styles';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+
 import InitComponent from '../components/initComponent/InitComponent';
 import CarsDetailsForm from '../components/carsDetailsForm/CarsDetailsForm';
 import FirstScreen from '../components/firstScreen/FirstScreen';
@@ -22,9 +23,15 @@ import WrapHome from '../components/home/WrapHome';
 import Home from '../components/home/Home';
 import TryDialog from '../components/dialog/TryDialog';
 import Settings from '../components/settings/Settings';
+import Setting from '../components/settings/Setting';
 import Gate from '../components/gate/Gate';
 import Parkings from '../components/parkings/Parkings';
 import Messages from '../components/messages/Messages';
+import AuthCarDetailsBeforeContinue from '../components/carsDetailsForm/AuthCarDetailsBeforeContinue';
+import Auth3 from '../components/auth/Auth3';
+import RequestParkingList from '../components/home/RequestParkingList';
+import ReservedParkingsList from '../components/home/ReservedParkingsList';
+import Try1 from '../components/home/Try1';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,25 +55,37 @@ const addStaticBackground = (props, Component) => {
     )
 }
 
-export const RoutesApp = () => {
+export const RoutesApp = (props) => {
     return (
         <>
             <Stack.Navigator
                 screenOptions={{
                     headerShown: false
                 }}
-                initialRouteName="Home"
+                initialRouteName="WarpHome"
             >
                 <Stack.Screen
                     name="Home"
                     component={
                         (props) => addStaticBackground(props, Home)
+                    } />
+                <Stack.Screen
+                    name="RequestParkingList"
+                    component={
+                        (props) => addStaticBackground(props, RequestParkingList)
                     }
                 />
                 <Stack.Screen
-                    name="Settings"
+                    name="ReservedParkingsList"
                     component={
-                        (props) => addStaticBackground(props, Settings)
+                        (props) => addStaticBackground(props, ReservedParkingsList)
+                    }
+                />
+
+                <Stack.Screen
+                    name="MySettings"
+                    component={
+                        (props) => addStaticBackground(props, Setting)
                     }
                 />
                 <Stack.Screen
@@ -87,7 +106,6 @@ export const RoutesApp = () => {
                         (props) => addStaticBackground(props, Gate)
                     }
                 />
-
             </Stack.Navigator>
         </>
     )
@@ -116,16 +134,31 @@ export const Routes = () => {
                             (props) => addStaticBackground(props, CarsDetailsForm)
                         }
                     />
+
                     <Stack.Screen
-                        name="TryDialog"
+                        name="Auth3"
                         component={
-                            (props) => addStaticBackground(props, TryDialog)
+                            (props) => addStaticBackground(props, Auth3)
+                        }
+                    />
+
+                    <Stack.Screen
+                        name="Setting"
+                        component={
+                            (props) => addStaticBackground(props, Setting)
+                        }
+                    />
+
+                    <Stack.Screen
+                        name="AuthCarDetailsBeforeContinue"
+                        component={
+                            (props) => addStaticBackground(props, AuthCarDetailsBeforeContinue)
                         }
                     />
                     <Stack.Screen
-                        name="PaymentStage1"
+                        name="InitComponent"
                         component={
-                            (props) => addStaticBackground(props, PaymentStage1)
+                            (props) => addStaticBackground(props, InitComponent)
                         }
                     />
                     <Stack.Screen
@@ -150,12 +183,7 @@ export const Routes = () => {
                             (props) => addStaticBackground(props, AuthCarDetails)
                         }
                     />
-                    <Stack.Screen
-                        name="InitComponent"
-                        component={
-                            (props) => addStaticBackground(props, InitComponent)
-                        }
-                    />
+
                     <Stack.Screen
                         name="Footer"
                         component={
@@ -181,15 +209,21 @@ export const Routes = () => {
                         }
                     />
                     <Stack.Screen
-                        name="Error"
+                        name="TryDialog"
                         component={
-                            (props) => addStaticBackground(props, Error)
+                            (props) => addStaticBackground(props, TryDialog)
                         }
                     />
                     <Stack.Screen
                         name="Auth2"
                         component={
                             (props) => addStaticBackground(props, Auth2)
+                        }
+                    />
+                    <Stack.Screen
+                        name="Settings"
+                        component={
+                            (props) => addStaticBackground(props, Settings)
                         }
                     />
                 </Stack.Navigator>

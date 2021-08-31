@@ -13,7 +13,8 @@ export default (props) => {
 
     const {
         visible,
-        setVisible
+        setVisible,
+        handlePress
     } = props;
 
     const {
@@ -31,13 +32,15 @@ export default (props) => {
     return (
         <Dialog
             visible={visible}
+            setVisible={setVisible}
             title={t(`${deleteCar}.title`)}
             closeHandlePress={() => setVisible(false)}
             content={contentDialog()}
             buttons={[
                 {
-                    handlePress: () => {
-                        setVisible(false);
+                    handlePress: async () => {
+                        await setVisible(false);
+                        handlePress();
                     },
                     body: t(`${deleteCar}.submit`),
                     width: 130,
