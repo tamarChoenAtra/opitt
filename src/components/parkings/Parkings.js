@@ -15,15 +15,24 @@ import { dark, dominant, dominantLight, ligthDominant } from '../../styles/Syste
 import styles from '../../styles/Styles';
 import { Regular } from '../../styles/SystemFonts';
 import HourlyParkingPermit from './HourlyParkingPermit';
+import AnimatedView from '../genericComponents/AnimatedView';
+import ConfirmedParkingDetails from './ConfirmedParkingDetails';
+import TransparentBtn from '../genericComponents/TransparentBtn';
 
 export default () => {
     const parking = 'parking'.toString();
     const { t } = useTranslation();
     const [switchHourlyParking, setSwitchHourlyParking] = useState(false)
     const [switchDailyParking, setSwitchDailyParking] = useState(false)
+    const [closeDialog, setCloseDialog] = useState(false);
+    const [pressedBtn, setPressedBtn] = useState(0);
 
     const toggleSwitchHourlyParking = () => setSwitchHourlyParking(previousState => !previousState);
     const toggleSwitchDailyParking = () => setSwitchHourlyParking(previousState => !previousState);
+
+    const handlePress = (event) => {
+        console.log(event);
+    }
 
     return (
         <>
@@ -40,21 +49,24 @@ export default () => {
                     </Text>
                 </Col>
 
-                <Row>
+                <Row >
                     <Col cols={1}>
-                        <Button
-                            kind={'outline'}
+                        <TransparentBtn
+                            handlePress={handlePress}
                             content={t(`${parking}.requestParkingForToday`)}
-                            colorOutline={dominant}
+                            color={"#FFC803"}
+                            fill={true}
+                            size={'small'}
                         />
                     </Col>
                     <Col cols={1}>
-                        <Button
-                            kind={'outline'}
+                        <TransparentBtn
                             content={t(`${parking}.requestParkingForTomorrow`)}
-                            colorOutline={dominant}
-                            borderRadius={10}
+                            color={"#FFC803"}
+                            fill={false}
                             size={'small'}
+                            handlePress={handlePress}
+
                         />
                     </Col>
 
@@ -63,16 +75,17 @@ export default () => {
             <View style={styles.headerBottomDivider}></View>
             <View style={_styles().permitView}>
                 <Row>
-                    <Col cols={1}>
+                    <Col cols={1} >
                         <Row>
                             <Text>{t(`${parking}.hourlyParkingPermit`)}</Text>
                         </Row>
-                        <Row>
-                            {switchHourlyParking ?
-                                <HourlyParkingPermit /> :
-                                <Text>{t(`${parking}.subTitle1`)}</Text>
-                            }
-                        </Row>
+                        {!switchHourlyParking &&
+                            <AnimatedView>
+                                <Row>
+                                    <Text>{t(`${parking}.subTitle1`)}</Text>
+                                </Row>
+                            </AnimatedView>
+                        }
                     </Col>
                     <Col cols={1} style={_styles().switch}>
                         <Switch
@@ -82,7 +95,16 @@ export default () => {
                             thumbColor={switchHourlyParking ? 'black' : '#FFFFFF'}
                         />
                     </Col>
+
                 </Row>
+                <HourlyParkingPermit
+                    visible={switchHourlyParking}
+                    setCloseDialog={setCloseDialog}
+                    closeDialog={closeDialog}
+                />
+                <ConfirmedParkingDetails
+                    visible={closeDialog && switchHourlyParking}
+                />
             </View>
             <View style={styles.headerBottomDivider}></View>
 

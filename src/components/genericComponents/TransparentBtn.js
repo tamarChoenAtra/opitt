@@ -1,44 +1,22 @@
-import LinearGradient from "react-native-linear-gradient";
+import React from 'react';
 import {
-    StyleSheet,
     TouchableOpacity,
-    Text
-} from "react-native";
-import React from "react";
-import { dominant } from "../../styles/SystemColor";
-import styles from '../../styles/Styles';
+    Text,
+    StyleSheet
+} from 'react-native';
+import { Regular } from '../../styles/SystemFonts';
 
 export default (props) => {
-
     const {
+        handlePress,
         content,
+        color,
+        fill,
+        txtColor,
         size,
         width,
-        small,
-        color,
-        handlePress,
-        smallborderWidth
+        accessibilityValue
     } = props;
-
-    const txtBtn = () => {
-        return {
-            fontWeight: 'bold',
-            color: color
-        }
-    }
-
-    const linearGradientBtn = () => {
-
-        return {
-            height: sizeButton(),
-            width: width && width,
-            paddingHorizontal: 20,
-            marginHorizontal: 10,
-            borderColor: color,
-            borderWidth: smallborderWidth ? 0.5 : 1,
-
-        }
-    }
 
     const sizeButton = () => {
         switch (size) {
@@ -51,33 +29,48 @@ export default (props) => {
         }
     }
 
+    const btnStyle = () => {
+        return {
+            height: sizeButton(),
+            backgroundColor: fill ? color : 'transparent',
+            borderColor: color,
+            borderWidth: 1,
+            borderRadius: 15,
+            width: width ? width : 170,
+        }
+    }
+
+    const txtStyle = () => {
+        return {
+            color: fill ? 'black' : 'white',
+
+        }
+    }
+
     return (
-        <TouchableOpacity
-            // style={outLineBtn()}
-            onPress={handlePress}
-        >
-            <LinearGradient colors={['transparent',"transparent"]} style={[_styles.linearGradientBtn, linearGradientBtn()]}>
-                <Text style={[styles.noteTxt, txtBtn()]}>{content}</Text>
-            </LinearGradient>
-        </TouchableOpacity>
+        <>
+            <TouchableOpacity
+                onPress={handlePress}
+                style={[_styles().btn, btnStyle()]}
+            // accessibilityValue={accessibilityValue}
+            >
+                <Text style={[_styles().txt, txtStyle()]}>
+                    {content}
+                </Text>
+            </TouchableOpacity>
+        </>
     )
 }
 
-const _styles = StyleSheet.create({
-    linearGradientBtn: {
-        borderRadius: 50,
-        alignContent: 'center',
+const _styles = (color,) => StyleSheet.create({
+    btn: {
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'center'
     },
-    txtBtn: {
+    txt: {
+        fontFamily: Regular,
         fontWeight: 'bold',
-        color: 'white'
-    },
-    styleBtn: {
-        width: 120,
-        height: 50,
-        paddingHorizontal: 20,
-        marginHorizontal: 10
+        fontSize: 18
     }
 })

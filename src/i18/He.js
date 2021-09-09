@@ -288,8 +288,10 @@ export const He = {
             hours2: 'שעתיים',
             hours: 'שעות',
             chooseParkingNum: 'בחר מספר חנייה',
-            send: 'שלח'
-        }
+            send: 'שלח',
+            confirmedParking: 'אושרה חנייה ל ',
+            availableUntill: 'זמין עד: '
+        },
 
     }
 }

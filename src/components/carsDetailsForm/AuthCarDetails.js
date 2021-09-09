@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import BigDelete from '../../assets/svg/bigDelete.svg'
 import Edit from '../../assets/svg/edit.svg'
 import Button from '../genericComponents/Button';
-import { goBack } from '../../routes/routes';
+import { goBack, navigateScreen } from '../../routes/routes';
 import { connect } from 'react-redux';
 import AuthCar from './AuthCar';
 
@@ -60,7 +60,7 @@ function AuthCarDetails(props) {
                 <Text style={[styles.txt, _styles().authCarDetails]}>{t(`${authCarDetails}.numParkings`) + ":"}</Text>
 
                 <Button
-                    handlePress={() => setItemDeleteOrEdit()}
+                    handlePress={() => navigateScreen(props, 'Payments')}
                     content={t(`${authCarDetails}.continue`)}
                     width={180}
                     size="large"

@@ -16,6 +16,8 @@ import LinearGradientBtn from '../genericComponents/LinearGradientBtn';
 import styles from '../../styles/Styles';
 import { dominantLight } from '../../styles/SystemColor';
 import AnimatedView from '../genericComponents/AnimatedView';
+import Button from '../genericComponents/Button';
+import { navigateScreen } from '../../routes/routes';
 
 export default (props) => {
     const { t } = useTranslation();
@@ -72,10 +74,14 @@ export default (props) => {
                         </Col>
                     </Row>
                 </View>
-                <LinearGradientBtn
-                    style={_styles.finishBtn}
-                    content={<Text style={[styles.noteTxt, _styles.finishTxt]}> {i18.t(`${paymentsStage2}.finish`)}</Text>}
-                />
+                <View style={[styles.placeCenter, { marginTop: 10 }]}>
+                    <Button
+                        width={150}
+                        handlePress={() => navigateScreen(props, 'WrapHome')}
+                        style={_styles.finishBtn}
+                        content={i18.t(`${paymentsStage2}.finish`)}
+                    />
+                </View>
             </AnimatedView>
         </>
     )

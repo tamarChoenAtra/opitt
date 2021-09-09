@@ -13,7 +13,8 @@ export default (props) => {
 
     const {
         visible,
-        setVisible
+        setVisible,
+        setCloseDialog
     } = props;
 
     const {
@@ -22,7 +23,7 @@ export default (props) => {
 
     const contentDialog = () => {
         return <>
-            <Text style={[styles.noteTxt,styles.txtContentDialog, _styles.details]}>
+            <Text style={[styles.noteTxt, styles.txtContentDialog, _styles.details]}>
                 {t(`${parkingPermitDialog}.details`)}
             </Text>
         </>
@@ -34,11 +35,15 @@ export default (props) => {
             visible={visible}
             title={t(`${parkingPermitDialog}.title`)}
             content={contentDialog()}
-            closeHandlePress={() => setVisible(false)}
+            closeHandlePress={() => {
+                setVisible(false)
+                setCloseDialog(true)
+            }}
             buttons={[
                 {
                     handlePress: () => {
                         setVisible(false);
+                        setCloseDialog(true)
                     },
                     body: t(`${parkingPermitDialog}.submit`),
                     width: 190,
@@ -50,7 +55,7 @@ export default (props) => {
 }
 
 const _styles = StyleSheet.create(
-    {      
+    {
         details: {
             marginVertical: 10
         }

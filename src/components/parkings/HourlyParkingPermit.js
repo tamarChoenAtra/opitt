@@ -5,7 +5,8 @@ import {
     View,
     Text,
     ScrollView,
-    FlatList
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
 import { bg, dark } from '../../styles/SystemColor';
 import { Bold } from '../../styles/SystemFonts';
@@ -14,51 +15,95 @@ import Row from '../genericComponents/Row';
 import styles from '../../styles/Styles';
 import Button from '../genericComponents/Button';
 import AnimatedView from '../genericComponents/AnimatedView';
+import ParkingPermitDialog from '../dialog/ParkingPermit.dialog';
 
 export default (props) => {
+    const {
+        visible,
+        setCloseDialog,
+        closeDialog
+    } = props
     const scrollViewRef = useRef();
     const hourlyParkingPermit = 'hourlyParkingPermit'.toString();
-    const { t } = useTranslation();
+    const [openDialog, setOpenDialog] = useState(false);
     const [hoursList, setHoursList] = useState(
         Array(24)
             .fill("")
             .map((_, i) => ({ key: `${i + 1}`, text: `item #${i}` }))
     )
+    const { t } = useTranslation();
+
+
+    const returnTxt = (key) => {
+        switch (key) {
+            case '1':
+                return t(`${hourlyParkingPermit}.hour`)
+            case '2':
+                return t(`${hourlyParkingPermit}.hours2`)
+            default:
+                return key + " " + t(`${hourlyParkingPermit}.hours`)
+        }
+    }
 
     const renderItem = ({ item }) =>
-        <View style={{ height: 30, margin: 3 }}>
-            <Text>{item.key + " " + t(`${hourlyParkingPermit}.hours`)}</Text>
+        <View style={_styles().hourItem}>
+            <TouchableOpacity>
+                <Text>
+                    {returnTxt(item.key)}
+                </Text>
+            </TouchableOpacity>
         </View>
+
     return (
         <>
-            <AnimatedView style={_styles().hoursView}>
-                <Text style={_styles().titleScrollView}>
-                    {t(`${hourlyParkingPermit}.parkingDefinition`)}
-                </Text>
-                <Text style={_styles().titleScrollView}>
-                    {t(`${hourlyParkingPermit}.till24Hours`)}
-                </Text >
-                <View style={_styles().titleDecoration}></View>
-                <FlatList
-                    data={hoursList}
-                    renderItem={renderItem}
-                    ref={scrollViewRef}
-                    keyExtractor={index => index}
-                />
-            </AnimatedView>
-            {/* <Row>
-                <View style={_styles().parkingsView}>
-                    <Text style={_styles().titleScrollView}>
-                        {t(`${hourlyParkingPermit}.chooseParkingNum`)}
-                    </Text>
-                    <View style={_styles().titleDecoration}></View>
-                </View>
-
-            </Row>
-            <Row>
-                <Button />
-            </Row> */}
+            {visible && !closeDialog &&
+                <AnimatedView>
+                    <Row>
+                        <Col cols={1}>
+                            <View style={_styles().hoursView}>
+                                <Text style={_styles().titleScrollView}>
+                                    {t(`${hourlyParkingPermit}.parkingDefinition`)}
+                                </Text>
+                                <Text style={_styles().titleScrollView}>
+                                    {t(`${hourlyParkingPermit}.till24Hours`)}
+                                </Text >
+                                <View style={_styles().titleDecoration}></View>
+                                <FlatList
+                                    data={hoursList}
+                                    renderItem={renderItem}
+                                    keyExtractor={item => item.key}
+                                />
+                            </View>
+                        </Col>
+                        <Col cols={1}>
+                            <View>
+                                <Row>
+                                    <View style={_styles().parkingsView}>
+                                        <Text style={_styles().titleScrollView}>
+                                            {t(`${hourlyParkingPermit}.chooseParkingNum`)}
+                                        </Text>
+                                        <View style={_styles().titleDecoration}></View>
+                                    </View>
+                                </Row>
+                                <Row style={{ marginTop: 12 }}>
+                                    <Button
+                                        content={t(`${hourlyParkingPermit}.send`)}
+                                        width={'150%'}
+                                        handlePress={() => setOpenDialog(true)}
+                                    />
+                                </Row>
+                            </View>
+                        </Col>
+                    </Row>
+                </AnimatedView>
+            }
+            <ParkingPermitDialog
+                visible={openDialog}
+                setVisible={setOpenDialog}
+                setCloseDialog={setCloseDialog}
+            />
         </>
+
     )
 }
 
@@ -72,7 +117,7 @@ const _styles = () => StyleSheet.create({
         margin: 10,
         alignItems: 'center',
         alignContent: 'center',
-        width: '100%'
+        width: '90%',
     },
     parkingsView: {
         backgroundColor: dark,
@@ -82,7 +127,13 @@ const _styles = () => StyleSheet.create({
         marginTop: 25,
         alignItems: 'center',
         alignContent: 'center',
-        width: '75%'
+        width: '80%',
+        margin: 10
+    },
+    hourItem: {
+        height: 30,
+        margin: 3,
+        alignItems: 'center'
     },
     contentScrollView: {
         alignItems: 'center',

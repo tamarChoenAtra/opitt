@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import {
     ligth
 } from '../styles/SystemColor';
@@ -16,7 +16,7 @@ export default StyleSheet.create({
         color: ligth,
         fontStyle: 'normal',
         fontWeight: '500',
-        fontSize: 30,
+        fontSize: 25,
         textAlign: 'right',
         alignSelf: 'flex-end',
         padding: 5
@@ -58,7 +58,11 @@ export default StyleSheet.create({
     rowDirection: {
         flexDirection: 'row',
         alignItems: 'center',
-        direction: 'rtl'
+        direction:
+            // Platform.OS === 'android' ? 
+            // 'ltr' 
+            // : 
+            'rtl'
     },
     // leftItem: {
     //     flex: 1,

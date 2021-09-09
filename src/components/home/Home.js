@@ -19,6 +19,7 @@ import Calendar from '../../assets/svg/calendar.svg';
 import StyleFuncs from '../../styles/StyleFuncs';
 import DropDown from '../dropdwon/DropDown';
 import { navigateScreen } from '../../routes/routes';
+import styles from '../../styles/Styles';
 
 export default (props) => {
     const { t } = useTranslation();
@@ -62,7 +63,7 @@ export default (props) => {
     return (
         <>
             <Header
-                headerRightElement={<Text>{returnTitle() + " דודי "}</Text>}
+                headerRightElement={<Text numberOfLines={1} style={styles.headerWithTitle}>{returnTitle() + " דודי "}</Text>}
             />
             <View style={{ paddingTop: 10 }}>
                 <DropDown

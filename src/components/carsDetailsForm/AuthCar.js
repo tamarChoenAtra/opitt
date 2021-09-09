@@ -81,7 +81,7 @@ function AuthCar(props) {
             </View>
 
             <DeleteCarDialog
-                handlePress={_deleteCar}
+                handlePress={()=>_deleteCar(car._id)}
                 visible={visible}
                 setVisible={setVisible}
             />
