@@ -16,6 +16,7 @@ import {
     goBack,
     navigateScreen
 } from '../../routes/routes';
+import Button from '../genericComponents/Button';
 
 export default (props) => {
 
@@ -40,14 +41,14 @@ export default (props) => {
                     </Text>
                 </View>
                 <View style={_styles.wrapDetails}>
-                    <TouchableOpacity
-                        onPress={async () => navigateScreen(props, 'CarsDetailsForm')}
-                        style={_styles.outLineBtn}
-                    >
-                        <Text style={[styles.noteTxt, _styles.linearGradientBtnTxt]}>
-                            {t(`${authSMS3}.button`)}
-                        </Text>
-                    </TouchableOpacity>
+                    <Button
+                        handlePress={async () => navigateScreen(props, 'Payments')}
+                        content={t(`${authSMS3}.button`)}
+                        width={180}
+                        size="large"
+                        outline={true}
+                    />
+                
                 </View>
                 <View style={_styles.wrapTryAgain}>
                     <Text style={[styles.txt, _styles.tryAgain]}>
@@ -70,8 +71,8 @@ const _styles = StyleSheet.create(
         },
         wrapDetails: {
             marginTop: 40,
-            width:'100%',
-            alignItems:'center'
+            width: '100%',
+            alignItems: 'center'
         },
         wrapTryAgain: {
             marginTop: 20
