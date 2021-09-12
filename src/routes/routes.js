@@ -126,7 +126,7 @@ export const Routes = () => {
                     screenOptions={{
                         headerShown: false
                     }}
-                    initialRouteName="WrapHome"
+                    initialRouteName="FirstScreen"
                 >
                     <Stack.Screen
                         name="CarsDetailsForm"

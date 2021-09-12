@@ -22,7 +22,7 @@ function AuthCarDetailsBeforeContinue(props) {
 
     const {
         _cars,
-        _numParkings
+        _countNumParking
     } = props;
 
     const authCarDetailsBeforeContinue = 'authCarDetailsBeforeContinue'.toString();
@@ -48,7 +48,7 @@ function AuthCarDetailsBeforeContinue(props) {
                 >
                     {t(`${authCarDetailsBeforeContinue}.details`)}
                     {" "}
-                    {_numParkings}
+                    {3}
                 </Text>
 
                 <Button
@@ -65,7 +65,7 @@ function AuthCarDetailsBeforeContinue(props) {
 const mapStateToProps = state => ({
     ...state,
     _cars: state.cars.cars,
-    _numParkings: state.cars.numParkings
+    _countNumParking: state.cars.countNumParking
 })
 
 const mapDispatchToProps = dispatch => ({

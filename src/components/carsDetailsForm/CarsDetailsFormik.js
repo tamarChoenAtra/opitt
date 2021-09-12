@@ -201,7 +201,6 @@ function CarsDetailsFormik(props) {
             >
                 {({
                     handleChange = async (txt) => {
-                        alert(txt)
                         handleChange(txt);
                         setFormValuesFunc('firstName', txt)
                     },

@@ -28,12 +28,12 @@ const cars = {
             }
         })
         if (!flagNewCar) {
-            state.cars = !state.cars ? [] :state.cars ;
+            state.cars = !state.cars ? [] : state.cars;
             state.cars.push(action.payload);
         }
     },
     deleteCar(state, action) {
-        state.cars = state.cars.filter(car =>  car._id != action.payload);
+        state.cars = state.cars.filter(car => car._id != action.payload);
     },
     setCountNumParking(state, action) {
         state.countNumParking = action.payload;
