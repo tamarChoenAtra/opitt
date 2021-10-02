@@ -292,6 +292,47 @@ export const He = {
             confirmedParking: 'אושרה חנייה ל ',
             availableUntill: 'זמין עד: '
         },
-
+        generalManagement: {
+            title: 'ניהול כללי',
+            chooseLanguage: 'בחירת שפה',
+            notificationsManagement: 'ניהול התראות',
+            about: 'אודות'
+        },
+        chooseLanguage: {
+            title: 'בחירת שפה'
+        },
+        changeLanguageDialg: {
+            title: 'שפה שונתה בהצלחה',
+            body: 'להצגת המערכת בשפה שבחרת יש לסגור ולפתוח מחדש את האפליקציה',
+            btn1: 'אישור',
+            btn2: 'לא תודה',
+        },
+        notificationsManagement: {
+            title: 'ניהול התראות',
+            firstSetting: 'כל ההתראות',
+            secondSetting: 'התראת מסך נעילה',
+            thirdSetting: 'הצגת התראות במצב "נא לא להפריע"',
+        },
+        about: {
+            title: 'אודות',
+            body1: 'אופיט מערכות חדשניות בע"מ הינה חברת סטרטאפ המפתחת מוצרים ופתרונות לבניינים משותפים ובתים חכמים החברה שמה דגש על חדשנות וסינרגיה של מוצרים קיימים לקהל הרחב. החברה נוסדה בשנת 2020 על ידי דוד שבתאי שהינו היזם והוגה הרעיון.',
+            body2: 'החברה מייעדת את מוצריה למגזר הישראלי, לקבלנים בבניינים חדשים ובבניינים קיימים ונמצאת במגעים לזכיונות במדינות נוספות בחו"ל.'
+        },
+        accountManagement: {
+            title: 'ניהול חשבון',
+            firstSetting: 'פרטי משתמש',
+            secondSetting: 'ניהול תשלום',
+            thirdSetting: 'ניהול מורשים',
+            fourthSetting: 'הוספת כתובת נוספת',
+        },
+        userDetails: {
+            title: 'פרטי משתמש',
+            btn1: 'עדכן',
+            btn2: 'חזור',
+            addParking: 'הוספת חנייה'
+        },
+        emptyParkings: {
+            title: 'חניות פנויות',
+        }
     }
 }

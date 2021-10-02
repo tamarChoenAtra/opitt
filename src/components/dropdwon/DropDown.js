@@ -62,7 +62,7 @@ export default (props) => {
                     <View
                         style={_styles().icon}>
                         {
-                            index === 0
+                            index === 0 && array.length > 1
                                 ?
                                 flagOpen ?
                                     <Arrow1 />

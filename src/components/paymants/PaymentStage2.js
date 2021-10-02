@@ -18,6 +18,8 @@ import { dominantLight } from '../../styles/SystemColor';
 import AnimatedView from '../genericComponents/AnimatedView';
 import Button from '../genericComponents/Button';
 import { navigateScreen } from '../../routes/routes';
+import { Formik } from 'formik';
+import { paymentsSchema } from '../formik/Schema';
 
 export default (props) => {
     const { t } = useTranslation();
@@ -29,59 +31,63 @@ export default (props) => {
     return (
         <>
             <AnimatedView>
-                <View style={_styles.paymentsView}>
-                    <PayBtn style={_styles.payBtn} />
-                    <Row style={_styles.row}>
-                        <Text style={_styles.boldTxt}>
-                            {i18.t(`${paymentsStage2}.fullname`)}
-                        </Text>
-                        <Text style={_styles.noteTxt}>{"  "}{i18.t(`${paymentsStage2}.fifth`)}</Text>
-                    </Row>
-                    <TextInput
-                        style={_styles.input}
-                    />
-                    <Row style={_styles.row}>
-                        <Text style={_styles.boldTxt}>
-                            {i18.t(`${paymentsStage2}.cardSerNum`)}
-                        </Text>
-                    </Row>
-                    <TextInput
-                        style={_styles.input}
-                    />
-                    <Row style={_styles.row}>
-                        <Col cols={1.5} style={_styles.labelsInOneRow}>
-                            <Text style={_styles.boldTxt}>
-                                {i18.t(`${paymentsStage2}.expiryDate`)}
-                            </Text>
-                        </Col>
-                        <Col cols={1} style={_styles.labelsInOneRow}>
-                            <Text style={_styles.boldTxt}>
-                                {i18.t(`${paymentsStage2}.cvc`) + " "}
-                                <CVC />
-                            </Text>
-                        </Col>
-                    </Row>
-                    <Row style={_styles.row}>
-                        <Col cols={1}>
-                            <TextInput style={[_styles.input, returnWidth('90%')]} />
-                        </Col>
-                        <Slash style={{ marginRight: 5 }} />
-                        <Col cols={1}>
-                            <TextInput style={[_styles.input, returnWidth('90%')]} />
-                        </Col>
-                        <Col cols={2}>
-                            <TextInput style={[_styles.input, returnWidth('70%')]} />
-                        </Col>
-                    </Row>
-                </View>
-                <View style={[styles.placeCenter, { marginTop: 10 }]}>
-                    <Button
-                        width={150}
-                        handlePress={() => navigateScreen(props, 'WrapHome')}
-                        style={_styles.finishBtn}
-                        content={i18.t(`${paymentsStage2}.finish`)}
-                    />
-                </View>
+                <Formik>
+                    <>
+                        <View style={_styles.paymentsView}>
+                            <PayBtn style={_styles.payBtn} />
+                            <Row style={_styles.row}>
+                                <Text style={_styles.boldTxt}>
+                                    {i18.t(`${paymentsStage2}.fullname`)}
+                                </Text>
+                                <Text style={_styles.noteTxt}>{"  "}{i18.t(`${paymentsStage2}.fifth`)}</Text>
+                            </Row>
+                            <TextInput
+                                style={_styles.input}
+                            />
+                            <Row style={_styles.row}>
+                                <Text style={_styles.boldTxt}>
+                                    {i18.t(`${paymentsStage2}.cardSerNum`)}
+                                </Text>
+                            </Row>
+                            <TextInput
+                                style={_styles.input}
+                            />
+                            <Row style={_styles.row}>
+                                <Col cols={1.5} style={_styles.labelsInOneRow}>
+                                    <Text style={_styles.boldTxt}>
+                                        {i18.t(`${paymentsStage2}.expiryDate`)}
+                                    </Text>
+                                </Col>
+                                <Col cols={1} style={_styles.labelsInOneRow}>
+                                    <Text style={_styles.boldTxt}>
+                                        {i18.t(`${paymentsStage2}.cvc`) + " "}
+                                        <CVC />
+                                    </Text>
+                                </Col>
+                            </Row>
+                            <Row style={_styles.row}>
+                                <Col cols={1}>
+                                    <TextInput style={[_styles.input, returnWidth('90%')]} />
+                                </Col>
+                                <Slash style={{ marginRight: 5 }} />
+                                <Col cols={1}>
+                                    <TextInput style={[_styles.input, returnWidth('90%')]} />
+                                </Col>
+                                <Col cols={2}>
+                                    <TextInput style={[_styles.input, returnWidth('70%')]} />
+                                </Col>
+                            </Row>
+                        </View>
+                        <View style={[styles.placeCenter, { marginTop: 10 }]}>
+                            <Button
+                                width={150}
+                                handlePress={() => navigateScreen(props, 'WrapHome')}
+                                style={_styles.finishBtn}
+                                content={i18.t(`${paymentsStage2}.finish`)}
+                            />
+                        </View>
+                    </>
+                </Formik>
             </AnimatedView>
         </>
     )

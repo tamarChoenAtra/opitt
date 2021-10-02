@@ -76,13 +76,11 @@ export default (props) => {
                                     />
                             }
                         </View>
-
                     </View>
-
                 </DialogContent>
                 <ChipButton handlePress={closeHandlePress} />
-
             </Dialog>
+            <View style={{ width: 100, height: 100, backgroundColor: 'red' }}><Text>xnvjd</Text></View>
         </>
     )
 }

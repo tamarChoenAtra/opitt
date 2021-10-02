@@ -17,6 +17,7 @@ import LinearGradient from "react-native-linear-gradient";
 import {
     dark,
     dominant,
+    dominantDark,
     ligthDominant
 } from '../../styles/SystemColor';
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -120,7 +121,7 @@ function CarsDetailsFormik(props) {
                         <View style={styles.rowDirection}>
                             <TouchableOpacity onPress={() => addParkingFunc(formValues.parkings[formValues.parkings.length - 1].index + 1)}>
                                 <LinearGradient
-                                    colors={[dominant, ligthDominant]}
+                                    colors={[dominant, dominantDark]}
                                     style={[_styles().linearGradientBtn, _styles().iconPlus]}
                                 >
                                     <AntDesign

@@ -1,60 +1,44 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import Header from '../../header/Header';
 import {
-    FlatList,
     Text,
+    FlatList,
     ScrollView,
-    View,
     TouchableOpacity,
+    View,
     StyleSheet
 } from 'react-native';
-import { navigateScreen } from '../../routes/routes';
-import styles from '../../styles/Styles';
-import Header from '../header/Header';
-import Footer from '../home/Footer';
+import styles from '../../../styles/Styles';
+import { navigateScreen } from '../../../routes/routes';
+import Row from '../../genericComponents/Row';
+import ArrowBack from '../../../assets/arrowBack.svg'
 
-function Setting(props) {
-
-    const {
-        t
-    } = useTranslation();
-
-    const settings = 'settings'.toString();
-
+export default (props) => {
+    const { t } = useTranslation();
+    const generalManagement = 'generalManagement'.toString();
     const jsonSetting = [
         {
-            item: t(`${settings}.generalManagement`),
-            navigate: 'GeneralManagement'
+            item: t(`${generalManagement}.chooseLanguage`),
+            navigate: 'ChooseLanguage'
         },
         {
-            item: t(`${settings}.accountManagement`)
+            item: t(`${generalManagement}.notificationsManagement`),
+            navigate: 'NotificationsManagement'
         },
         {
-            item: t(`${settings}.history`)
+            item: t(`${generalManagement}.about`),
+            navigate: 'About'
         },
-        {
-            item: t(`${settings}.carNumberManagement`)
-        },
-        {
-            item: t(`${settings}.administratorPrivileges`)
-        },
-        {
-            item: t(`${settings}.termsAndPrivacy`)
-        },
-        {
-            item: t(`${settings}.contactUs`)
-        },
-        {
-            item: t(`${settings}.logOut`)
-        },
-    ]
 
+    ]
     const renderItem = ({ item }) => {
         return (
             <>
                 <TouchableOpacity
                     style={[_styles.item]}
                     onPress={() =>
+                        // alert(item.navigate)
                         navigateScreen(props, item.navigate)
                     }
                 >
@@ -66,12 +50,21 @@ function Setting(props) {
             </>
         )
     }
-
+    const { navigation } = props;
     return (
         <>
             <Header
                 headerRightElement={
-                    <Text style={styles.headerWithTitle}>{t(`${settings}.title`)}</Text>
+                    <Row style={_styles.row}>
+                        <Text style={styles.headerWithTitle}>
+                            {t(`${generalManagement}.title`)}
+                        </Text>
+                        <TouchableOpacity onPress={() => {
+                            navigation.goBack();
+                        }}>
+                            <ArrowBack />
+                        </TouchableOpacity>
+                    </Row>
                 }
             />
             <ScrollView>
@@ -81,20 +74,18 @@ function Setting(props) {
                     keyExtractor={(o, index) => index}
                 />
             </ScrollView>
-            {/* <Footer /> */}
         </>
     )
-
 }
-
-export default Setting;
-
 
 const _styles = StyleSheet.create(
     {
         item: {
             justifyContent: 'center',
             height: 65
+        },
+        row: {
+            alignItems: 'center'
         },
         itemTxt: {
             textAlign: 'right',

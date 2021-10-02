@@ -1,9 +1,14 @@
 import { combineReducers } from 'redux';
 import carsReducer from './cars.reducer';
-
+import settingsReducer from './settings.reducer';
+import parkingsReducer from './parkings.reducer';
+import guestsReducer from './guests.reducer';
 // Combine with other reducers we may add in the future
 const appReducers = combineReducers({
-    cars: carsReducer
+    cars: carsReducer,
+    settings: settingsReducer,
+    parkings: parkingsReducer,
+    guests: guestsReducer
 });
 
 //reset the reducer
@@ -13,6 +18,5 @@ const reset = (state, initialState) => {
     })
     return state;
 }
-
 
 export default appReducers;

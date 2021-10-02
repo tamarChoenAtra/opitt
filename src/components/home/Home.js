@@ -20,8 +20,10 @@ import StyleFuncs from '../../styles/StyleFuncs';
 import DropDown from '../dropdwon/DropDown';
 import { navigateScreen } from '../../routes/routes';
 import styles from '../../styles/Styles';
+import { connect } from 'react-redux';
 
-export default (props) => {
+function Home(props) {
+    const { propertiesList } = props;
     const { t } = useTranslation();
     const home = 'home'.toString();
     const [activeDailyParking, setActiveDailyParking] = useState(false);
@@ -67,7 +69,7 @@ export default (props) => {
             />
             <View style={{ paddingTop: 10 }}>
                 <DropDown
-                    array={dropDownArr}
+                    array={propertiesList}
                     txtNote={true}
                 />
             </View>
@@ -87,7 +89,7 @@ export default (props) => {
 
             <TouchableOpacity
                 onPress={() => {
-                    navigateScreen(props, 'RequestParkingList')
+                    navigateScreen(props, 'EmptyParkings')
                 }}
                 style={StyleFuncs.returnDarkBtnStyle()}
             >
@@ -132,6 +134,15 @@ export default (props) => {
         </>
     )
 }
+
+const mapStateToProps = state => ({
+    ...state,
+    propertiesList: state.parkings.propertiesList,
+})
+
+const mapDispatchToProps = dispatch => ({
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 const _styles = (paddingTop) => StyleSheet.create({
     btnTxt: {

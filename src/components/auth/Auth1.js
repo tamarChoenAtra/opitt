@@ -125,7 +125,10 @@ export default (props) => {
 
                     <View style={_styles.subDetailsTop}>
                         <Button
-                            handlePress={() => setVisible(true)}
+                            handlePress={() =>
+                                //TODO: fetch to send sms
+                                setVisible(true)
+                            }
                             content={t(`${authSMS1}.submit`)}
                             width={130}
                         // size={buttons[0].size}

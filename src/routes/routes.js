@@ -6,7 +6,6 @@ import {
 import styles from '../styles/Styles';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-
 import InitComponent from '../components/initComponent/InitComponent';
 import CarsDetailsForm from '../components/carsDetailsForm/CarsDetailsForm';
 import FirstScreen from '../components/firstScreen/FirstScreen';
@@ -22,7 +21,7 @@ import Footer from '../components/home/Footer';
 import WrapHome from '../components/home/WrapHome';
 import Home from '../components/home/Home';
 import TryDialog from '../components/dialog/TryDialog';
-import Settings from '../components/settings/Settings';
+// import Settings from '../components/settings/Settings';
 import Setting from '../components/settings/Setting';
 import Gate from '../components/gate/Gate';
 import Parkings from '../components/parkings/Parkings';
@@ -31,7 +30,12 @@ import AuthCarDetailsBeforeContinue from '../components/carsDetailsForm/AuthCarD
 import Auth3 from '../components/auth/Auth3';
 import RequestParkingList from '../components/home/RequestParkingList';
 import ReservedParkingsList from '../components/home/ReservedParkingsList';
-import Try1 from '../components/home/Try1';
+import GeneralManagement from '../components/settings/generalManagement/GeneralManagement';
+import WrapSettings from '../components/settings/WrapSettings';
+import ChooseLanguage from '../components/settings/generalManagement/ChooseLanguage'
+import NotificationsManagement from '../components/settings/generalManagement/NotificationsManagement';
+import About from '../components/settings/generalManagement/About';
+import EmptyParkings from '../components/parkings/EmptyParkings';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +59,57 @@ const addStaticBackground = (props, Component) => {
     )
 }
 
+export const SettingsRoutes = (props) => {
+    return (
+        <>
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false
+                }}
+                initialRouteName="WrapSettings"
+            >
+                <Stack.Screen
+                    name="Setting"
+                    component={
+                        (props) => addStaticBackground(props, Setting)
+                    }
+                />
+                <Stack.Screen
+                    name="About"
+                    component={
+                        (props) => addStaticBackground(props, About)
+                    }
+                />
+                <Stack.Screen
+                    name="GeneralManagement"
+                    component={
+                        (props) => addStaticBackground(props, GeneralManagement)
+                    }
+                />
+                <Stack.Screen
+                    name="ChooseLanguage"
+                    component={
+                        (props) => addStaticBackground(props, ChooseLanguage)
+                    }
+                />
+                <Stack.Screen
+                    name="NotificationsManagement"
+                    component={
+                        (props) => addStaticBackground(props, NotificationsManagement)
+                    }
+                />
+                {/* <Stack.Screen
+                    name="GeneralManagement"
+                    component={
+                        (props) => addStaticBackground(props, GeneralManagement)
+                    }
+                /> */}
+
+            </Stack.Navigator>
+        </>
+    )
+}
+
 export const RoutesApp = (props) => {
     return (
         <>
@@ -62,7 +117,7 @@ export const RoutesApp = (props) => {
                 screenOptions={{
                     headerShown: false
                 }}
-                initialRouteName="WarpHome"
+                initialRouteName="WrapHome"
             >
                 <Stack.Screen
                     name="Home"
@@ -83,12 +138,6 @@ export const RoutesApp = (props) => {
                 />
 
                 <Stack.Screen
-                    name="MySettings"
-                    component={
-                        (props) => addStaticBackground(props, Setting)
-                    }
-                />
-                <Stack.Screen
                     name="Parkings"
                     component={
                         (props) => addStaticBackground(props, Parkings)
@@ -101,6 +150,12 @@ export const RoutesApp = (props) => {
                     }
                 />
                 <Stack.Screen
+                    name="EmptyParkings"
+                    component={
+                        (props) => addStaticBackground(props, EmptyParkings)
+                    }
+                />
+                <Stack.Screen
                     name="Gate"
                     component={
                         (props) => addStaticBackground(props, Gate)
@@ -110,7 +165,6 @@ export const RoutesApp = (props) => {
         </>
     )
 }
-
 
 export const Routes = () => {
 
@@ -126,12 +180,18 @@ export const Routes = () => {
                     screenOptions={{
                         headerShown: false
                     }}
-                    initialRouteName="FirstScreen"
+                    initialRouteName="WrapHome"
                 >
                     <Stack.Screen
                         name="CarsDetailsForm"
                         component={
                             (props) => addStaticBackground(props, CarsDetailsForm)
+                        }
+                    />
+                    <Stack.Screen
+                        name="WrapSettings"
+                        component={
+                            (props) => addStaticBackground(props, WrapSettings)
                         }
                     />
 
@@ -142,12 +202,12 @@ export const Routes = () => {
                         }
                     />
 
-                    <Stack.Screen
+                    {/* <Stack.Screen
                         name="Setting"
                         component={
                             (props) => addStaticBackground(props, Setting)
                         }
-                    />
+                    /> */}
 
                     <Stack.Screen
                         name="AuthCarDetailsBeforeContinue"
@@ -218,12 +278,6 @@ export const Routes = () => {
                         name="Auth2"
                         component={
                             (props) => addStaticBackground(props, Auth2)
-                        }
-                    />
-                    <Stack.Screen
-                        name="Settings"
-                        component={
-                            (props) => addStaticBackground(props, Settings)
                         }
                     />
                 </Stack.Navigator>

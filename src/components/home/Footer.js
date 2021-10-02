@@ -34,7 +34,7 @@ export default (props) => {
             name: "tab1",
             icon: Settings,
             title: t(`${footer}.tab1`),
-            navigate: 'MySettings',
+            navigate: 'WrapSettings',
         },
         {
             name: "tab2",
@@ -70,7 +70,7 @@ export default (props) => {
                     data={footerIcons}
                     renderItem={item =>
                         <TouchableOpacity onPress={() => handlePressTab(item)}
-                            style={_styles.tab}
+                            style={[_styles.tab, { backgroundColor: index == item.index ? '#FFC803' : '#05163C' }]}
                         >
                             {returnIcon(item)}
                             <Text style={_styles.footerTxt}>{item.item.title}</Text>

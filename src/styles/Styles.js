@@ -1,7 +1,9 @@
 import { Platform, StyleSheet } from 'react-native';
 import {
+    dominant,
     ligth
 } from '../styles/SystemColor';
+import { Bold, Regular } from './SystemFonts';
 
 export default StyleSheet.create({
     background: {
@@ -15,11 +17,19 @@ export default StyleSheet.create({
     headerWithTitle: {
         color: ligth,
         fontStyle: 'normal',
-        fontWeight: '500',
+        fontWeight: 'bold',
         fontSize: 25,
         textAlign: 'right',
         alignSelf: 'flex-end',
-        padding: 5
+        padding: 5,
+        fontFamily: Bold
+    },
+    avatar: {
+        width: 35,
+        height: 35,
+        backgroundColor: dominant,
+        borderRadius: 50,
+        marginHorizontal: 5
     },
     contentAuth: {
         alignItems: 'center',

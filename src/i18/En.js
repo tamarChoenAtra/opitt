@@ -73,7 +73,9 @@ export const En = {
             hourlyParkingPermit: 'hourly parking permit',
             activeDailyParking: 'active daily parking',
             requestParkingForGuests: 'request parking for guests'
+        },
+        chooseLanguage: {
+            title: 'בחירת שפה'
         }
-
     }
 }

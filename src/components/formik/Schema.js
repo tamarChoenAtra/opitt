@@ -4,7 +4,7 @@ import * as Yup from "yup";
 export const validationSchema = Yup.object().shape({
     firstName: Yup.string().required('Please enter your name'),
     email: Yup.string()
-        .label('Email')
+        // .label('Email')
         .email('Enter a valid email')
         .required('Please enter your email address'),
     lastName: Yup.string().required('Please enter your name'),
@@ -27,4 +27,12 @@ export const validationSchema = Yup.object().shape({
     //     .label('instagram account')
     //     .matches(new RegExp(/^\s*(http\:\/\/)?instagram\.com\/[a-z\d-_]{1,255}\s*$/i), 'Please enter valid instagram account'),
     //whatApp is equal to phonenumber
+})
+
+export const paymentsSchema = Yup.object().shape({
+    fullName: Yup.string().required('Please enter your name'),
+    cardNum: Yup.string().required('Please enter your card number'),
+    expireMonth: Yup.number().max(0).required('Please enter expire date'),
+    expireYear: Yup.number().max(0).required('Please enter expire date'),
+    CVC: Yup.number().max(0).required('Please enter expire date')
 })
