@@ -66,11 +66,9 @@ export default (props) => {
                 {stage == 1 ?
                     <PaymentStage1
                         handlePress={setStageFunc}
-                        {...props}
-                    /> :
+                        {...props} /> :
                     <PaymentStage2
-                        {...props}
-                    />
+                        {...props} />
                 }
             </ScrollView>
         </>

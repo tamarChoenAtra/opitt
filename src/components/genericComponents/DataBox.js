@@ -51,7 +51,7 @@ export default (props) => {
         }],
         'digitsList': Array(24)
             .fill("")
-            .map((_, i) => ({ key: `${i}`, text: `item #${i}` })),
+            .map((_, i) => ({ key: i, text: `item #${i}` })),
         'hoursList': Array(24)
             .fill("")
             .map((_, i) => ({ key: `${i}`, text: `item #${i}` }))

@@ -36,7 +36,7 @@ export default (props) => {
                     <Row>
                         <DataBox
                             title={title}
-                            data={hoursList}
+                            kindList={'hoursList'}
                             returnTxt={returnTxt}
                             width='80%'
                             selectedItem={selectedItem}
