@@ -45,7 +45,6 @@ function NotificationsManagement(props) {
     const renderItem = ({ item }) => {
         return (
             <>
-                {/* <View style={[_styles.item]}> */}
                 <Row style={[_styles.item]}>
                     <Col cols={1}>
                         <Switch
@@ -67,7 +66,6 @@ function NotificationsManagement(props) {
                         </TouchableOpacity>
                     </Col>
                 </Row>
-                {/* </View> */}
                 <View style={styles.headerBottomDivider}></View>
             </>
         )

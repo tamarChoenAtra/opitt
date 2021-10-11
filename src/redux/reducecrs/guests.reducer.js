@@ -6,23 +6,32 @@ import { actions } from '../actions';
 const initialState = {
     guestsList: [
         {
+            id: 0,
             name: 'ישראל ישראלי',
             carKind: 'מיצובישי',
             carId: '013-45-123'
         },
         {
+            id: 1,
             name: 'שמעון כהן',
             carKind: 'טויוטה',
             carId: '889-45-445'
         },
         {
+            id: 2,
             name: 'דוד לוי',
             carKind: 'מרצדס',
-            carId: '322-32-232'
-        }
+            carId: '322-32-233'
+        },
+
     ],
     newGuest: {},
-    selectedGuest: {}
+    selectedGuest: {
+        id: 0,
+        name: 'ישראל ישראלי',
+        carKind: 'מיצובישי',
+        carId: '013-45-123'
+    },
 }
 
 const guests = {
@@ -33,10 +42,10 @@ const guests = {
         state.guestsList = action.payload;
     },
     setNewGuest(state, action) {
-        state.guestsList = action.payload;
+        state.newGuest = action.payload;
     },
     setSelectedGuest(state, action) {
-        state.guestsList = action.payload;
+        state.selectedGuest = action.payload;
     },
 }
 

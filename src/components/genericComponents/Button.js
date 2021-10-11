@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { dominant } from "../../styles/SystemColor";
 import styles from '../../styles/Styles';
+import { Regular } from '../../styles/SystemFonts';
 
 export default (props) => {
 
@@ -78,7 +79,8 @@ const _styles = (colorOutline) => StyleSheet.create({
     },
     txtBtn: {
         fontWeight: 'bold',
-        color: colorOutline ? colorOutline : 'white'
+        color: colorOutline ? colorOutline : 'white',
+        fontFamily: Regular
     },
     styleBtn: {
         width: 120,

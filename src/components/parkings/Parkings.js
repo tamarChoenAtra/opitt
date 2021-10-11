@@ -6,147 +6,242 @@ import {
     Switch,
     Text,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import Row from '../genericComponents/Row';
 import Col from '../genericComponents/Col';
 import Button from '../genericComponents/Button';
 import { dark, dominant, dominantLight, ligthDominant } from '../../styles/SystemColor';
 import styles from '../../styles/Styles';
-import { Regular } from '../../styles/SystemFonts';
+import { Bold, Regular } from '../../styles/SystemFonts';
 import HourlyParkingPermit from './HourlyParkingPermit';
 import AnimatedView from '../genericComponents/AnimatedView';
 import ConfirmedParkingDetails from './ConfirmedParkingDetails';
 import TransparentBtn from '../genericComponents/TransparentBtn';
+import RequestParkingList from '../home/RequestParkingList';
+import DataBox from '../genericComponents/DataBox';
+import RequestParking from './RequestParking';
+import { navigateScreen } from '../../routes/routes';
+import { connect } from 'react-redux';
+import actions from '../../redux/actions';
+import DemandParking1Dialog from '../dialog/DemandParking1.dialog';
+import DailyParking from './DailyParking';
 
-export default () => {
+function Parkings(props) {
+    const {
+        _emptyParkingList,
+        _setRequestForParking,
+        _requestForParking,
+    } = props;
     const parking = 'parking'.toString();
     const { t } = useTranslation();
+    const txt = 'requestParking'.toString();
     const [switchHourlyParking, setSwitchHourlyParking] = useState(false)
     const [switchDailyParking, setSwitchDailyParking] = useState(false)
     const [closeDialog, setCloseDialog] = useState(false);
-    const [pressedBtn, setPressedBtn] = useState(0);
+    const [pressedBtn, setPressedBtn] = useState('');
+    const [openSendDialog, setOpenSendDialog] = useState(false);
 
     const toggleSwitchHourlyParking = () => setSwitchHourlyParking(previousState => !previousState);
-    const toggleSwitchDailyParking = () => setSwitchHourlyParking(previousState => !previousState);
+    const toggleSwitchDailyParking = () => setSwitchDailyParking(previousState => !previousState);
 
-    const handlePress = (event) => {
-        console.log(event);
+    const handlePress = (string) => {
+        setPressedBtn(string)
+        _setRequestForParking({ key: 'when', value: string })
     }
 
     return (
         <>
             <Header
-                headerRightElement={<Text>
+                headerRightElement={<Text style={styles.title}>
                     {t(`${parking}.title`)}
                 </Text>}
             />
-
-            <View style={_styles().requestView}>
-                <Col cols={1} style={{ alignSelf: 'flex-start' }}>
-                    <Text >
-                        {t(`${parking}.requestParkingForGuests`)}
-                    </Text>
-                </Col>
-
-                <Row >
-                    <Col cols={1}>
-                        <TransparentBtn
-                            handlePress={handlePress}
-                            content={t(`${parking}.requestParkingForToday`)}
-                            color={"#FFC803"}
-                            fill={true}
-                            size={'small'}
-                        />
+            <ScrollView>
+                <View style={_styles().requestView}>
+                    <Col cols={1} style={{ alignSelf: 'flex-start' }}>
+                        <Text style={[_styles().boldTxt, _styles().padding]}>
+                            {t(`${parking}.requestParkingForGuests`)}
+                        </Text>
                     </Col>
-                    <Col cols={1}>
-                        <TransparentBtn
-                            content={t(`${parking}.requestParkingForTomorrow`)}
-                            color={"#FFC803"}
-                            fill={false}
-                            size={'small'}
-                            handlePress={handlePress}
+                    <Row>
+                        <Col cols={1}>
+                            <TransparentBtn
+                                handlePress={() => handlePress('today')}
+                                content={t(`${parking}.requestParkingForToday`)}
+                                color={"#FFC803"}
+                                fill={pressedBtn == 'today' ? true : false}
+                                size={'small'}
+                            />
+                        </Col>
+                        <Col cols={1}>
+                            <TransparentBtn
+                                content={t(`${parking}.requestParkingForTomorrow`)}
+                                color={"#FFC803"}
+                                fill={pressedBtn == 'tomorrow' ? true : false}
+                                size={'small'}
+                                handlePress={() => handlePress('tomorrow')}
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col cols={1} >
+                            <RequestParking
+                                visible={pressedBtn == 'today' || pressedBtn == 'tomorrow' ? true : false}
+                                title={t(`${txt}.fromHour`)}
+                                setRequestForParking={_setRequestForParking}
+                                key1='fromHour'
+                            />
+                        </Col>
+                        <Col cols={1}>
+                            <RequestParking
+                                visible={pressedBtn == 'today' || pressedBtn == 'tomorrow' ? true : false}
+                                title={t(`${txt}.toHour`)}
+                                key1='toHour'
+                                setRequestForParking={_setRequestForParking}
+                            />
+                        </Col>
+                    </Row>
+                    {(pressedBtn == 'today' || pressedBtn == 'tomorrow') &&
+                        <View style={[styles.placeCenter, { marginTop: 20 }]}>
+                            <Button
+                                content={t(`${txt}.send`)}
+                                width={140}
+                                handlePress={() => {
+                                    setOpenSendDialog(true)
+                                    setPressedBtn('')
+                                }}
+                            />
+                        </View>
+                    }
 
-                        />
-                    </Col>
+                </View>
 
-                </Row>
-            </View>
-            <View style={styles.headerBottomDivider}></View>
-            <View style={_styles().permitView}>
-                <Row>
-                    <Col cols={1} >
-                        <Row>
-                            <Text>{t(`${parking}.hourlyParkingPermit`)}</Text>
-                        </Row>
-                        {!switchHourlyParking &&
-                            <AnimatedView>
-                                <Row>
-                                    <Text>{t(`${parking}.subTitle1`)}</Text>
-                                </Row>
-                            </AnimatedView>
-                        }
-                    </Col>
-                    <Col cols={1} style={_styles().switch}>
-                        <Switch
-                            trackColor={{ false: '#374563', true: '#FFC803' }}
-                            onValueChange={toggleSwitchHourlyParking}
-                            value={switchHourlyParking}
-                            thumbColor={switchHourlyParking ? 'black' : '#FFFFFF'}
-                        />
-                    </Col>
+                <View style={styles.headerBottomDivider}></View>
+                <View style={_styles().permitView}>
+                    <Row>
+                        <Col cols={1} >
+                            <Row>
+                                <Text style={_styles().boldTxt}>{t(`${parking}.hourlyParkingPermit`)}</Text>
+                            </Row>
+                            {!switchHourlyParking &&
+                                <AnimatedView>
+                                    <Row>
+                                        <Text style={_styles().txt}>{t(`${parking}.subTitle1`)}</Text>
+                                    </Row>
+                                </AnimatedView>
+                            }
+                        </Col>
+                        <Col cols={1} style={_styles().switch}>
+                            <Switch
+                                trackColor={{ false: '#374563', true: '#FFC803' }}
+                                onValueChange={toggleSwitchHourlyParking}
+                                value={switchHourlyParking}
+                                thumbColor={switchHourlyParking ? 'black' : '#FFFFFF'}
+                            />
+                        </Col>
+                    </Row>
 
-                </Row>
-                <HourlyParkingPermit
-                    visible={switchHourlyParking}
-                    setCloseDialog={setCloseDialog}
-                    closeDialog={closeDialog}
-                />
-                <ConfirmedParkingDetails
-                    visible={closeDialog && switchHourlyParking}
-                />
-            </View>
-            <View style={styles.headerBottomDivider}></View>
+                    <HourlyParkingPermit
+                        visible={switchHourlyParking}
+                        setCloseDialog={setCloseDialog}
+                        closeDialog={closeDialog}
+                    />
+                    <ConfirmedParkingDetails
+                        visible={closeDialog && switchHourlyParking}
+                    />
+                </View>
+                <View style={styles.headerBottomDivider}></View>
 
-            <View style={_styles().permitView}>
-                <Row>
-                    <Col cols={1}>
-                        <Row>
-                            <Text>{t(`${parking}.dailyParkingPermit`)}</Text>
-                        </Row>
-                        <Row>
-                            <Text>{t(`${parking}.subTitle2`)}</Text>
-                        </Row>
-                    </Col>
-                    <Col cols={1} style={_styles().switch}>
-                        <Switch />
-                    </Col>
-                </Row>
-            </View>
-            <View style={styles.headerBottomDivider}></View>
-            <TouchableOpacity style={_styles().darkBtn}>
-                <Row style={_styles().row}>
-                    <Text style={_styles().btnTxt}>{t(`${parking}.emptyParkings`)}</Text>
-                    <View style={_styles().avatarView}>
-                        <Text style={_styles().avatarTxt}>4</Text>
-                    </View>
-                </Row>
-            </TouchableOpacity>
-            <TouchableOpacity style={_styles().darkBtn}>
-                <Row style={_styles().row}>
-                    <Text style={_styles().btnTxt}>{t(`${parking}.guestsList`)}</Text>
-                </Row>
-            </TouchableOpacity>
+                <View style={_styles().permitView}>
+                    <Row>
+                        <Col cols={1}>
+                            <Row>
+                                <Text style={_styles().boldTxt}>{t(`${parking}.dailyParkingPermit`)}</Text>
+                            </Row>
+                            <Row>
+                                <Text style={_styles().txt}>{t(`${parking}.subTitle2`)}</Text>
+                            </Row>
+                        </Col>
+                        <Col cols={1} style={_styles().switch}>
+                            <Switch
+                                trackColor={{ false: '#374563', true: '#FFC803' }}
+                                onValueChange={toggleSwitchDailyParking}
+                                value={switchDailyParking}
+                                thumbColor={switchDailyParking ? 'black' : '#FFFFFF'}
+                            />
+                        </Col>
+
+                    </Row>
+                    {/* <DailyParking /> */}
+
+                </View>
+                <View style={styles.headerBottomDivider}></View>
+                <TouchableOpacity
+                    style={_styles().darkBtn}
+                    onPress={() => {
+                        navigateScreen(props, 'EmptyParkings')
+                    }}
+                >
+                    <Row style={_styles().row}>
+                        <Text style={_styles().btnTxt}>{t(`${parking}.emptyParkings`)}</Text>
+                        <View style={_styles().avatarView}>
+                            <Text style={_styles().avatarTxt}>{_emptyParkingList && _emptyParkingList.length ? _emptyParkingList.length : 0}</Text>
+                        </View>
+                    </Row>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={_styles().darkBtn}
+                    onPress={() => {
+                        navigateScreen(props, 'GuestsList')
+                    }}
+                >
+                    <Row style={_styles().row}>
+                        <Text style={_styles().btnTxt}>{t(`${parking}.guestsList`)}</Text>
+                    </Row>
+                </TouchableOpacity>
+            </ScrollView>
+            <DemandParking1Dialog
+                visible={openSendDialog}
+                setVisible={setOpenSendDialog}
+            />
         </>
     )
 }
+const mapStateToProps = state => ({
+    ...state,
+    _emptyParkingList: state.parkings.emptyParkingList,
+    _requestForParking: state.parkings.requestForParking
+})
+
+const mapDispatchToProps = dispatch => ({
+    _deleteCar: (_id) => dispatch(actions.deleteCar(_id)),
+    _setRequestForParking: (req) => dispatch(actions.setRequestForParking(req))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Parkings)
 
 const _styles = () => StyleSheet.create({
     requestView: {
-        height: 140,
-        paddingVertical: 20,
-        paddingHorizontal: 5,
-        direction: 'rtl'
+        paddingBottom: 20,
+        // paddingHorizontal: 5,
+        direction: 'rtl',
+        minHeight: 70,
+        justifyContent: 'center',
+    },
+    boldTxt: {
+        fontFamily: Bold,
+        fontSize: 18,
+        fontWeight: 'bold',
+        padding: 2
+    },
+    padding: {
+        padding: 18
+    },
+    txt: {
+        fontFamily: Regular,
+        fontSize: 15,
     },
     row: {
         alignSelf: 'center',

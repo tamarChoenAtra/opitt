@@ -14,7 +14,7 @@ export default (props) => {
     const {
         visible,
         setVisible,
-        handlePress
+        handlePress,
     } = props;
 
     const {

@@ -11,6 +11,10 @@ export default StyleSheet.create({
         backgroundColor: '#0A2550',
         flex: 1
     },
+    boldTxt: {
+        fontFamily: Bold,
+        fontSize: 20
+    },
     headerText: {
 
     },
@@ -100,7 +104,7 @@ export default StyleSheet.create({
         textAlign: 'right',
         color: '#FFFFFF99',
         fontSize: 18,
-        // fontFamily: 'Assistant-Regular'
+        fontFamily: Regular
     },
     placeCenter: {
         justifyContent: 'center',
@@ -114,10 +118,10 @@ export default StyleSheet.create({
     title: {
         color: 'white',
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: 28,
         fontWeight: 'bold',
         marginTop: 15,
-        // fontFamily: 'Assistant-Regular'
+        fontFamily: Regular
     },
     noteTxt: {
         color: '#FFFFFF99',
@@ -126,7 +130,8 @@ export default StyleSheet.create({
     },
     txt: {
         color: '#FFFFFF',
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: Regular
     },
     txtContentDialog: {
         fontWeight: 'normal',
@@ -135,6 +140,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         fontSize: 16,
         lineHeight: 20,
+        fontFamily: Regular
     }
 
 })

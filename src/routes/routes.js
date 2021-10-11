@@ -36,6 +36,7 @@ import ChooseLanguage from '../components/settings/generalManagement/ChooseLangu
 import NotificationsManagement from '../components/settings/generalManagement/NotificationsManagement';
 import About from '../components/settings/generalManagement/About';
 import EmptyParkings from '../components/parkings/EmptyParkings';
+import GuestsList from '../components/guests/GuestsList';
 
 const Stack = createNativeStackNavigator();
 
@@ -153,6 +154,12 @@ export const RoutesApp = (props) => {
                     name="EmptyParkings"
                     component={
                         (props) => addStaticBackground(props, EmptyParkings)
+                    }
+                />
+                <Stack.Screen
+                    name="GuestsList"
+                    component={
+                        (props) => addStaticBackground(props, GuestsList)
                     }
                 />
                 <Stack.Screen

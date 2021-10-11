@@ -7,8 +7,7 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
-    TextInput,
+    View
 } from 'react-native';
 import ChipButton from '../genericComponents/ChipButton';
 import { bg, dark, dominant, ligth } from '../../styles/SystemColor';
@@ -19,11 +18,14 @@ import Col from '../genericComponents/Col';
 import { Bold, Regular } from '../../styles/SystemFonts';
 import { actions } from '../../redux/actions';
 import Button from '../genericComponents/Button';
-import AnimatedView from '../genericComponents/AnimatedView';
+import ParkingForNewGuest from './ParkingForNewGuest';
+import SaveParkingDialog from '../dialog/SaveParking.dialog';
+import ParkingForGuest from './ParkingForGuest';
+import Home from '../home/Home';
 
-function ParkingForNewGuest(props) {
+function ParkingForExsitsGuest(props) {
     const { t } = useTranslation();
-    const txt1 = 'parkingForNewGuest'.toString();
+    const txt1 = 'parkingForExsitsGuest'.toString();
     const txt2 = 'reservedParkingsList'.toString();
     const returnTxtStyle = (id) => {
         return {
@@ -32,27 +34,76 @@ function ParkingForNewGuest(props) {
             color: id == -1 ? '#979eae' : _selectedGuest.id == id ? 'white' : '#364462',
         }
     }
+
     const {
-        setOpenDialog,
         _guestsList,
         _selectedGuest,
         _setSelectedGuest,
         _selectedParking,
         setVisible,
         visible,
+        setComponentToDispaly,
+        setOpenDialog,
         saveParkingForGuest
     } = props;
-    const inputList = [
-        {
-            placeholder: t(`${txt1}.name`),
-        },
-        {
-            placeholder: t(`${txt1}.carKind`),
-        },
-        {
-            placeholder: t(`${txt1}.carId`),
-        },
-    ]
+
+    const renderItem = ({ item }) => <>
+        <TouchableOpacity
+            style={_styles().item}
+            onPress={() => {
+                _setSelectedGuest(item)
+            }}
+        >
+            <Row style={{ direction: 'rtl', alignItems: 'center' }}>
+                <Col cols={1} style={{ alignItems: 'center' }}>
+                    <Text style={returnTxtStyle(item.id)}>
+                        {item.name}
+                    </Text>
+                </Col>
+                <Col>
+                    <Text style={returnTxtStyle(item.id)}>|</Text>
+                </Col>
+                <Col cols={1} style={{ alignItems: 'center' }}>
+                    <Text style={returnTxtStyle(item.id)}>
+                        {item.carKind}
+                    </Text>
+                </Col>
+                <Col>
+                    <Text style={returnTxtStyle(item.id)}>|</Text>
+                </Col>
+                <Col cols={1} style={{ alignItems: 'center' }}>
+                    <Text style={returnTxtStyle(item.id)}>
+                        {item.carId}
+                    </Text>
+                </Col>
+            </Row>
+        </TouchableOpacity>
+        <View style={[styles.headerBottomDivider, { width: '70%', alignSelf: 'center' }]}></View>
+    </>
+
+    const selectedGuestDetails = <Row style={_styles().selectedGuest}>
+        <Col cols={1} style={{ alignItems: 'center' }}>
+            <Text style={returnTxtStyle(-1)}>
+                {_selectedGuest.name}
+            </Text>
+        </Col>
+        <Col>
+            <Text style={returnTxtStyle(-1)}>|</Text>
+        </Col>
+        <Col cols={1} style={{ alignItems: 'center' }}>
+            <Text style={returnTxtStyle(-1)}>
+                {_selectedGuest.carKind}
+            </Text>
+        </Col>
+        <Col>
+            <Text style={returnTxtStyle(-1)}>|</Text>
+        </Col>
+        <Col cols={1} style={{ alignItems: 'center' }}>
+            <Text style={returnTxtStyle(-1)}>
+                {_selectedGuest.carId}
+            </Text>
+        </Col>
+    </Row>
     const buttons = <Row style={_styles().btnRow}>
         <Button
             content={t(`${txt1}.btn1`)}
@@ -65,18 +116,11 @@ function ParkingForNewGuest(props) {
         />
         <Button
             kind="outline"
-            handlePress={() => setVisible(false)}
+            handlePress={() => setComponentToDispaly(ParkingForNewGuest)}
             content={t(`${txt1}.btn2`)}
             colorOutline={ligth}
-            width={120}
         />
     </Row>
-    const textInput = ({ item }) => <TextInput
-        style={[styles.input, _styles().input]}
-        placeholder={item.placeholder}
-        placeholderTextColor={'#FFFFFF99'}
-        selectionColor="#FFFFFF99"
-    />
     const selectedParkingDetails =
         <Row
             style={[_styles().swipeItem, _styles().swipeFront]}
@@ -114,27 +158,28 @@ function ParkingForNewGuest(props) {
 
     return (
         <>
-            <AnimatedView style={_styles().centeredView}>
+            <View style={_styles().centeredView}>
                 <View style={_styles().modalView}>
                     <Text style={styles.title}>
-                        {t(`${txt1}.title`)}
+                        {t(`${txt1}.title1`)}
                     </Text>
-                    <FlatList
-                        style={{ width: '100%' }}
-                        data={inputList}
-                        renderItem={textInput}
-                        scrollEnabled={false}
-                    />
-                    <AnimatedView>
-                        {selectedParkingDetails}
-                    </AnimatedView>
+                    {selectedGuestDetails}
+                    {selectedParkingDetails}
                     {buttons}
                     <ChipButton
                         handlePress={() => setVisible(false)}
                     />
                 </View>
-
-            </AnimatedView>
+                <View style={_styles().modalView}>
+                    <Text style={_styles().subTiltle}>{t(`${txt1}.title2`)}</Text>
+                    <FlatList
+                        style={{ backgroundColor: '#05163C', padding: 10, width: '90%', minHeight: 100, maxHeight: 200 }}
+                        data={_guestsList}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.id}
+                    />
+                </View>
+            </View>
         </>
     )
 }
@@ -142,26 +187,19 @@ const mapStateToProps = state => ({
     ...state,
     _guestsList: state.guests.guestsList,
     _selectedGuest: state.guests.selectedGuest,
-    _selectedParking: state.parkings.selectedParking
+    _selectedParking: state.parkings.selectedParking,
 })
 
 const mapDispatchToProps = dispatch => ({
     _setSelectedGuest: (item) => dispatch(actions.setSelectedGuest(item)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ParkingForNewGuest);
+export default connect(mapStateToProps, mapDispatchToProps)(ParkingForExsitsGuest);
 
 const _styles = (alignItems) => StyleSheet.create({
     centeredView: {
         flex: 1,
         backgroundColor: '#17151559',
-    },
-    input: {
-        margin: 7,
-        width: '90%',
-        alignSelf: 'center',
-        borderRadius: 8,
-        height: 65
     },
     subTiltle: {
         alignSelf: 'center',
@@ -171,8 +209,7 @@ const _styles = (alignItems) => StyleSheet.create({
     },
     btnRow: {
         direction: 'rtl',
-        margin: 15
-        // marginTop: 20
+        marginTop: 20
     },
     selectedGuest: {
         direction: 'rtl',
@@ -233,7 +270,7 @@ const _styles = (alignItems) => StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         width: '94%',
-        minHeight: 360,
+        height: 360,
         alignSelf: 'center',
     },
     button: {

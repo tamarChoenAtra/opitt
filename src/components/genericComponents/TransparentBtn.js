@@ -15,6 +15,7 @@ export default (props) => {
         txtColor,
         size,
         width,
+        borderRadius,
         accessibilityValue
     } = props;
 
@@ -24,6 +25,8 @@ export default (props) => {
                 return 55
             case "small":
                 return 45
+            case "x-small":
+                return 38
             default:
                 return 50
         }
@@ -35,7 +38,7 @@ export default (props) => {
             backgroundColor: fill ? color : 'transparent',
             borderColor: color,
             borderWidth: 1,
-            borderRadius: 15,
+            borderRadius: borderRadius ? borderRadius : 15,
             width: width ? width : 170,
         }
     }
@@ -71,6 +74,6 @@ const _styles = (color,) => StyleSheet.create({
     txt: {
         fontFamily: Regular,
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 16
     }
 })

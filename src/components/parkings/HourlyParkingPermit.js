@@ -16,6 +16,7 @@ import styles from '../../styles/Styles';
 import Button from '../genericComponents/Button';
 import AnimatedView from '../genericComponents/AnimatedView';
 import ParkingPermitDialog from '../dialog/ParkingPermit.dialog';
+import DataBox from '../genericComponents/DataBox';
 
 export default (props) => {
     const {
@@ -26,22 +27,22 @@ export default (props) => {
     const scrollViewRef = useRef();
     const hourlyParkingPermit = 'hourlyParkingPermit'.toString();
     const [openDialog, setOpenDialog] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
     const [hoursList, setHoursList] = useState(
         Array(24)
             .fill("")
-            .map((_, i) => ({ key: `${i + 1}`, text: `item #${i}` }))
+            .map((_, i) => ({ key: i, text: `item #${i}` }))
     )
     const { t } = useTranslation();
 
-
     const returnTxt = (key) => {
         switch (key) {
-            case '1':
+            case 0:
                 return t(`${hourlyParkingPermit}.hour`)
-            case '2':
+            case 1:
                 return t(`${hourlyParkingPermit}.hours2`)
             default:
-                return key + " " + t(`${hourlyParkingPermit}.hours`)
+                return `${key + 1} ${t(`${hourlyParkingPermit}.hours`)}`
         }
     }
 
@@ -59,22 +60,16 @@ export default (props) => {
             {visible && !closeDialog &&
                 <AnimatedView>
                     <Row>
-                        <Col cols={1}>
-                            <View style={_styles().hoursView}>
-                                <Text style={_styles().titleScrollView}>
-                                    {t(`${hourlyParkingPermit}.parkingDefinition`)}
-                                </Text>
-                                <Text style={_styles().titleScrollView}>
-                                    {t(`${hourlyParkingPermit}.till24Hours`)}
-                                </Text >
-                                <View style={_styles().titleDecoration}></View>
-                                <FlatList
-                                    data={hoursList}
-                                    renderItem={renderItem}
-                                    keyExtractor={item => item.key}
-                                />
-                            </View>
-                        </Col>
+                        <DataBox
+                            visible={true}
+                            title={t(`${hourlyParkingPermit}.parkingDefinition`)}
+                            subTitle={t(`${hourlyParkingPermit}.till24Hours`)}
+                            data={hoursList}
+                            returnTxt={returnTxt}
+                            width='90%'
+                            selectedItem={selectedItem}
+                            setSelectedItem={setSelectedItem}
+                        />
                         <Col cols={1}>
                             <View>
                                 <Row>

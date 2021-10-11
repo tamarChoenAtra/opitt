@@ -5,12 +5,11 @@ import { actions } from '../actions';
 
 const initialState = {
    // notificationsList:[],
-   emptyParkingList: [],
    activeDailyParking: false,
    activeHourlyParking: false,
-   reservedParkingsList: [
+   emptyParkingList: [
       {
-         key: '0',
+         _id: '0',
          fromDay: 'ראשון',
          toDay: 'שני',
          fromHour: '08:00',
@@ -20,7 +19,29 @@ const initialState = {
          floor: ' 1',
       },
       {
-         key: '1',
+         _id: '1',
+         fromDay: 'ראשון',
+         toDay: 'שני',
+         fromHour: '08:00',
+         toHour: '21:00',
+         family: 'לוי',
+         numParking: '2',
+         floor: 'מינוס 1',
+      }
+   ],
+   reservedParkingsList: [
+      {
+         _id: '0',
+         fromDay: 'ראשון',
+         toDay: 'שני',
+         fromHour: '08:00',
+         toHour: '21:00',
+         family: 'כהן',
+         numParking: '5',
+         floor: ' 1',
+      },
+      {
+         _id: '1',
          fromDay: 'ראשון',
          toDay: 'שני',
          fromHour: '08:00',
@@ -39,7 +60,14 @@ const initialState = {
       //    index: 1,
       //    item: "ביבא לת ,22 דלישטור",
       // }
-   ]
+   ],
+   selectedParking: {},
+   requestForParking: {
+      userId: '',
+      fromHour: 0,
+      toHour: 0,
+      when: ''
+   }
 }
 
 const parkings = {
@@ -60,6 +88,18 @@ const parkings = {
    },
    setPropertiesList(state, action) {
       state.propertiesList = action.payload;
+   },
+   setSelectedParking(state, action) {
+      state.selectedParking = action.payload;
+   },
+   saveParkingForGuest(state, action) {
+      state.emptyParkingList = state.emptyParkingList.filter(emptyParking =>
+         emptyParking._id !== state.selectedParking._id
+      )
+   },
+   setRequestForParking(state, action) {
+      let tempReq = state.requestForParking;
+      state.requestForParking = { ...tempReq, [action.payload.key]: action.payload.value }
    }
 }
 

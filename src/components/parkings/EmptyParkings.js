@@ -15,22 +15,27 @@ import Row from '../genericComponents/Row';
 import Col from '../genericComponents/Col';
 import { Bold, Regular } from '../../styles/SystemFonts';
 import { dark } from '../../styles/SystemColor';
-import ParkingForNewGuest from './ParkingForNewGuest';
+import ParkingForGuest from './ParkingForGuest';
+import { actions } from '../../redux/actions';
+import SaveParkingDialog from '../dialog/SaveParking.dialog';
+
 function EmptyParkings(props) {
     const {
-        navigation,
-        reservedParkingsList
+        setSelectedParking,
+        emptyParkingList
     } = props;
-
     const { t } = useTranslation();
     const emptyParking = 'emptyParkings'.toString();
     const emptyParkingBody = 'reservedParkingsList'.toString();
     const [visible, setVisible] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+
     const renderItem = ({ item }) =>
         <TouchableOpacity
-            onPress={() =>
+            onPress={() => {
                 setVisible(true)
-            }
+                setSelectedParking(item)
+            }}
             style={[_styles().swipeItem, _styles().swipeFront]}>
             <Row>
                 <Col cols={1} style={_styles('center').col}>
@@ -75,29 +80,41 @@ function EmptyParkings(props) {
                         </Text>
 
                         <View style={[styles.avatar, styles.placeCenter]}>
-                            <Text style={_styles().numTxt}>{reservedParkingsList && reservedParkingsList.length && reservedParkingsList.length}</Text>
+                            <Text style={_styles().numTxt}>{emptyParkingList && emptyParkingList.length && emptyParkingList.length}</Text>
                         </View>
                     </Row>
                 }
             />
-
-            <FlatList
-                data={reservedParkingsList}
-                renderItem={renderItem}
-                keyExtractor={item => item.key}
-            />
             {
-                visible && <ParkingForNewGuest />
+                visible ? <ParkingForGuest
+                    visible={visible}
+                    setVisible={setVisible}
+                    setOpenDialog={setOpenDialog}
+                />
+                    :
+                    <>
+                        <FlatList
+                            data={emptyParkingList}
+                            renderItem={renderItem}
+                            keyExtractor={item => item.key}
+                        />
+                        <SaveParkingDialog
+                            visible={openDialog}
+                            setVisible={setOpenDialog}
+                        />
+                    </>
             }
         </>
     )
 }
 const mapStateToProps = state => ({
     ...state,
-    reservedParkingsList: state.parkings.reservedParkingsList,
+    emptyParkingList: state.parkings.emptyParkingList,
+    selectedParking: state.parkings.selectedParking,
 })
 
 const mapDispatchToProps = dispatch => ({
+    setSelectedParking: (item) => dispatch(actions.setSelectedParking(item)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmptyParkings)

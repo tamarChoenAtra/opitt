@@ -333,6 +333,59 @@ export const He = {
         },
         emptyParkings: {
             title: 'חניות פנויות',
+        },
+        parkingForExsitsGuest: {
+            title1: 'חנייה לאורח קיים',
+            btn1: 'אישור',
+            btn2: 'חנייה לאורח חדש',
+            title2: 'בחר אורח מהרשימה',
+        },
+        parkingForNewGuest: {
+            title: 'פרטי אורח חדש',
+            name: 'שם',
+            carKind: 'סוג הרכב',
+            carId: 'מספר הרכב',
+            btn1: 'אישור',
+            btn2: 'ביטול'
+        },
+        requestParking: {
+            fromHour: 'משעה',
+            toHour: 'עד שעה',
+            send: 'שלח'
+        },
+        days: {
+            sun: 'א',
+            mon: 'ב',
+            tue: 'ג',
+            wed: 'ד',
+            thu: 'ה',
+            fri: 'ו',
+            sat: 'ש',
+        },
+        dailyParking: {
+            title1: 'מיום',
+            title2: 'עד יום',
+            title3: 'משעה',
+            title4: 'עד שעה',
+            checkBox: 'פרטי החנייה שלך ישמרו ויופיעו בצורה שבועית',
+            btn1: 'שלח',
+            btn2: 'בטל',
+        },
+        guests: {
+            title: 'רשימת אורחים',
+            search: 'חיפוש',
+            guestName: 'שם האורח',
+            carId: 'מספר לוחית רישוי',
+            carKind: 'סוג הרכב',
+            btnState1: 'הרשאת כניסה',
+            btnState2: 'פרטי הרשאת כניסה'
+        },
+        scheduledEntryPermission: {
+            title: 'הרשאת כניסה מתוזמנת',
+            selectDays: 'בחירת ימים בשבוע',
+            note: 'לתשומת ליבך יש הגבלת כניסות לכל רכב בחודש',
+            btn1: 'אישור',
+            btn2: 'ביטול',
         }
     }
 }

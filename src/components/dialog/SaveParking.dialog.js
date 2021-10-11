@@ -10,7 +10,6 @@ import Dialog from '../dialog/Dialog';
 export default (props) => {
 
     const saveParkingDialog = 'saveParkingDialog'.toString();
-
     const {
         visible,
         setVisible
@@ -22,12 +21,12 @@ export default (props) => {
 
     const contentDialog = () => {
         return <>
-            <Text style={[styles.txt,styles.txtContentDialog, _styles.details]}>
+            <Text style={[styles.txt, styles.txtContentDialog, _styles.details]}>
                 {t(`${saveParkingDialog}.details`)}
             </Text>
         </>
     }
-    
+
     return (
         <Dialog
             setVisible={setVisible}
@@ -42,7 +41,7 @@ export default (props) => {
                     },
                     body: t(`${saveParkingDialog}.submit`),
                     width: 100,
-                    size:'small'
+                    size: 'small'
                 }
             ]}
         />
@@ -52,7 +51,7 @@ export default (props) => {
 const _styles = StyleSheet.create(
     {
         details: {
-            marginVertical:10
+            marginVertical: 10
         }
     }
 )

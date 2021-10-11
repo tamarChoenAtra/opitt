@@ -288,8 +288,7 @@ function CarsDetailsFormik(props) {
                                         <TextInput
                                             onChangeText={(txt) => {
                                                 changeParking(item, 'parkingNum', txt);
-                                            }
-                                            }
+                                            }}
                                             value={item.parkingNum.toString()}
                                             style={styles.input}
                                             placeholder={t(`${form}.parkingNum`)}
