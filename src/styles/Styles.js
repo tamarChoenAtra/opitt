@@ -126,7 +126,7 @@ export default StyleSheet.create({
     noteTxt: {
         color: '#FFFFFF99',
         fontSize: 17,
-        // fontFamily: 'Assistant-Regular'
+        fontFamily: Regular
     },
     txt: {
         color: '#FFFFFF',

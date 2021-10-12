@@ -34,7 +34,7 @@ function Home(props) {
     let dropDownArr = [
         {
             index: 0,
-            item: "ר' עקיבא 10 בני ברק",
+            item: 'השלושה 9'
         },
         {
             index: 1,

@@ -56,7 +56,7 @@ const initialState = {
    propertiesList: [
       {
          index: 0,
-         item: "ר' עקיבא 10 בני ברק",
+         item: 'השלושה 9 ת"א'
       },
       // {
       //    index: 1,

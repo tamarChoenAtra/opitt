@@ -25,7 +25,7 @@ function AddEntryCrt(props) {
 
     const {
         setVisible,
-        saveParkingForGuest,
+        _saveParkingForGuest,
         visible
     } = props;
     const inputList = [
@@ -46,7 +46,7 @@ function AddEntryCrt(props) {
             handlePress={() => {
                 setVisible(false)
                 // setOpenDialog(true)
-                saveParkingForGuest()
+                _saveParkingForGuest()
             }}
         />
         <Button
@@ -105,6 +105,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     _setSelectedGuest: (item) => dispatch(actions.setSelectedGuest(item)),
+    _saveParkingForGuest: () => dispatch(actions.saveParkingForGuest()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddEntryCrt);

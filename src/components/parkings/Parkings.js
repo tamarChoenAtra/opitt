@@ -57,14 +57,23 @@ function Parkings(props) {
     const [closeDialog, setCloseDialog] = useState(false);
     const [pressedBtn, setPressedBtn] = useState('');
     const [openSendDialog, setOpenSendDialog] = useState(false);
-
-    const toggleSwitchHourlyParking = () => setSwitchHourlyParking(previousState => !previousState);
-    const toggleSwitchDailyParking = () => setSwitchDailyParking(previousState => !previousState);
-
+    const toggleSwitchHourlyParking = () => {
+        setSwitchHourlyParking(previousState => !previousState)
+        setSwitchDailyParking(false)
+        setPressedBtn('')
+    }
+    const toggleSwitchDailyParking = () => {
+        setSwitchDailyParking(previousState => !previousState)
+        setSwitchHourlyParking(false)
+        setPressedBtn('')
+    };
     const handlePress = (string) => {
         setPressedBtn(string)
+        setSwitchHourlyParking(false)
+        setSwitchDailyParking(false)
         _setRequestForParking({ key: 'when', value: string })
     }
+
     return (
         <>
             <Header
@@ -171,9 +180,11 @@ function Parkings(props) {
                 <View style={_styles().permitView}>
                     <Row>
                         <Col cols={1}>
-                            <Row>
-                                <Text style={_styles().boldTxt}>{t(`${parking}.dailyParkingPermit`)}</Text>
-                            </Row>
+                            {!switchDailyParking &&
+                                <Row>
+                                    <Text style={_styles().boldTxt}>{t(`${parking}.dailyParkingPermit`)}</Text>
+                                </Row>
+                            }
                             <Row>
                                 <Text style={_styles().txt}>{t(`${parking}.subTitle2`)}</Text>
                             </Row>
@@ -188,7 +199,9 @@ function Parkings(props) {
                         </Col>
 
                     </Row>
-                    {/* <DailyParking /> */}
+                    {switchDailyParking &&
+                        <DailyParking />
+                    }
 
                 </View>
                 <View style={styles.headerBottomDivider}></View>

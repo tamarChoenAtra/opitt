@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {
     bg,
+    dark,
     ligth,
     note
 } from '../../styles/SystemColor';
@@ -15,6 +16,7 @@ import {
 import { initReactI18next, useTranslation } from 'react-i18next';
 import Arrow1 from '../../assets/svg/Arrow1.svg';
 import Arrow2 from '../../assets/svg/Arrow2.svg';
+import { Regular } from '../../styles/SystemFonts';
 
 
 export default (props) => {
@@ -57,7 +59,8 @@ export default (props) => {
                 onPress={() => changeLanuage(item)}
                 activeOpacity={0.6}
                 key={index}
-                style={_styles().listItem}>
+                style={_styles().listItem}
+            >
                 {
                     <View
                         style={_styles().icon}>
@@ -76,7 +79,7 @@ export default (props) => {
                 <View style={_styles().listWrapper}>
                     <View>
                         <Text
-                            numberOfLines={1}
+                            // numberOfLines={1}
                             style={txtNote && index != 0 ? _styles().txtNote : _styles().listNameText}>{item.item}</Text>
                     </View>
                     {
@@ -107,12 +110,10 @@ export default (props) => {
                         :
                         null
                 }
-
             </View>
         </View>
     )
 }
-
 
 const _styles = (border) => StyleSheet.create(
     {
@@ -131,7 +132,7 @@ const _styles = (border) => StyleSheet.create(
             borderWidth: border ? 1 : 0,
             borderColor: ligth,
             borderRadius: 8,
-            backgroundColor: '#05163C'
+            backgroundColor: dark
         },
         icon: {
             flex: 0.9,
@@ -152,6 +153,7 @@ const _styles = (border) => StyleSheet.create(
             fontSize: 18,
             textAlign: 'center',
             marginVertical: 10,
+            fontFamily: Regular
         },
         listRow: {
             height: 45,

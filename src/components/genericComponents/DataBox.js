@@ -24,6 +24,7 @@ export default (props) => {
         width,
         selectedItem,
         setSelectedItem,
+        secondTitle
     } = props;
 
     const flatListRef = useRef();
@@ -54,7 +55,7 @@ export default (props) => {
             .map((_, i) => ({ key: i, text: `item #${i}` })),
         'hoursList': Array(24)
             .fill("")
-            .map((_, i) => ({ key: `${i}`, text: `item #${i}` }))
+            .map((_, i) => ({ key: i, text: `item #${i}` }))
     }
     const setSelectedItemFunc = (item) => {
         setSelectedItem(item)
@@ -72,36 +73,62 @@ export default (props) => {
     const renderItem = ({ item }) =>
         <View style={_styles().hourItem}>
 
-            <TouchableOpacity
-                onPress={() => setSelectedItemFunc(item.key)}
-            >
-                <Text style={returnTxtStyle(item.key)}>
-                    {returnTxt ? returnTxt(item.key) : item.txt}
-                </Text>
-            </TouchableOpacity>
-
+            {(item.key > -1 || kindList == 'daysList' || (item.key == -1 && scroll == true)) &&
+                <TouchableOpacity
+                    onPress={() => setSelectedItemFunc(item.key)}
+                >
+                    <Text style={returnTxtStyle(item.key)}>
+                        {returnTxt ? returnTxt(item.key) : item.txt}
+                    </Text>
+                </TouchableOpacity>
+            }
         </View>
 
     return (
         <>
             <Col cols={1}>
                 <View style={_styles(width).hoursView}>
-                    <Text style={_styles().titleScrollView}>
-                        {title}
-                    </Text>
-                    {subTitle &&
-                        <Text style={_styles().titleScrollView}>
-                            {subTitle}
-                        </Text >
-                    }
-                    <View style={_styles().titleDecoration}></View>
-                    <FlatList
-                        data={data[kindList]}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.key}
-                        ref={flatListRef}
-                        showsVerticalScrollIndicator={false}
-                    />
+                    <Row style={_styles().aaa}>
+                        <Col cols={1} >
+                            <Text style={_styles().titleScrollView}>
+                                {title}
+                            </Text>
+                            {subTitle &&
+                                <Text style={_styles().titleScrollView}>
+                                    {subTitle}
+                                </Text >
+                            }
+                            <View style={_styles().titleDecoration}></View>
+                            <FlatList
+                                data={data[kindList]}
+                                renderItem={renderItem}
+                                keyExtractor={item => item.key}
+                                ref={flatListRef}
+                                showsVerticalScrollIndicator={false}
+                            />
+                        </Col>
+                        {kindList == 'daysList' &&
+                            <Col cols={1}>
+                                <Text style={_styles().titleScrollView}>
+                                    {secondTitle}
+                                </Text>
+                                {subTitle &&
+                                    <Text style={_styles().titleScrollView}>
+                                        {subTitle}
+                                    </Text >
+                                }
+                                <View style={_styles().titleDecoration}></View>
+                                <FlatList
+                                    data={data[kindList]}
+                                    renderItem={renderItem}
+                                    keyExtractor={item => item.key}
+                                    ref={flatListRef}
+                                    showsVerticalScrollIndicator={false}
+                                />
+                            </Col>
+
+                        }
+                    </Row>
                 </View>
             </Col>
         </>
@@ -118,13 +145,15 @@ const _styles = (width) => StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         alignContent: 'center',
-        width
+        width,
+    },
+    aaa: {
+        overflow: 'scroll',
     },
     hourItem: {
         height: 30,
         margin: 3,
         alignItems: 'center',
-        paddingHorizontal: 40
     },
     titleScrollView: {
         color: '#43A6FF',

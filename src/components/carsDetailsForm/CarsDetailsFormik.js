@@ -41,7 +41,6 @@ function CarsDetailsFormik(props) {
         formValues,
         checkBox,
         setCheckBox,
-
         _addCar,//(fromValues)
         _setCountNumCars,
         _countNumCars

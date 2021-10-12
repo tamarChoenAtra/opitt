@@ -17,11 +17,7 @@ export default (props) => {
         setSelectedItem(value)
         setRequestForParking({ key: key1, value: value })
     }
-    const [hoursList, setHoursList] = useState(
-        Array(24)
-            .fill("")
-            .map((_, i) => ({ key: `${i}`, text: `item #${i}` }))
-    )
+
     const returnTxt = (key) => {
         let txt = key
         if (key < 10)
