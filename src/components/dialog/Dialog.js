@@ -105,7 +105,7 @@ const _styles = StyleSheet.create(
             overflow: 'visible',
             backgroundColor: '#0A2550',
             borderRadius: 20,
-            width: '90%',
+            width: '95%',
             // height: '100%',
             // opacity:0.5,
             zIndex: 0,

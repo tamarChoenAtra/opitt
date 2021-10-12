@@ -22,11 +22,13 @@ import ParkingForNewGuest from './ParkingForNewGuest';
 import SaveParkingDialog from '../dialog/SaveParking.dialog';
 import ParkingForGuest from './ParkingForGuest';
 import Home from '../home/Home';
+import Star from '../../assets/svg/star.svg'
 
 function ParkingForExsitsGuest(props) {
     const { t } = useTranslation();
     const txt1 = 'parkingForExsitsGuest'.toString();
     const txt2 = 'reservedParkingsList'.toString();
+    const emptyParking = 'emptyParkings'.toString();
     const returnTxtStyle = (id) => {
         return {
             fontFamily: Bold,
@@ -135,7 +137,7 @@ function ParkingForExsitsGuest(props) {
                 </Row>
             </Col>
 
-            <Col cols={1.5} style={_styles('center').col}>
+            <Col cols={1.2} style={_styles().col}>
                 <Row>
                     <Text style={_styles().hour}>{_selectedParking.fromHour}</Text>
                 </Row>
@@ -152,6 +154,17 @@ function ParkingForExsitsGuest(props) {
                 </Row>
                 <Row>
                     <Text style={_styles().txt}>{t(`${txt2}.family`) + _selectedParking.family}</Text>
+                </Row>
+            </Col>
+            <Col cols={0.7} style={_styles('center').col}>
+                <Row>
+                    <Text style={_styles().largeTxt}>
+                        {_selectedParking.stars}
+                    </Text>
+                </Row>
+                <Star />
+                <Row>
+                    <Text style={_styles().txt}>{t(`${emptyParking}.stars`)}</Text>
                 </Row>
             </Col>
         </Row>
@@ -173,7 +186,7 @@ function ParkingForExsitsGuest(props) {
                 <View style={_styles().modalView}>
                     <Text style={_styles().subTiltle}>{t(`${txt1}.title2`)}</Text>
                     <FlatList
-                        style={{ backgroundColor: '#05163C', padding: 10, width: '90%', minHeight: 100, maxHeight: 200 }}
+                        style={{ backgroundColor: dark, padding: 10, width: '90%', minHeight: 100, maxHeight: 200 }}
                         data={_guestsList}
                         renderItem={renderItem}
                         keyExtractor={item => item.id}
@@ -211,6 +224,11 @@ const _styles = (alignItems) => StyleSheet.create({
         direction: 'rtl',
         marginTop: 20
     },
+    largeTxt: {
+        fontFamily: Regular,
+        fontSize: 35,
+        // lineHeight: 35
+    },
     selectedGuest: {
         direction: 'rtl',
         alignItems: 'center',
@@ -228,7 +246,7 @@ const _styles = (alignItems) => StyleSheet.create({
     },
     col: {
         justifyContent: 'space-around',
-        alignItems
+        alignItems,
     },
     hour: {
         fontSize: 38,
@@ -238,7 +256,7 @@ const _styles = (alignItems) => StyleSheet.create({
         height: 110,
         borderRadius: 10,
         // borderColor: '#05FF00',
-        backgroundColor: '#05163C',
+        backgroundColor: dark,
         marginVertical: 5,
         justifyContent: 'center',
         direction: 'rtl',
@@ -249,8 +267,8 @@ const _styles = (alignItems) => StyleSheet.create({
     },
     txt: {
         fontFamily: Regular,
-        fontSize: 16,
-        lineHeight: 25,
+        fontSize: 15,
+        lineHeight: 32,
     },
     item: {
         padding: 10

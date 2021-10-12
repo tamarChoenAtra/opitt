@@ -8,19 +8,25 @@ import {
     FlatList,
     TouchableOpacity
 } from 'react-native';
-import { bg } from '../../styles/SystemColor';
+import { bg, ligth } from '../../styles/SystemColor';
 import styles from '../../styles/Styles';
 import { useTranslation } from 'react-i18next';
 import ChipButton from '../genericComponents/ChipButton';
+import { Bold, Regular } from '../../styles/SystemFonts';
+import Row from '../genericComponents/Row';
+import Col from '../genericComponents/Col';
+import Button from '../genericComponents/Button';
+
 function ScheduledEntryPermission(props) {
     const {
         visible,
         setVisible,
         _setSelectedGuest,
         _selectedGuest,
-        showGuestDetails
     } = props
     const { t } = useTranslation();
+    const guests = 'guests'.toString();
+    const txt1 = 'scheduledEntryPermission'.toString();
     const txt = "scheduledEntryPermission".toString();
     const days = 'days'.toString();
     const [daysList, setDaysList] = useState({
@@ -54,6 +60,37 @@ function ScheduledEntryPermission(props) {
         },
     });
 
+    const showGuestDetails = () =>
+        <View
+            style={_styles().item}
+        >
+            <Row>
+                <Col cols={1}>
+                    <Row>
+                        <Text style={_styles().boldTxt}>
+                            {t(`${guests}.guestName`)}:
+                        </Text>
+                        <Text style={_styles().txt}> {_selectedGuest.name}</Text>
+                    </Row>
+                    <Row>
+                        <Text style={_styles().boldTxt}>
+                            {t(`${guests}.carKind`)}:
+                        </Text>
+                        <Text style={_styles().txt}> {_selectedGuest.carKind}</Text>
+                    </Row>
+                </Col>
+            </Row>
+            <Row>
+                <Text style={_styles().boldTxt}>
+                    {t(`${guests}.carId`)}:
+                </Text>
+                <Col cols={1}>
+                    <Text style={_styles().largeTxt}> {_selectedGuest.carId}</Text>
+                </Col>
+            </Row>
+        </View>
+
+
     const handlePress = (item) => {
         let tempItem = daysList[item];
         tempItem.pressed = !tempItem.pressed;
@@ -72,6 +109,18 @@ function ScheduledEntryPermission(props) {
     >
         <Text style={[styles.txt, returnTxtStyle(item)]}>{daysList[item].day}</Text>
     </TouchableOpacity>
+    const buttons = <Row style={_styles().btnRow}>
+        <Button
+            content={t(`${txt1}.btn1`)}
+            width={140}
+        />
+        <Button
+            kind="outline"
+            content={t(`${txt1}.btn2`)}
+            colorOutline={ligth}
+            width={140}
+        />
+    </Row>
 
     return (
         <Modal
@@ -98,6 +147,11 @@ function ScheduledEntryPermission(props) {
                             keyExtractor={(o, index) => index}
                         />
                     </View>
+                    {showGuestDetails()}
+                    <View style={{ margin: 10 }}>
+                        <Text style={[_styles().txt, { color: 'white' }]}>{t(`${txt}.note`)}</Text>
+                    </View>
+                    {buttons}
                     <ChipButton
                         handlePress={() => setVisible(false)}
                     />
@@ -130,6 +184,41 @@ const _styles = (backgroundColor, color) => StyleSheet.create({
     subTitle: {
         textAlign: 'left',
         margin: 10
+    },
+    btnRow: {
+        direction: 'rtl',
+        margin: 15
+        // marginTop: 20
+    },
+    item: {
+        height: 120,
+        borderRadius: 10,
+        backgroundColor: '#05163C',
+        // marginVertical: 5,
+        justifyContent: 'center',
+        direction: 'rtl',
+        padding: 10,
+        width: '90%'
+    },
+    txt: {
+        fontFamily: Regular,
+        fontSize: 18,
+        alignSelf: 'center',
+        lineHeight: 25,
+        color: '#536684'
+    },
+    boldTxt: {
+        fontFamily: Bold,
+        fontSize: 18,
+        alignSelf: 'center',
+        lineHeight: 25,
+        color: '#536684'
+    },
+    largeTxt: {
+        fontFamily: Regular,
+        fontSize: 35,
+        alignSelf: 'center',
+        color: '#536684'
     },
     flatListStyle: {
         alignSelf: 'center'
@@ -165,7 +254,7 @@ const _styles = (backgroundColor, color) => StyleSheet.create({
         height: 120,
         borderRadius: 10,
         backgroundColor: '#05163C',
-        marginVertical: 5,
+        marginVertical: 7,
         direction: 'rtl',
         padding: 10,
         width: '90%'

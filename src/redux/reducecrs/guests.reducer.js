@@ -32,6 +32,8 @@ const initialState = {
         carKind: 'מיצובישי',
         carId: '013-45-123'
     },
+    filteredGuestsList: [],
+    searchGuest: false
 }
 
 const guests = {
@@ -47,6 +49,37 @@ const guests = {
     setSelectedGuest(state, action) {
         state.selectedGuest = action.payload;
     },
+    setFilteredGuestsList(state, action) {
+        let tempGuestsList = [];
+        let bool = false;
+        state.guestsList.forEach(guest => {
+            bool = false
+            Object.keys(guest).forEach(key => {
+                if (guest[key].toString().toLowerCase().indexOf(action.payload.toLowerCase()) > -1) {
+                    bool = true
+                    return
+                }
+            })
+            if (bool) {
+                tempGuestsList.push(guest)
+            }
+        })
+
+        state.filteredGuestsList = tempGuestsList;
+
+    },
+    setSearchGuest(state, action) {
+        if (action.payload == '')
+            state.searchGuest = false
+        else
+            state.searchGuest = true
+
+    },
+    deleteGuest(state, action) {
+        state.guestsList = state.guestsList.filter(guest =>
+            guest.id !== state.selectedGuest.id
+        )
+    }
 }
 
 export default produce((state, action) =>

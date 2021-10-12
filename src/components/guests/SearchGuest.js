@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import {
@@ -15,10 +15,20 @@ import LinearGradient from "react-native-linear-gradient";
 import { Bold, Regular } from "../../styles/SystemFonts";
 import Search from '../../assets/svg/search.svg'
 import Col from "../genericComponents/Col";
+import actions from "../../redux/actions";
+import AddEntryCrt from "./AddEntryCrt";
 function SearchGuest(props) {
     const { t } = useTranslation();
     const guests = 'guests'.toString();
-
+    const [txtToSearch, setTxtToSearch] = useState('');
+    const {
+        _setFilteredGuestsList,
+        _setSearchGuest
+    } = props;
+    const [visible, setVisible] = useState(false)
+    const handlePress = () => {
+        setVisible(true)
+    }
     return (
         <>
             <Row style={[styles.placeCenter, _styles().wrapInput]}>
@@ -30,12 +40,16 @@ function SearchGuest(props) {
                             style={_styles().inputTxt}
                             selectionColor="#FFFFFF99"
                             placeholderTextColor={'#FFFFFF99'}
-                        // onChangeText={(searchString) => {this.setState({searchString})}}
+                            onChangeText={(txt) => {
+                                _setFilteredGuestsList(txt)
+                                _setSearchGuest(txt)
+                            }}
                         />
                     </View>
                 </Col>
                 <Col cols={1}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={handlePress}>
                         <LinearGradient
                             colors={[dominant, dominantDark]}
                             style={[_styles().linearGradientBtn]}
@@ -47,9 +61,12 @@ function SearchGuest(props) {
                             />
                         </LinearGradient>
                     </TouchableOpacity>
-
                 </Col>
             </Row>
+            <AddEntryCrt
+                visible={visible}
+                setVisible={setVisible}
+            />
         </>
     )
 }
@@ -59,7 +76,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-
+    _setFilteredGuestsList: (txtToSearch) => dispatch(actions.setFilteredGuestsList(txtToSearch)),
+    _setSearchGuest: (txtToSearch) => dispatch(actions.setSearchGuest(txtToSearch)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchGuest);

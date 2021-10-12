@@ -18,6 +18,7 @@ import { dark } from '../../styles/SystemColor';
 import ParkingForGuest from './ParkingForGuest';
 import { actions } from '../../redux/actions';
 import SaveParkingDialog from '../dialog/SaveParking.dialog';
+import Star from '../../assets/svg/star.svg';
 
 function EmptyParkings(props) {
     const {
@@ -47,7 +48,7 @@ function EmptyParkings(props) {
                     </Row>
                 </Col>
 
-                <Col cols={1.5} style={_styles('center').col}>
+                <Col cols={1.2} style={_styles().col}>
                     <Row>
                         <Text style={_styles().hour}>{item.fromHour}</Text>
                     </Row>
@@ -66,6 +67,15 @@ function EmptyParkings(props) {
                     <Row>
                         <Text style={_styles().txt}>{t(`${emptyParkingBody}.family`) + item.family}</Text>
                     </Row>
+                </Col>
+                <Col cols={1} style={[_styles('center').col]}>
+                    <View style={{ alignSelf: 'center' }}>
+                        <Row style={styles.placeCenter}>
+                            <Text>
+                                <Text style={_styles().largeTxt}>{item.stars}</Text > /10</Text>
+                        </Row>
+                        <Row style={styles.placeCenter}><Text style={_styles().txt}><Star /> {t(`${emptyParking}.stars`)}</Text></Row>
+                    </View>
                 </Col>
             </Row>
         </TouchableOpacity>
@@ -124,6 +134,10 @@ const _styles = (alignItems) => StyleSheet.create(
         body: {
             marginHorizontal: 30,
             marginVertical: 30,
+        },
+        largeTxt: {
+            fontFamily: Regular,
+            fontSize: 40
         },
         numTxt: {
             color: dark,

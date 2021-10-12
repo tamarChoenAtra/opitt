@@ -138,7 +138,7 @@ export default StyleSheet.create({
         display: 'flex',
         textAlign: 'center',
         alignItems: 'center',
-        fontSize: 16,
+        fontSize: 18,
         lineHeight: 20,
         fontFamily: Regular
     }

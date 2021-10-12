@@ -17,6 +17,7 @@ const initialState = {
          family: 'כהן',
          numParking: '5',
          floor: ' 1',
+         stars: 8.5,
       },
       {
          _id: '1',
@@ -27,6 +28,7 @@ const initialState = {
          family: 'לוי',
          numParking: '2',
          floor: 'מינוס 1',
+         stars: 5,
       }
    ],
    reservedParkingsList: [
@@ -54,7 +56,7 @@ const initialState = {
    propertiesList: [
       {
          index: 0,
-         item: "Rabi Akiva 10 Beni Brak",
+         item: "ר' עקיבא 10 בני ברק",
       },
       // {
       //    index: 1,

@@ -52,6 +52,11 @@ export const He = {
             details: 'לאחר המחיקה החנייה תמחק מרשימת החניות השמורות והאורח לא יוכל לחנות בחנייה זו',
             button: 'מחיקה'
         },
+        deleteGuest: {
+            title: 'האם ברצונך למחוק אורח זה?',
+            details: 'לאחר המחיקה האורח ימחק מרשימת האורחים ולא יהיה ניתן לשחזר את פרטיו',
+            button: 'מחיקה'
+        },
         form: {
             firstName: 'שם פרטי',
             lastName: 'שם משפחה',
@@ -266,7 +271,7 @@ export const He = {
             fromDay: 'מיום ',
             toDay: 'עד יום ',
             floor: 'קומה ',
-            numParking: 'חנייה מספר ',
+            numParking: 'מספר ',
             family: 'משפחת '
         },
         parking: {
@@ -333,6 +338,7 @@ export const He = {
         },
         emptyParkings: {
             title: 'חניות פנויות',
+            stars: 'כוכבים'
         },
         parkingForExsitsGuest: {
             title1: 'חנייה לאורח קיים',
@@ -386,6 +392,15 @@ export const He = {
             note: 'לתשומת ליבך יש הגבלת כניסות לכל רכב בחודש',
             btn1: 'אישור',
             btn2: 'ביטול',
-        }
+        },
+        addEntryCrt: {
+            title: 'הוספת אישור כניסה',
+            name: 'שם',
+            carKind: 'סוג הרכב',
+            carId: 'מספר הרכב',
+            note: 'מתן הרשאה לכניסת רכב - רכב זה יכנס ויצא ללא הגבלה במשך היום',
+            btn1: 'אישור',
+            btn2: 'ביטול'
+        },
     }
 }

@@ -23,7 +23,10 @@ import styles from '../../styles/Styles';
 import { connect } from 'react-redux';
 
 function Home(props) {
-    const { propertiesList } = props;
+    const {
+        _propertiesList,
+        _emptyParkingList
+    } = props;
     const { t } = useTranslation();
     const home = 'home'.toString();
     const [activeDailyParking, setActiveDailyParking] = useState(false);
@@ -31,7 +34,7 @@ function Home(props) {
     let dropDownArr = [
         {
             index: 0,
-            item: "Rabi Akiva 10 Beni Brak",
+            item: "ר' עקיבא 10 בני ברק",
         },
         {
             index: 1,
@@ -69,18 +72,22 @@ function Home(props) {
             />
             <View style={{ paddingTop: 10 }}>
                 <DropDown
-                    array={propertiesList}
+                    array={_propertiesList}
                     txtNote={true}
                 />
             </View>
-            <TouchableOpacity style={StyleFuncs.returnDarkBtnStyle()}>
+            <TouchableOpacity
+                onPress={() => navigateScreen(props, 'Messages')}
+                style={StyleFuncs.returnDarkBtnStyle()}>
                 <Row style={_styles().row}>
                     <Text style={_styles().btnTxt}>{t(`${home}.notificationsList`)}</Text>
                     <Notification />
                 </Row>
             </TouchableOpacity>
 
-            <TouchableOpacity style={StyleFuncs.returnDarkBtnStyle()}>
+            <TouchableOpacity
+                onPress={() => navigateScreen(props, 'Gate')}
+                style={StyleFuncs.returnDarkBtnStyle()}>
                 <Row style={_styles().row}>
                     <Gate />
                     <Text style={_styles().btnTxt}>{t(`${home}.openGates`)}</Text>
@@ -97,14 +104,15 @@ function Home(props) {
                     <P />
                     <Text style={_styles().btnTxt}>{t(`${home}.emptyParkingsList`)}</Text>
                     <View style={_styles().avatarView}>
-                        <Text style={_styles().avatarTxt}>4</Text>
+                        <Text style={_styles().avatarTxt}>{_emptyParkingList.length}</Text>
                     </View>
                 </Row>
             </TouchableOpacity>
             <Row>
                 <TouchableOpacity
                     style={[StyleFuncs.returnDarkBtnStyle('45%', 120), activeHourlyParking && _styles().activeBorder]}
-                    onPress={activeHourlyParkingFunc}
+                    // onPress={activeHourlyParkingFunc}
+                    onPress={() => navigateScreen(props, 'Parkings', { switchHourlyParking: true })}
                 >
                     <Parking24h />
                     <Text style={_styles(10).btnTxt}>
@@ -113,7 +121,7 @@ function Home(props) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[StyleFuncs.returnDarkBtnStyle('45%', 120), activeDailyParking && _styles().activeBorder]}
-                    onPress={activeDailyParkingFunc}
+                    onPress={() => navigateScreen(props, 'Parkings', { switchDailyParking: true })}
                 >
                     <Calendar />
                     <Text style={_styles(10).btnTxt}>
@@ -137,7 +145,8 @@ function Home(props) {
 
 const mapStateToProps = state => ({
     ...state,
-    propertiesList: state.parkings.propertiesList,
+    _propertiesList: state.parkings.propertiesList,
+    _emptyParkingList: state.parkings.emptyParkingList
 })
 
 const mapDispatchToProps = dispatch => ({

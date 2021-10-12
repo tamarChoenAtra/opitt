@@ -7,7 +7,8 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
-    View
+    View,
+    Dimensions
 } from 'react-native';
 import styles from "../../styles/Styles";
 import SearchGuest from "./SearchGuest";
@@ -18,6 +19,11 @@ import { Bold, Regular } from "../../styles/SystemFonts";
 import { alignSelf } from "styled-system";
 import ScheduledEntryPermission from "./ScheduledEntryPermission";
 import { actions } from "../../redux/actions";
+import { SwipeListView } from "react-native-swipe-list-view";
+import BigDelete from '../../assets/svg/bigDelete.svg'
+import { bg, dark } from "../../styles/SystemColor";
+import DeleteParkingDialog from "../dialog/DeleteParking.dialog";
+import DeleteGuestDialog from "../dialog/DeleteGuest.dialog";
 
 function GuestsList(props) {
     const { t } = useTranslation();
@@ -25,18 +31,33 @@ function GuestsList(props) {
     const {
         _guestsList,
         _selectedGuest,
-        _setSelectedGuest
+        _setSelectedGuest,
+        _searchGuest,
+        _filteredGuestsList,
+        _deleteGuest
     } = props;
 
     const [visible, setVisible] = useState(false);
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
     const handlePress = (item) => {
         setVisible(true)
         _setSelectedGuest(item)
     }
 
+    const renderHiddenItem = ({ item }) =>
+        <View style={[_styles().swipeItem, _styles().swipeBack]}>
+            <TouchableOpacity onPress={() => {
+                setOpenDeleteDialog(!openDeleteDialog)
+                _setSelectedGuest(item)
+            }}>
+                <BigDelete width={28} height={28} style={{ margin: 20 }} />
+            </TouchableOpacity>
+        </View>
+
     const renderItem = ({ item }) =>
         <View
-            style={_styles().item}
+            style={[_styles().swipeItem, _styles().swipeFront]}
         >
             <Row>
                 <Col cols={1}>
@@ -44,13 +65,13 @@ function GuestsList(props) {
                         <Text style={_styles().boldTxt}>
                             {t(`${guests}.guestName`)}:
                         </Text>
-                        <Text style={_styles().txt}> {item.name}</Text>
+                        <Text style={_styles().txt}> {item ? item.name : _selectedGuest.name}</Text>
                     </Row>
                     <Row>
                         <Text style={_styles().boldTxt}>
                             {t(`${guests}.carKind`)}:
                         </Text>
-                        <Text style={_styles().txt}> {item.carKind}</Text>
+                        <Text style={_styles().txt}> {item ? item.carKind : _selectedGuest.carKind}</Text>
                     </Row>
                 </Col>
                 <Col cols={1} style={styles.placeCenter}>
@@ -70,7 +91,7 @@ function GuestsList(props) {
                     {t(`${guests}.carId`)}:
                 </Text>
                 <Col cols={1}>
-                    <Text style={_styles().largeTxt}> {item.carId}</Text>
+                    <Text style={_styles().largeTxt}> {item ? item.carId : _selectedGuest.carId}</Text>
                 </Col>
             </Row>
         </View>
@@ -84,13 +105,20 @@ function GuestsList(props) {
                 }
             />
             <SearchGuest />
-            <FlatList
-                data={_guestsList}
+            <SwipeListView
+                data={_searchGuest ? _filteredGuestsList : _guestsList}
                 renderItem={renderItem}
+                renderHiddenItem={renderHiddenItem}
+                rightOpenValue={-75}
             />
             <ScheduledEntryPermission
                 visible={visible}
                 setVisible={setVisible}
+            />
+            <DeleteGuestDialog
+                visible={openDeleteDialog}
+                setVisible={setOpenDeleteDialog}
+                handlePress={() => _deleteGuest()}
             />
         </>
     )
@@ -99,11 +127,14 @@ function GuestsList(props) {
 const mapStateToProps = state => ({
     ...state,
     _guestsList: state.guests.guestsList,
-    _selectedGuest: state.guests.selectedGuest
+    _selectedGuest: state.guests.selectedGuest,
+    _filteredGuestsList: state.guests.filteredGuestsList,
+    _searchGuest: state.guests.searchGuest,
 })
 
 const mapDispatchToProps = dispatch => ({
-    _setSelectedGuest: (guest) => dispatch(actions.setSelectedGuest(guest))
+    _setSelectedGuest: (guest) => dispatch(actions.setSelectedGuest(guest)),
+    _deleteGuest: () => dispatch(actions.deleteGuest())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuestsList);
@@ -117,6 +148,21 @@ export const _styles = () => StyleSheet.create({
         justifyContent: 'center',
         direction: 'rtl',
         padding: 10,
+    },
+    swipeItem: {
+        height: 140,
+        borderRadius: 10,
+        backgroundColor: dark,
+        marginVertical: 5,
+        justifyContent: 'center',
+        direction: 'rtl',
+        padding: 10
+    },
+    swipeFront: {
+        backgroundColor: dark,
+    },
+    swipeBack: {
+        backgroundColor: '#0F5679',
     },
     txt: {
         fontFamily: Regular,

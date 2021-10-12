@@ -33,12 +33,27 @@ function Parkings(props) {
         _emptyParkingList,
         _setRequestForParking,
         _requestForParking,
+
     } = props;
+    const initHourlyParking = () => {
+        try {
+            if (props.route.params.switchHourlyParking)
+                return true
+        }
+        catch { return false }
+    }
+    const initdailyParking = () => {
+        try {
+            if (props.route.params.switchDailyParking)
+                return true
+        }
+        catch { return false }
+    }
     const parking = 'parking'.toString();
     const { t } = useTranslation();
     const txt = 'requestParking'.toString();
-    const [switchHourlyParking, setSwitchHourlyParking] = useState(false)
-    const [switchDailyParking, setSwitchDailyParking] = useState(false)
+    const [switchHourlyParking, setSwitchHourlyParking] = useState(initHourlyParking())
+    const [switchDailyParking, setSwitchDailyParking] = useState(initdailyParking())
     const [closeDialog, setCloseDialog] = useState(false);
     const [pressedBtn, setPressedBtn] = useState('');
     const [openSendDialog, setOpenSendDialog] = useState(false);
@@ -50,7 +65,6 @@ function Parkings(props) {
         setPressedBtn(string)
         _setRequestForParking({ key: 'when', value: string })
     }
-
     return (
         <>
             <Header
@@ -68,7 +82,7 @@ function Parkings(props) {
                     <Row>
                         <Col cols={1}>
                             <TransparentBtn
-                                handlePress={() => handlePress('today')}
+                                handlePress={() => handlePress(pressedBtn != 'today' ? 'today' : '')}
                                 content={t(`${parking}.requestParkingForToday`)}
                                 color={"#FFC803"}
                                 fill={pressedBtn == 'today' ? true : false}
@@ -81,7 +95,7 @@ function Parkings(props) {
                                 color={"#FFC803"}
                                 fill={pressedBtn == 'tomorrow' ? true : false}
                                 size={'small'}
-                                handlePress={() => handlePress('tomorrow')}
+                                handlePress={() => handlePress(pressedBtn != 'tomorrow' ? 'tomorrow' : '')}
                             />
                         </Col>
                     </Row>
