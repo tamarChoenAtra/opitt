@@ -74,6 +74,7 @@ function NotificationsManagement(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={
                     <Row style={_styles.row}>
                         <Text style={styles.headerWithTitle}>

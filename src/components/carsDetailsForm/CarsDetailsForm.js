@@ -37,6 +37,7 @@ function CarsDetailsForm(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={
                     <TouchableOpacity onPress={() => navigateScreen(props, 'Auth1')}>
                         <ArrowBack />

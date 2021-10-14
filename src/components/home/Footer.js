@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     FlatList,
     StyleSheet,
@@ -14,19 +14,30 @@ import Gate from '../../assets/svg/footer/gate.svg'
 import Message from '../../assets/svg/footer/message.svg'
 import { useTranslation } from 'react-i18next';
 import { navigateScreen } from '../../routes/routes';
+import { connect } from 'react-redux';
+import actions from '../../redux/actions';
 
-export default (props) => {
+function Footer(props) {
+    const {
+        _tab,
+        _setTab
+    } = props;
+
     const footer = 'footer'.toString();
     const { t } = useTranslation();
     const [index, setIndex] = useState(4);
+
     const handlePressTab = (item) => {
+        _setTab(item.item.navigate)
         setIndex(item.index)
         navigateScreen(props, item.item.navigate)
     }
 
     const returnIcon = (item) => {
+
         let Icon = item.item.icon
-        return <Icon fill={index == item.index ? '#FFC803' : 'white'} />;
+        // return <Icon fill={index == item.index ? '#FFC803' : 'white'} />;
+        return <Icon fill={_tab == item.item.navigate ? '#FFC803' : 'white'} />;
     }
 
     const footerIcons = [
@@ -34,7 +45,7 @@ export default (props) => {
             name: "tab1",
             icon: Settings,
             title: t(`${footer}.tab1`),
-            navigate: 'WrapSettings',
+            navigate: 'Setting',
         },
         {
             name: "tab2",
@@ -70,7 +81,7 @@ export default (props) => {
                     data={footerIcons}
                     renderItem={item =>
                         <TouchableOpacity onPress={() => handlePressTab(item)}
-                            style={[_styles.tab, { backgroundColor: index == item.index ? '#FFC803' : '#05163C' }]}
+                            style={[_styles.tab, { backgroundColor: _tab == item.item.navigate ? '#FFC803' : '#05163C' }]}
                         >
                             {returnIcon(item)}
                             <Text style={_styles.footerTxt}>{item.item.title}</Text>
@@ -81,6 +92,16 @@ export default (props) => {
         </View>
     )
 }
+const mapStateToProps = state => ({
+    ...state,
+    _tab: state.general.tab
+})
+
+const mapDispatchToProps = dispatch => ({
+    _setTab: (tab) => dispatch(actions.setTab(tab))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer)
 
 const _styles = StyleSheet.create({
     footer: {

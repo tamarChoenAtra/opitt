@@ -33,7 +33,8 @@ function Parkings(props) {
         _emptyParkingList,
         _setRequestForParking,
         _requestForParking,
-
+        _tab,
+        _setTab
     } = props;
     const initHourlyParking = () => {
         try {
@@ -77,6 +78,7 @@ function Parkings(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={<Text style={styles.title}>
                     {t(`${parking}.title`)}
                 </Text>}
@@ -208,7 +210,7 @@ function Parkings(props) {
                 <TouchableOpacity
                     style={_styles().darkBtn}
                     onPress={() => {
-                        navigateScreen(props, 'EmptyParkings')
+                        navigateScreen(props, 'EmptyParkings', { tab: 'Parkings' })
                     }}
                 >
                     <Row style={_styles().row}>
@@ -221,7 +223,7 @@ function Parkings(props) {
                 <TouchableOpacity
                     style={_styles().darkBtn}
                     onPress={() => {
-                        navigateScreen(props, 'GuestsList')
+                        navigateScreen(props, 'GuestsList', { tab: 'Parkings' })
                     }}
                 >
                     <Row style={_styles().row}>
@@ -239,12 +241,14 @@ function Parkings(props) {
 const mapStateToProps = state => ({
     ...state,
     _emptyParkingList: state.parkings.emptyParkingList,
-    _requestForParking: state.parkings.requestForParking
+    _requestForParking: state.parkings.requestForParking,
+    _tab: state.general.tab
 })
 
 const mapDispatchToProps = dispatch => ({
     _deleteCar: (_id) => dispatch(actions.deleteCar(_id)),
-    _setRequestForParking: (req) => dispatch(actions.setRequestForParking(req))
+    _setRequestForParking: (req) => dispatch(actions.setRequestForParking(req)),
+    _setTab: (tab) => dispatch(actions.setTab(tab)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Parkings)

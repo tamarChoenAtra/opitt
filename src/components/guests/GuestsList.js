@@ -99,6 +99,7 @@ function GuestsList(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={<Text style={styles.title}>
                     {t(`${guests}.title`)}
                 </Text>

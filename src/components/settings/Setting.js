@@ -70,6 +70,7 @@ function Setting(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={
                     <Text style={styles.headerWithTitle}>{t(`${settings}.title`)}</Text>
                 }

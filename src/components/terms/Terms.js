@@ -29,6 +29,7 @@ export default (props) => {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={
                     <Text
                         style={styles.headerWithTitle}>
@@ -52,7 +53,7 @@ export default (props) => {
                         </Text>
                     </View>
                 </ScrollView>
-                <ChipButton handlePress={() => goBack(props)}/>
+                <ChipButton handlePress={() => goBack(props)} />
             </View>
         </>
     )
@@ -70,7 +71,7 @@ const _styles = StyleSheet.create(
         viewTitle: {
             marginBottom: 15,
             zIndex: 1,
-            paddingHorizontal:10
+            paddingHorizontal: 10
         },
         txt: {
             color: ligth,

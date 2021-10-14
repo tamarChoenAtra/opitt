@@ -34,6 +34,7 @@ function AuthCarDetails(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={
                     <TouchableOpacity onPress={() => goBack(props)}>
                         <ArrowBack />

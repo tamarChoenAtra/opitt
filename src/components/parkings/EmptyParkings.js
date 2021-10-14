@@ -18,7 +18,7 @@ import { dark } from '../../styles/SystemColor';
 import ParkingForGuest from './ParkingForGuest';
 import { actions } from '../../redux/actions';
 import SaveParkingDialog from '../dialog/SaveParking.dialog';
-import Star from '../../assets/svg/star.svg';
+import Star from '../../assets/svg/star.svg'
 
 function EmptyParkings(props) {
     const {
@@ -83,6 +83,7 @@ function EmptyParkings(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={
                     <Row style={_styles().row}>
                         <Text style={styles.headerWithTitle}>

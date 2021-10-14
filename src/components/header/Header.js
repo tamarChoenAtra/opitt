@@ -2,14 +2,24 @@ import React from 'react';
 import {
     View,
     StatusBar,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 import Logo from '../../assets/logo.svg';
 import styles from '../../styles/Styles';
 import Row from '../genericComponents/Row';
 import Col from '../genericComponents/Col';
+import { navigateScreen } from '../../routes/routes';
+import { connect } from 'react-redux';
+import actions from '../../redux/actions';
 
-export default ({ headerRightElement }) => {
+function Home(props) {
+    const {
+        headerRightElement,
+        _setTab,
+        _tab
+    } = props;
+
     return (
         <>
             <StatusBar
@@ -17,7 +27,11 @@ export default ({ headerRightElement }) => {
             />
             <Row style={_styles.row}>
                 <Col cols={1} style={_styles.leftCol}>
-                    <Logo />
+                    <TouchableOpacity
+                        onPress={() => navigateScreen(props, 'Home')}
+                    >
+                        <Logo />
+                    </TouchableOpacity>
                 </Col>
                 <Col cols={3} style={_styles.rightCol}>
                     {headerRightElement}
@@ -27,6 +41,16 @@ export default ({ headerRightElement }) => {
         </>
     )
 }
+const mapStateToProps = state => ({
+    ...state,
+    _tab: state.general.tab
+})
+
+const mapDispatchToProps = dispatch => ({
+    _setTab: (tab) => dispatch(actions.setTab(tab)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
 
 const _styles = StyleSheet.create({
     row: {

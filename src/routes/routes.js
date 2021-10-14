@@ -21,7 +21,6 @@ import Footer from '../components/home/Footer';
 import WrapHome from '../components/home/WrapHome';
 import Home from '../components/home/Home';
 import TryDialog from '../components/dialog/TryDialog';
-// import Settings from '../components/settings/Settings';
 import Setting from '../components/settings/Setting';
 import Gate from '../components/gate/Gate';
 import Parkings from '../components/parkings/Parkings';
@@ -41,6 +40,7 @@ import GuestsList from '../components/guests/GuestsList';
 const Stack = createNativeStackNavigator();
 
 export const navigateScreen = (props, screen, params) => {
+    props._tab && props._setTab && props._setTab(params && params.tab ? params.tab : screen)
     props.navigation.navigate(screen, params && params);
 }
 
@@ -166,6 +166,36 @@ export const RoutesApp = (props) => {
                     name="Gate"
                     component={
                         (props) => addStaticBackground(props, Gate)
+                    }
+                />
+                <Stack.Screen
+                    name="Setting"
+                    component={
+                        (props) => addStaticBackground(props, Setting)
+                    }
+                />
+                <Stack.Screen
+                    name="About"
+                    component={
+                        (props) => addStaticBackground(props, About)
+                    }
+                />
+                <Stack.Screen
+                    name="GeneralManagement"
+                    component={
+                        (props) => addStaticBackground(props, GeneralManagement)
+                    }
+                />
+                <Stack.Screen
+                    name="ChooseLanguage"
+                    component={
+                        (props) => addStaticBackground(props, ChooseLanguage)
+                    }
+                />
+                <Stack.Screen
+                    name="NotificationsManagement"
+                    component={
+                        (props) => addStaticBackground(props, NotificationsManagement)
                     }
                 />
             </Stack.Navigator>

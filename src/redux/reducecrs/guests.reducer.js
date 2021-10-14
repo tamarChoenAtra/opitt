@@ -25,7 +25,11 @@ const initialState = {
         },
 
     ],
-    newGuest: {},
+    newGuest: {
+        name: '',
+        carKind: '',
+        carId: '',
+    },
     selectedGuest: {
         id: 0,
         name: 'ישראל ישראלי',
@@ -44,7 +48,7 @@ const guests = {
         state.guestsList = action.payload;
     },
     setNewGuest(state, action) {
-        state.newGuest = action.payload;
+        state.newGuest = { ...state.newGuest, [action.payload.key]: action.payload.value }
     },
     setSelectedGuest(state, action) {
         state.selectedGuest = action.payload;
@@ -79,6 +83,10 @@ const guests = {
         state.guestsList = state.guestsList.filter(guest =>
             guest.id !== state.selectedGuest.id
         )
+    },
+    addEntryCrt(state, action) {
+        state.guestsList.unshift(state.newGuest);
+        state.newGuest = initialState.newGuest
     }
 }
 

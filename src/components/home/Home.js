@@ -21,11 +21,15 @@ import DropDown from '../dropdwon/DropDown';
 import { navigateScreen } from '../../routes/routes';
 import styles from '../../styles/Styles';
 import { connect } from 'react-redux';
+import actions from '../../redux/actions';
+import { returnTitle } from '../genericComponents/GenericFunctions';
 
 function Home(props) {
     const {
         _propertiesList,
-        _emptyParkingList
+        _emptyParkingList,
+        _tab,
+        _setTab
     } = props;
     const { t } = useTranslation();
     const home = 'home'.toString();
@@ -42,20 +46,20 @@ function Home(props) {
         }
     ]
 
-    const returnTitle = () => {
-        let date = new Date()
-        let hour = date.getHours();
-        if (hour < 12 && hour > 5)
-            return t(`${home}.titleMorning`)
-        else if (hour > 11 && hour < 16)
-            return t(`${home}.titleNoon`)
-        else if (hour > 15 && hour < 19)
-            return t(`${home}.titleAfternoon`)
-        else if (hour > 18 && hour < 21)
-            return t(`${home}.titleEvening`)
-        else
-            return t(`${home}.titleNight`)
-    }
+    // const returnTitle = () => {
+    //     let date = new Date()
+    //     let hour = date.getHours();
+    //     if (hour < 12 && hour > 5)
+    //         return t(`${home}.titleMorning`)
+    //     else if (hour > 11 && hour < 16)
+    //         return t(`${home}.titleNoon`)
+    //     else if (hour > 15 && hour < 19)
+    //         return t(`${home}.titleAfternoon`)
+    //     else if (hour > 18 && hour < 21)
+    //         return t(`${home}.titleEvening`)
+    //     else
+    //         return t(`${home}.titleNight`)
+    // }
 
     const activeHourlyParkingFunc = () => {
         setActiveHourlyParking(!activeHourlyParking)
@@ -68,6 +72,7 @@ function Home(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={<Text numberOfLines={1} style={styles.headerWithTitle}>{returnTitle() + " דודי "}</Text>}
             />
             <View style={{ paddingTop: 10 }}>
@@ -77,7 +82,9 @@ function Home(props) {
                 />
             </View>
             <TouchableOpacity
-                onPress={() => navigateScreen(props, 'Messages')}
+                onPress={() => {
+                    navigateScreen(props, 'Messages')
+                }}
                 style={StyleFuncs.returnDarkBtnStyle()}>
                 <Row style={_styles().row}>
                     <Text style={_styles().btnTxt}>{t(`${home}.notificationsList`)}</Text>
@@ -96,7 +103,7 @@ function Home(props) {
 
             <TouchableOpacity
                 onPress={() => {
-                    navigateScreen(props, 'EmptyParkings')
+                    navigateScreen(props, 'EmptyParkings', { tab: 'Parkings' })
                 }}
                 style={StyleFuncs.returnDarkBtnStyle()}
             >
@@ -132,7 +139,7 @@ function Home(props) {
             <TouchableOpacity
                 style={StyleFuncs.returnDarkBtnStyle()}
                 onPress={() => {
-                    navigateScreen(props, 'ReservedParkingsList')
+                    navigateScreen(props, 'ReservedParkingsList', { tab: 'Parkings' })
                 }}
             >
                 <Row style={_styles().row}>
@@ -146,10 +153,13 @@ function Home(props) {
 const mapStateToProps = state => ({
     ...state,
     _propertiesList: state.parkings.propertiesList,
-    _emptyParkingList: state.parkings.emptyParkingList
+    _emptyParkingList: state.parkings.emptyParkingList,
+    _tab: state.general.tab
+
 })
 
 const mapDispatchToProps = dispatch => ({
+    _setTab: (tab) => dispatch(actions.setTab(tab)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 

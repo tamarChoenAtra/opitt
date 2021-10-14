@@ -13,8 +13,7 @@ import { bg, dark, ligth } from '../../styles/SystemColor';
 import { useTranslation } from 'react-i18next';
 import styles from '../../styles/Styles';
 import Row from '../genericComponents/Row';
-import Col from '../genericComponents/Col';
-import { Bold, Regular } from '../../styles/SystemFonts';
+import { Regular } from '../../styles/SystemFonts';
 import { actions } from '../../redux/actions';
 import Button from '../genericComponents/Button';
 import AnimatedView from '../genericComponents/AnimatedView';
@@ -26,19 +25,27 @@ function AddEntryCrt(props) {
     const {
         setVisible,
         _saveParkingForGuest,
-        visible
+        visible,
+        _addEntryCrt,
+        _newGuest,
+        _setNewGuest
     } = props;
+
     const inputList = [
         {
             placeholder: t(`${txt1}.name`),
+            value: 'name',
         },
         {
             placeholder: t(`${txt1}.carKind`),
+            value: 'carKind',
         },
         {
             placeholder: t(`${txt1}.carId`),
+            value: 'carId',
         },
     ]
+
     const buttons = <Row style={_styles().btnRow}>
         <Button
             content={t(`${txt1}.btn1`)}
@@ -46,7 +53,7 @@ function AddEntryCrt(props) {
             handlePress={() => {
                 setVisible(false)
                 // setOpenDialog(true)
-                _saveParkingForGuest()
+                _addEntryCrt();
             }}
         />
         <Button
@@ -57,12 +64,18 @@ function AddEntryCrt(props) {
             width={120}
         />
     </Row>
+
     const textInput = ({ item }) => <TextInput
         style={[styles.input, _styles().input]}
         placeholder={item.placeholder}
         placeholderTextColor={'#FFFFFF99'}
         selectionColor="#FFFFFF99"
+        value={_newGuest[item.value]}
+        onChangeText={(txt) => {
+            _setNewGuest({ key: item.value, value: txt })
+        }}
     />
+
     return (
         <>
             <Modal
@@ -90,7 +103,6 @@ function AddEntryCrt(props) {
                             handlePress={() => setVisible(false)}
                         />
                     </View>
-
                 </AnimatedView>
             </Modal>
         </>
@@ -100,12 +112,15 @@ const mapStateToProps = state => ({
     ...state,
     _guestsList: state.guests.guestsList,
     _selectedGuest: state.guests.selectedGuest,
-    _selectedParking: state.parkings.selectedParking
+    _selectedParking: state.parkings.selectedParking,
+    _newGuest: state.guests.newGuest,
 })
 
 const mapDispatchToProps = dispatch => ({
     _setSelectedGuest: (item) => dispatch(actions.setSelectedGuest(item)),
     _saveParkingForGuest: () => dispatch(actions.saveParkingForGuest()),
+    _addEntryCrt: () => dispatch(actions.addEntryCrt()),
+    _setNewGuest: (item) => dispatch(actions.setNewGuest(item))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddEntryCrt);

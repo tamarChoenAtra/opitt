@@ -16,6 +16,9 @@ import BigDelete from '../../assets/svg/bigDelete.svg'
 import Row from '../genericComponents/Row';
 import Col from '../genericComponents/Col';
 import DeleteParkingDialog from '../dialog/DeleteParking.dialog';
+import Header from '../header/Header';
+import { returnTitle } from '../genericComponents/GenericFunctions';
+import DropDown from '../dropdwon/DropDown';
 
 function ReservedParkingsList(props) {
     const { t } = useTranslation();
@@ -43,7 +46,9 @@ function ReservedParkingsList(props) {
             floor: 'מינוס 1',
         }
     ];
-
+    const {
+        _propertiesList
+    } = props;
     const renderHiddenItem = ({ item }) =>
         <View style={[_styles().swipeItem, _styles().swipeBack]}>
             <TouchableOpacity onPress={() => {
@@ -86,14 +91,28 @@ function ReservedParkingsList(props) {
                     </Row>
                 </Col>
             </Row>
-
         </View>
 
     return (
         <>
+            <Header
+                {...props}
+                headerRightElement={<Text style={styles.title}>
+                    {returnTitle() + " דודי "}
+                </Text>
+                }
+            />
+            <View style={{ paddingTop: 10 }}>
+                <DropDown
+                    array={_propertiesList}
+                    txtNote={true}
+                />
+            </View>
             <View style={[_styles().wrapView, styles.placeCenter]}>
-                <Text>{t(`${reservedParkingsList}.reservedParkingsList`)}</Text>
-                <Text>{t(`${reservedParkingsList}.subTitle`)}</Text>
+                <View style={[styles.placeCenter, { width: '100%', height: 80, backgroundColor: '#006096', borderRadius: 5 }]}>
+                    <Text style={styles.boldTxt}>{t(`${reservedParkingsList}.reservedParkingsList`)}</Text>
+                    <Text style={styles.txt}>{t(`${reservedParkingsList}.subTitle`)}</Text>
+                </View>
                 <SwipeListView
                     data={data}
                     renderItem={renderItem}
@@ -110,24 +129,21 @@ function ReservedParkingsList(props) {
     )
 }
 
-export default connect(
-    (state) => {
-        return {
+const mapStateToProps = state => ({
+    ...state,
+    _propertiesList: state.parkings.propertiesList
+})
 
-        }
-    },
-    (dispatch) => {
-        return {
+const mapDispatchToProps = dispatch => ({
 
-        }
-    }
+})
 
-)(ReservedParkingsList)
+export default connect(mapStateToProps, mapDispatchToProps)(ReservedParkingsList);
 
 const _styles = (alignItems) => StyleSheet.create({
     wrapView: {
         backgroundColor: dark,
-        paddingVertical: 15,
+        paddingBottom: 15,
         margin: 15,
         borderRadius: 10,
         width: '95%',
@@ -144,7 +160,7 @@ const _styles = (alignItems) => StyleSheet.create({
     swipeItem: {
         height: 110,
         borderRadius: 10,
-        marginVertical: 5,
+        marginTop: 15,
         justifyContent: 'center',
         direction: 'rtl',
         width: Dimensions.get('window').width * 0.88,
@@ -155,6 +171,7 @@ const _styles = (alignItems) => StyleSheet.create({
     },
     swipeBack: {
         backgroundColor: '#0F5679',
+        height: 106,
     },
     txt: {
         fontFamily: Regular,

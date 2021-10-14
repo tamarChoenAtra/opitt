@@ -30,6 +30,7 @@ function AuthCarDetailsBeforeContinue(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={
                     <TouchableOpacity
                         onPress={() => goBack(props

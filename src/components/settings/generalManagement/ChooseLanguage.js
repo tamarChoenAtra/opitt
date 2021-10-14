@@ -80,6 +80,7 @@ function ChooseLanguage(props) {
     return (
         <>
             <Header
+                {...props}
                 headerRightElement={
                     <>
                         <Row style={_styles.row}>

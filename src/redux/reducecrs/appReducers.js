@@ -3,12 +3,15 @@ import carsReducer from './cars.reducer';
 import settingsReducer from './settings.reducer';
 import parkingsReducer from './parkings.reducer';
 import guestsReducer from './guests.reducer';
+import generalReducer from './general.reducer';
+
 // Combine with other reducers we may add in the future
 const appReducers = combineReducers({
     cars: carsReducer,
     settings: settingsReducer,
     parkings: parkingsReducer,
-    guests: guestsReducer
+    guests: guestsReducer,
+    general: generalReducer
 });
 
 //reset the reducer
